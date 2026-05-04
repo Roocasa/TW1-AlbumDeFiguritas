@@ -7,25 +7,30 @@ public class Figurita {
 
     @Id //Clave primaria
     @GeneratedValue(strategy = GenerationType.IDENTITY) // ID incremental
-    private Long Id;
+    private Long id;
 
     private String nombre;
     private String seleccion;
     private Integer score;
     @Enumerated(EnumType.STRING)
     private Rareza rareza;
+    private boolean pegada;
 
-    public Figurita(String nombre, Rareza rareza) {
+    public Figurita() {}
+
+    public Figurita(String nombre, String seleccion, Rareza rareza) {
         this.nombre = nombre;
+        this.seleccion = seleccion;
         this.rareza = rareza;
+        this.pegada = false;
     }
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long id) {
-        Id = id;
+        this.id = id;
     }
 
     public String getSeleccion() {
@@ -59,4 +64,8 @@ public class Figurita {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
+    public void pegar() { this.pegada = true; }
+
+    public boolean isPegada() { return this.pegada; }
 }

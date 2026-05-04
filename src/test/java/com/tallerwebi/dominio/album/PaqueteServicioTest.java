@@ -20,10 +20,10 @@ public class PaqueteServicioTest {
         RepositorioFigurita repositorioFalso = mock(RepositorioFigurita.class);
 
         // Mockeamos la base de datos para que responda lo que queremos segun el tipo de rareza
-        when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.COMUN)).thenReturn(new Figurita("Nico Paz", Rareza.COMUN));
-        when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.PLATA)).thenReturn(new Figurita("Nicolás Tagliafico", Rareza.PLATA));
-        when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.ORO)).thenReturn(new Figurita("Julián Álvarez", Rareza.ORO));
-        when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.LEYENDA)).thenReturn(new Figurita("Lionel Messi", Rareza.LEYENDA));
+        when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.COMUN)).thenReturn(new Figurita("Facundo Medina", "Argentina", Rareza.COMUN));
+        when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.PLATA)).thenReturn(new Figurita("Nico Paz", "Argentina", Rareza.PLATA));
+        when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.ORO)).thenReturn(new Figurita("Julián Álvarez", "Argentina", Rareza.ORO));
+        when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.LEYENDA)).thenReturn(new Figurita("Lionel Messi", "Argentina", Rareza.LEYENDA));
 
         // Pasamos el repositorio por parametro al servicio
         PaqueteServicio paqueteServicio = new PaqueteServicio(repositorioFalso);

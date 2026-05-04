@@ -1,18 +1,24 @@
 package com.tallerwebi.dominio.album;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import javax.transaction.Transactional;
 
+@Service("paqueteServicio")
+@Transactional
 public class PaqueteServicio {
 
     private RepositorioFigurita repositorioFigurita;
     private static final int FIGURITAS_POR_PAQUETE = 5;
 
+    @Autowired
     public PaqueteServicio(RepositorioFigurita repositorioFigurita) {
         this.repositorioFigurita = repositorioFigurita;
     }
-
 
     public List<Figurita> abrirPaquete() {
 
