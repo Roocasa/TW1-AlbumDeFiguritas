@@ -31,7 +31,7 @@ public class RepositorioFiguritaTest {
     @Rollback  // Borra todo al terminar para no dejar basura
     public void queSePuedaBuscarUnaFiguritaAleatoriaPorSuRareza() {
 
-        // GIVEN: Llenamos la base de datos en memoria con 3 figuritas
+        // GIVEN
         Figurita leyenda1 = new Figurita("Lionel Messi", "Argentina", Rareza.LEYENDA);
         Figurita oro1 = new Figurita("Dibu Martínez", "Argentina", Rareza.ORO);
         Figurita comun1 = new Figurita("Facundo Medina", "Argentina", Rareza.COMUN);

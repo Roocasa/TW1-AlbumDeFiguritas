@@ -18,6 +18,7 @@ public class PaqueteServicioTest {
 
         //Given Dado que tenemos una base de datos (simulada con mockito)
         RepositorioFigurita repositorioFalso = mock(RepositorioFigurita.class);
+        RuletaFiguritas ruleta = new RuletaFiguritas();
 
         // Mockeamos la base de datos para que responda lo que queremos segun el tipo de rareza
         when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.COMUN)).thenReturn(new Figurita("Facundo Medina", "Argentina", Rareza.COMUN));
@@ -25,8 +26,8 @@ public class PaqueteServicioTest {
         when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.ORO)).thenReturn(new Figurita("Julián Álvarez", "Argentina", Rareza.ORO));
         when(repositorioFalso.buscarFiguritaAleatoriaPorRareza(Rareza.LEYENDA)).thenReturn(new Figurita("Lionel Messi", "Argentina", Rareza.LEYENDA));
 
-        // Pasamos el repositorio por parametro al servicio
-        PaqueteServicio paqueteServicio = new PaqueteServicio(repositorioFalso);
+        // Pasamos el repositorio por parametro al servicio y la ruleta que requiere
+        PaqueteServicio paqueteServicio = new PaqueteServicio(repositorioFalso, ruleta);
 
         //When > Cuando el usuario abre un sobre
         List<Figurita> paqueteAbierto = paqueteServicio.abrirPaquete();

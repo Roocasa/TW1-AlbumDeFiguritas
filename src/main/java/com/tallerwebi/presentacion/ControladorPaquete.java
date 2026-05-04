@@ -29,17 +29,14 @@ public class ControladorPaquete {
         try {
 
             List<Figurita> figuritasNuevas = paqueteServicio.abrirPaquete();
-
-            // 3. Metemos la lista de figuritas en la caja de cartón, con la etiqueta "figuritas"
             modelo.put("figuritas", figuritasNuevas);
 
-            // 4. Mandamos la caja a la vista que se llama "paquete-abierto.html"
             return new ModelAndView("paquete-abierto", modelo);
 
         } catch (Exception e) {
-            // Mentalidad Senior: Siempre atajar posibles errores por si se cae la base de datos
+
             modelo.put("error", "Hubo un problema al abrir el sobre. Intentá de nuevo.");
-            return new ModelAndView("inventario", modelo); // Lo devolvemos a su inventario con un mensaje
+            return new ModelAndView("inventario", modelo);
         }
     }
 }

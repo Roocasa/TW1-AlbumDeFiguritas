@@ -14,10 +14,12 @@ public class PaqueteServicio {
 
     private RepositorioFigurita repositorioFigurita;
     private static final int FIGURITAS_POR_PAQUETE = 5;
+    private RuletaFiguritas ruleta;
 
     @Autowired
-    public PaqueteServicio(RepositorioFigurita repositorioFigurita) {
+    public PaqueteServicio(RepositorioFigurita repositorioFigurita, RuletaFiguritas ruleta) {
         this.repositorioFigurita = repositorioFigurita;
+        this.ruleta = ruleta;
     }
 
     public List<Figurita> abrirPaquete() {
@@ -37,7 +39,6 @@ public class PaqueteServicio {
 
     private List<Rareza> obtenerRarezasDePaquete() {
 
-        RuletaFiguritas ruleta = new RuletaFiguritas();
         List<Rareza> rarezasObtenidas = new ArrayList<>();
         Rareza rarezaActual;
         int puntosDeRareza;
@@ -45,7 +46,7 @@ public class PaqueteServicio {
         for(int i = 0; i < FIGURITAS_POR_PAQUETE; i ++){
 
             puntosDeRareza = ThreadLocalRandom.current().nextInt(1, 101);
-            rarezaActual = ruleta.calcularRareza(puntosDeRareza);
+            rarezaActual = this.ruleta.calcularRareza(puntosDeRareza);
             rarezasObtenidas.add(rarezaActual);
 
         }

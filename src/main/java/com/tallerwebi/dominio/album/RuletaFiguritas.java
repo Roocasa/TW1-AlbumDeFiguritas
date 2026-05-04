@@ -1,5 +1,8 @@
 package com.tallerwebi.dominio.album;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class RuletaFiguritas {
 
     private static final int MIN_LEYENDA = 96;
