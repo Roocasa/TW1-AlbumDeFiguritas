@@ -36,7 +36,6 @@ public class PaqueteServicio {
         return figuritasDelPaquete;
     }
 
-
     private List<Rareza> obtenerRarezasDePaquete() {
 
         List<Rareza> rarezasObtenidas = new ArrayList<>();
@@ -53,4 +52,32 @@ public class PaqueteServicio {
         /* System.out.println(rarezasObtenidas); */
         return rarezasObtenidas;
     }
+
+    public List<Figurita> abrirPaquetePremium() {
+
+        List<Rareza> rarezasObtenidas = obtenerRarezasPremium();
+        List<Figurita> figuritasDelPaquete = new ArrayList<>();
+
+        for (Rareza r : rarezasObtenidas){
+            Figurita figuritaObtenida = repositorioFigurita.buscarFiguritaAleatoriaPorRareza(r);
+            figuritasDelPaquete.add(figuritaObtenida);
+        }
+        return figuritasDelPaquete;
+    }
+
+    private List<Rareza> obtenerRarezasPremium() {
+
+        List<Rareza> rarezasObtenidas = new ArrayList<>();
+        Rareza rarezaActual;
+        int puntosDeRareza;
+
+        for(int i = 0; i < FIGURITAS_POR_PAQUETE; i ++){
+            puntosDeRareza = ThreadLocalRandom.current().nextInt(1, 101);
+
+            rarezaActual = this.ruleta.calcularRarezaPremium(puntosDeRareza);
+            rarezasObtenidas.add(rarezaActual);
+        }
+        return rarezasObtenidas;
+    }
+
 }

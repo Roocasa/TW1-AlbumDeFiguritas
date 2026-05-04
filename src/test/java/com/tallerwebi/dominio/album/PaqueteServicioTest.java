@@ -16,7 +16,7 @@ public class PaqueteServicioTest {
     @Test
     public void alAbrirUnPaqueteDeberiaDevolverUnaListaDeCincoFiguritas() {
 
-        //Given Dado que tenemos una base de datos (simulada con mockito)
+        //Given Dado que tenemos una base de datos (simulada con mockito) y una ruleta
         RepositorioFigurita repositorioFalso = mock(RepositorioFigurita.class);
         RuletaFiguritas ruleta = new RuletaFiguritas();
 
