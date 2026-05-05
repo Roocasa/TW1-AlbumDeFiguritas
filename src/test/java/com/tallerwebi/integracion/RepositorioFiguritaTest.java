@@ -51,8 +51,8 @@ public class RepositorioFiguritaTest {
         Figurita resultado1 = repositorioFigurita.buscarFiguritaAleatoriaPorRareza(Rareza.ORO);
         Figurita resultado2 = repositorioFigurita.buscarFiguritaAleatoriaPorRareza(Rareza.LEYENDA);
 
-        System.out.println(resultado1.getNombre());
-        System.out.println(resultado2.getNombre());
+//        System.out.println(resultado1.getNombre());
+//        System.out.println(resultado2.getNombre());
 
         // THEN: Se comprueba que el HQL haya funcionado
 

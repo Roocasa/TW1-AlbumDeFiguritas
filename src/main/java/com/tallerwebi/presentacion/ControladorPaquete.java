@@ -4,10 +4,10 @@ import com.tallerwebi.dominio.album.Figurita;
 import com.tallerwebi.dominio.album.PaqueteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -22,21 +22,22 @@ public class ControladorPaquete {
     }
 
     @RequestMapping(path = "/abrir-paquete", method = RequestMethod.GET)
-    public ModelAndView abrirUnPaquete() {
-
-        ModelMap modelo = new ModelMap();
+    public ModelAndView abrirUnPaquete(RedirectAttributes redirectAttributes) {
 
         try {
-
             List<Figurita> figuritasNuevas = paqueteServicio.abrirPaquete();
-            modelo.put("figuritas", figuritasNuevas);
 
-            return new ModelAndView("paquete-abierto", modelo);
+            redirectAttributes.addFlashAttribute("figuritasNuevas", figuritasNuevas);
+
+            // Post-it, para que el html despliegue el modal con las figuritas nuevas
+            redirectAttributes.addFlashAttribute("paqueteAbierto", true);
+
+            return new ModelAndView("redirect:/inventario");
 
         } catch (Exception e) {
 
-            modelo.put("error", "Hubo un problema al abrir el sobre. Intentá de nuevo.");
-            return new ModelAndView("inventario", modelo);
+            redirectAttributes.addFlashAttribute("error", "Hubo un problema al abrir el sobre. Intentá ed nuevo");
+            return new ModelAndView("redirect:/inventario");
         }
     }
 }
