@@ -14,7 +14,7 @@ public class PaqueteServicio {
 
     private RepositorioFigurita repositorioFigurita;
     private static final int FIGURITAS_POR_PAQUETE = 5;
-    private RuletaFiguritas ruleta;
+    private final RuletaFiguritas ruleta;
 
     @Autowired
     public PaqueteServicio(RepositorioFigurita repositorioFigurita, RuletaFiguritas ruleta) {
