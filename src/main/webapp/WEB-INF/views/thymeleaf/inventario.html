@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Inventario - Álbum de Figuritas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f4f6f9; }
+        .sobre-card { transition: transform 0.2s; }
+        .sobre-card:hover { transform: scale(1.05); }
+
+        .figurita-card {
+            position: relative;
+            width: 150px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            color: white;
+        }
+
+        .fondo-COMUN {
+            background-image: url('/spring/img/fondos/FONDO_FIG_COMUN.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .fondo-PLATA {
+            background-image: url('/spring/img/fondos/FONDO_FIG_PLATA.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .fondo-ORO {
+            background-image: url('/spring/img/fondos/FONDO_FIG_ORO.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .fondo-LEYENDA {
+            background-image: url('/spring/img/fondos/FONDO_FIG_LEYENDA.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .pegar-overlay {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .figurita-card:hover .pegar-overlay {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="/home">Álbum Digital</a>
+        <div class="d-flex text-white align-items-center">
+            <span class="me-3"> Monedas: <span th:text="${session.USUARIO != null ? session.USUARIO.monedas : 0}">0</span></span>
+            <span>👤 <span th:text="${session.USUARIO != null ? session.USUARIO.email : 'Invitado'}">Usuario</span></span>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong th:text="${error}">Error</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+
+    <div class="row text-center mb-5">
+        <h2 class="mb-4">Mis Sobres Disponibles</h2>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm sobre-card border-primary">
+                <div class="card-body">
+                    <h3 class="card-title text-primary">Sobre Común</h3>
+                    <p class="fs-4">Cantidad: <strong th:text="${session.USUARIO != null ? session.USUARIO.paquetesDisponibles : 0}">0</strong></p>
+                    <a th:href="@{/abrir-paquete(premium=false)}" class="btn btn-primary btn-lg w-75">
+                        ABRIR SOBRE
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="card shadow-sm sobre-card border-warning">
+                <div class="card-body">
+                    <h3 class="card-title text-warning">Sobre Premium</h3>
+                    <p class="fs-4">Cantidad: <strong th:text="${session.USUARIO != null ? session.USUARIO.paquetesPremiumDisponibles : 0}">0</strong></p>
+                    <a th:href="@{/abrir-paquete(premium=true)}" class="btn btn-warning btn-lg w-75 text-white">
+                        ABRIR SOBRE PREMIUM
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="mb-5">
+
+    <div>
+        <h2 class="mb-4">Mis Figuritas</h2>
+        <div class="alert alert-info text-center">
+            Aún no has pegado ni intercambiado tus figuritas. ¡Abrí sobres para empezar a coleccionar!
+        </div>
+    </div>
+
+</div>
+
+<div th:if="${paqueteAbierto}" class="modal fade show" tabindex="-1" style="display: block; background: rgba(0,0,0,0.85);">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content bg-dark text-white border-warning">
+            <div class="modal-header border-secondary">
+                <h4 class="modal-title text-warning" th:text="${esPremium} ? '¡Sobre Premium Abierto!' : '¡Sobre Común Abierto!'">¡Sobre Abierto!</h4>
+                <a th:href="@{/inventario}" class="btn-close btn-close-white"></a>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-around flex-wrap">
+
+                    <div th:each="fig : ${figuritasNuevas}" th:if="${fig != null}"
+                         class="figurita-card m-2 border border-secondary shadow"
+                         th:classappend="'fondo-' + ${fig.rareza.name()}">
+
+                        <div class="p-2 text-center" style="position: relative; z-index: 1; margin-top: 20px;">
+                            <h6 class="mb-1 fw-bold text-light" style="text-shadow: 2px 2px 4px #000;" th:text="${fig.nombre}">Nombre</h6>
+                            <span class="badge mb-2 bg-dark text-white border" th:text="${fig.rareza}">RAREZA</span>
+                            <br>
+                            <small class="text-white-50" style="background: rgba(0,0,0,0.5); padding: 2px 5px; border-radius: 5px;" th:text="${fig.seleccion}">Selección</small>
+                        </div>
+
+                        <a th:href="@{/pegar-figurita(id=${fig.id})}" th:if="${!fig.pegada}" class="pegar-overlay text-warning text-center fw-bold fs-5 p-2">
+                            Pegar en<br>el álbum
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer border-secondary justify-content-center">
+                <a th:href="@{/inventario}" class="btn btn-warning btn-lg">¡Guardarlas en mi inventario!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -12,10 +12,28 @@ public class Usuario {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  private int paquetes = 0;
+  private int paquetesPremium = 0;
+  private int monedas = 0;
+
   private String email;
   private String password;
   private String rol;
   private Boolean activo = false;
+
+  public Usuario() {}
+
+  public void activar() {
+    this.activo = true;
+  }
+
+  public void sumarPaquetesComunes(int cantidad) {
+    this.paquetes += cantidad;
+  }
+
+  public void sumarPaquetesPremium(int cantidad) {
+    this.paquetesPremium += cantidad;
+  }
 
   public Long getId() {
     return id;
@@ -57,7 +75,27 @@ public class Usuario {
     this.activo = activo;
   }
 
-  public void activar() {
-    activo = true;
+  public int getPaquetesDisponibles() {
+    return paquetes;
+  }
+
+  public void setPaquetesDisponibles(int paquetes) {
+    this.paquetes = paquetes;
+  }
+
+  public int getPaquetesPremiumDisponibles() {
+    return paquetesPremium;
+  }
+
+  public void setPaquetesPremiumDisponibles(int paquetesPremium) {
+    this.paquetesPremium = paquetesPremium;
+  }
+
+  public int getMonedas() {
+    return monedas;
+  }
+
+  public void setMonedas(int monedas) {
+    this.monedas = monedas;
   }
 }
