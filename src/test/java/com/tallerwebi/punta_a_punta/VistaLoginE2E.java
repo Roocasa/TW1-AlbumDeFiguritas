@@ -71,7 +71,7 @@ public class VistaLoginE2E {
   @Test
   void deberiaRegistrarUnUsuarioEIniciarSesionExistosamente() throws MalformedURLException {
     dadoQueElUsuarioNavegaALaVistaDeRegistro();
-    dadoQueElUsuarioSeRegistraCon("juan@unlam.edu.ar", "123456");
+    dadoQueElUsuarioSeRegistraCon("juan@unlam.edu.ar", "Argentina", "123456");
     dadoQueElUsuarioEstaEnLaVistaDeLogin();
     dadoQueElUsuarioCargaSusDatosDeLoginCon("juan@unlam.edu.ar", "123456");
     cuandoElUsuarioTocaElBotonDeLogin();
@@ -111,9 +111,10 @@ public class VistaLoginE2E {
     vistaLogin.darClickEnRegistrarse();
   }
 
-  private void dadoQueElUsuarioSeRegistraCon(String email, String clave) {
+  private void dadoQueElUsuarioSeRegistraCon(String email, String pais, String clave) {
     VistaNuevoUsuario vistaNuevoUsuario = new VistaNuevoUsuario(context.pages().get(0));
     vistaNuevoUsuario.escribirEMAIL(email);
+    vistaNuevoUsuario.seleccionarPais(pais);
     vistaNuevoUsuario.escribirClave(clave);
     vistaNuevoUsuario.darClickEnRegistrarme();
   }
