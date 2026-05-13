@@ -1,71 +1,77 @@
 package com.tallerwebi.dominio.album;
-import javax.persistence.*;
 
+import javax.persistence.*;
 
 @Entity
 public class Figurita {
 
-    @Id //Clave primaria
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID incremental
-    private Long id;
+  @Id //Clave primaria
+  @GeneratedValue(strategy = GenerationType.IDENTITY) // ID incremental
+  private Long id;
 
-    private String nombre;
-    private String seleccion;
-    private Integer score;
-    @Enumerated(EnumType.STRING)
-    private Rareza rareza;
-    private boolean pegada;
+  private String nombre;
+  private String seleccion;
+  private Integer score;
 
-    public Figurita() {}
+  @Enumerated(EnumType.STRING)
+  private Rareza rareza;
 
-    public Figurita(String nombre, String seleccion, Rareza rareza) {
-        this.nombre = nombre;
-        this.seleccion = seleccion;
-        this.rareza = rareza;
-        this.pegada = false;
-    }
+  private boolean pegada;
 
-    public Long getId() {
-        return id;
-    }
+  public Figurita() {}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+  public Figurita(String nombre, String seleccion, Rareza rareza) {
+    this.nombre = nombre;
+    this.seleccion = seleccion;
+    this.rareza = rareza;
+    this.pegada = false;
+  }
 
-    public String getSeleccion() {
-        return seleccion;
-    }
+  public Long getId() {
+    return id;
+  }
 
-    public void setSeleccion(String seleccion) {
-        this.seleccion = seleccion;
-    }
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-    public Integer getScore() {
-        return score;
-    }
+  public String getSeleccion() {
+    return seleccion;
+  }
 
-    public void setScore(Integer score) {
-        this.score = score;
-    }
+  public void setSeleccion(String seleccion) {
+    this.seleccion = seleccion;
+  }
 
-    public Rareza getRareza() {
-        return rareza;
-    }
+  public Integer getScore() {
+    return score;
+  }
 
-    public void setRareza(Rareza rareza) {
-        this.rareza = rareza;
-    }
+  public void setScore(Integer score) {
+    this.score = score;
+  }
 
-    public String getNombre() {
-        return nombre;
-    }
+  public Rareza getRareza() {
+    return rareza;
+  }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+  public void setRareza(Rareza rareza) {
+    this.rareza = rareza;
+  }
 
-    public void pegar() { this.pegada = true; }
+  public String getNombre() {
+    return nombre;
+  }
 
-    public boolean isPegada() { return this.pegada; }
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
+
+  public void pegar() {
+    this.pegada = true;
+  }
+
+  public boolean isPegada() {
+    return this.pegada;
+  }
 }

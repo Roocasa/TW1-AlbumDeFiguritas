@@ -15,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ControladorLogin {
 
+  private static final String USUARIO = "usuario";
   private ServicioLogin servicioLogin;
 
   @Autowired
@@ -38,36 +39,44 @@ public class ControladorLogin {
       datosLogin.getEmail(),
       datosLogin.getPassword()
     );
+
     if (usuarioBuscado != null) {
       request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
       return new ModelAndView("redirect:/home");
-    } else {
-      /* Se instancia el ModelMap solo cuando es necesario (en el flujo de error) para evitar anomalías en el flujo de datos (DU-anomaly de PMD) */
-      ModelMap model = new ModelMap();
-      model.put("error", "Usuario o clave incorrecta");
-      return new ModelAndView("login", model);
     }
+
+    datosLogin.setPassword(null);
+    ModelMap model = new ModelMap();
+    model.put("datosLogin", datosLogin);
+    model.put("error", "Usuario o clave incorrecta");
+    return new ModelAndView("login", model);
   }
 
   @RequestMapping(path = "/registrarme", method = RequestMethod.POST)
-  public ModelAndView registrarme(@ModelAttribute("usuario") Usuario usuario) {
+  public ModelAndView registrarme(@ModelAttribute(USUARIO) Usuario usuario) {
     ModelMap model = new ModelMap();
+
     try {
       servicioLogin.registrar(usuario);
     } catch (UsuarioExistente e) {
+      usuario.setPassword(null);
+      model.put(USUARIO, usuario);
       model.put("error", "El usuario ya existe");
       return new ModelAndView("nuevo-usuario", model);
     } catch (Exception e) {
+      usuario.setPassword(null);
+      model.put(USUARIO, usuario);
       model.put("error", "Error al registrar el nuevo usuario");
       return new ModelAndView("nuevo-usuario", model);
     }
+
     return new ModelAndView("redirect:/login");
   }
 
   @RequestMapping(path = "/nuevo-usuario", method = RequestMethod.GET)
   public ModelAndView nuevoUsuario() {
     ModelMap model = new ModelMap();
-    model.put("usuario", new Usuario());
+    model.put(USUARIO, new Usuario());
     return new ModelAndView("nuevo-usuario", model);
   }
 

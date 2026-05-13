@@ -1,19 +1,488 @@
 body {
-  padding-top: 5rem;
+  margin: 0;
+  font-family: "Space Grotesk", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #10233f;
+  background:
+    radial-gradient(circle at top, rgba(255, 212, 102, 0.5), transparent 32%),
+    linear-gradient(160deg, #f5f0e6 0%, #dbe7f2 45%, #eef3f8 100%);
 }
+
+.auth-shell {
+  min-height: 100vh;
+}
+
+.auth-navbar {
+  background: rgba(12, 39, 74, 0.92);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(16, 35, 63, 0.18);
+}
+
+.auth-navbar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 72px;
+}
+
+.navbar-brand {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.auth-navbar__text {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.95rem;
+}
+
+.auth-main {
+  min-height: calc(100vh - 72px);
+  display: grid;
+  place-items: center;
+  padding: 7rem 1.5rem 2rem;
+}
+
+.auth-card {
+  width: min(100%, 520px);
+  padding: 2.5rem;
+  border: 1px solid rgba(12, 39, 74, 0.08);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 24px 70px rgba(16, 35, 63, 0.16);
+}
+
+.auth-card__header {
+  margin-bottom: 2rem;
+}
+
+.auth-card__eyebrow {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: #ffe3a3;
+  color: #7a4a00;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.auth-card__header h1 {
+  margin: 0;
+  color: #10233f;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 4vw, 2.7rem);
+  line-height: 1.05;
+  letter-spacing: 0.04em;
+}
+
+.auth-card__header p {
+  margin: 1rem 0 0;
+  color: #4d607d;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.auth-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.auth-field {
+  display: grid;
+  gap: 0.45rem;
+  font-weight: 600;
+  color: #21324d;
+}
+
+.auth-input {
+  min-height: 52px;
+  border: 1px solid #c9d6e2;
+  border-radius: 14px;
+  background: #fbfdff;
+}
+
+.auth-input:focus {
+  border-color: #1f6fd1;
+  box-shadow: 0 0 0 0.2rem rgba(31, 111, 209, 0.16);
+}
+
+.auth-button {
+  min-height: 52px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #1f6fd1 0%, #144a8a 100%);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.auth-button:hover,
+.auth-button:focus {
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 14px 25px rgba(20, 74, 138, 0.22);
+}
+
+.auth-button:disabled {
+  opacity: 0.55;
+  transform: none;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.auth-alert {
+  padding: 0.85rem 1rem;
+  border: 1px solid #f2b8be;
+  border-radius: 14px;
+  background: #fff3f4;
+  color: #98232f;
+  font-weight: 600;
+}
+
+.auth-hint {
+  margin: -0.35rem 0 0;
+  color: #5d6d86;
+  font-size: 0.92rem;
+}
+
+.auth-hint.is-error {
+  color: #b42318;
+}
+
+.auth-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 1.5rem;
+  color: #4d607d;
+}
+
+.auth-card__footer a {
+  color: #144a8a;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-card__footer a:hover {
+  text-decoration: underline;
+}
+
+.home-shell {
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(7, 17, 34, 0.72), rgba(7, 17, 34, 0.78)),
+    url("/spring/img/imagen-nota-mundial-2026.png") center / cover no-repeat fixed,
+    linear-gradient(180deg, #8fd0ff 0%, #def1ff 28%, #edf1f7 28.1%, #7c838f 100%);
+}
+
+.home-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  background: rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(10px);
+}
+
+.home-topbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.home-topbar__logo {
+  width: 66px;
+  height: 66px;
+  object-fit: contain;
+  display: block;
+}
+
+.home-topbar__title {
+  margin: 0;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  line-height: 0.95;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-transform: uppercase;
+  text-shadow: 0 12px 30px rgba(0, 0, 0, 0.26);
+}
+
+.home-topbar__exit {
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-layout {
+  width: min(1180px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 2rem 0 1.5rem;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-areas:
+    "scan album promo"
+    "repe album packs";
+  grid-template-columns: 1fr 1.25fr 1fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.home-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 240px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8)),
+    rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 18px 40px rgba(22, 38, 74, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+  text-align: center;
+  text-decoration: none;
+}
+
+.home-panel__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.8rem;
+  margin-bottom: 0.8rem;
+  border-radius: 999px;
+  background: rgba(15, 34, 66, 0.08);
+  color: #29476f;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-panel h2 {
+  margin: 0;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  line-height: 1.02;
+  letter-spacing: 0.04em;
+  color: #0f2242;
+  text-transform: uppercase;
+}
+
+.home-panel p {
+  margin: 0.85rem auto 0;
+  max-width: 260px;
+  color: #36506f;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.home-panel strong {
+  display: block;
+  margin-top: 0.25rem;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(4.6rem, 7vw, 6.4rem);
+  line-height: 0.95;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+
+.home-panel__album-image {
+  width: calc(100% + 1.2rem);
+  max-width: none;
+  height: calc(100% + 1.2rem);
+  margin: -0.6rem;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 20px;
+  display: block;
+  box-shadow: 0 18px 36px rgba(16, 35, 63, 0.18);
+}
+
+.home-panel--scan {
+  grid-area: scan;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(239, 246, 255, 0.9)),
+    #ffffff;
+}
+
+.home-panel--repe {
+  grid-area: repe;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 242, 255, 0.9)),
+    #ffffff;
+}
+
+.home-panel--promo {
+  grid-area: promo;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 246, 239, 0.9)),
+    #ffffff;
+}
+
+.home-panel--packs {
+  grid-area: packs;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(240, 255, 247, 0.9)),
+    #ffffff;
+}
+
+.home-panel--album {
+  grid-area: album;
+  min-height: 500px;
+  justify-content: flex-start;
+  align-items: stretch;
+  padding: 0.6rem;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.76);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow:
+    0 28px 60px rgba(24, 35, 67, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.88);
+}
+
+.home-panel--album .home-panel__tag {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  z-index: 2;
+  margin: 0;
+  padding: 0.55rem 1rem;
+  background: rgba(255, 255, 255, 0.42);
+  color: #0f2242;
+  backdrop-filter: blur(6px);
+  transform: translateX(-50%);
+}
+
+.home-dock {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin: 2rem auto 0;
+  padding: 0.9rem 1rem;
+  width: fit-content;
+  max-width: 100%;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 12px 30px rgba(14, 33, 65, 0.14);
+}
+
+.home-dock a {
+  min-width: 140px;
+  padding: 0.8rem 1rem;
+  border-radius: 999px;
+  color: #0f2242;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.home-dock a:hover {
+  background: #0f2242;
+  color: #ffffff;
+}
+
+.home-footer {
+  padding: 0 1rem 1rem;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-align: center;
+}
+
 .starter-template {
   padding: 3rem 1.5rem;
   text-align: center;
 }
 
-h1{
-	color:#0000FF;
+h2 {
+  color: #ff0000;
 }
 
-h2{
-	color:#FF0000;
-}
+@media (max-width: 576px) {
+  .auth-main {
+    padding: 6rem 1rem 1.5rem;
+  }
 
-.navbar-brand{
-    margin:0 2rem;
+  .auth-card {
+    padding: 1.5rem;
+    border-radius: 22px;
+  }
+
+  .auth-navbar .container {
+    min-height: 64px;
+  }
+
+  .auth-navbar__text {
+    display: none;
+  }
+
+  .home-topbar {
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .home-topbar__brand {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .home-layout {
+    width: min(100%, calc(100% - 1rem));
+    padding-bottom: 2rem;
+  }
+
+  .home-grid {
+    grid-template-areas:
+      "album"
+      "scan"
+      "repe"
+      "packs"
+      "promo";
+    grid-template-columns: 1fr;
+  }
+
+  .home-panel,
+  .home-panel--album {
+    min-height: 220px;
+  }
+
+  .home-panel--album {
+    min-height: 340px;
+  }
+
+  .home-panel--album .home-panel__tag {
+    top: 0.75rem;
+    width: calc(100% - 2rem);
+  }
+
+  .home-dock {
+    width: min(100%, 520px);
+    border-radius: 28px;
+  }
+
+  .home-dock a {
+    min-width: 120px;
+  }
 }
