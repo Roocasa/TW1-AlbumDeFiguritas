@@ -17,6 +17,7 @@ public class Usuario {
   private int monedas = 0;
 
   private String email;
+  private String pais;
   private String password;
   private String rol;
   private Boolean activo = false;
@@ -57,6 +58,14 @@ public class Usuario {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getPais() {
+    return pais;
+  }
+
+  public void setPais(String pais) {
+    this.pais = pais;
   }
 
   public String getRol() {

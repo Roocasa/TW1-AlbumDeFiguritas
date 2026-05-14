@@ -16,6 +16,10 @@ public class VistaNuevoUsuario extends VistaWeb {
     this.escribirEnElElemento("#password", clave);
   }
 
+  public void seleccionarPais(String pais) {
+    this.seleccionarOpcionEnElemento("#pais", pais);
+  }
+
   public void darClickEnRegistrarme() {
     this.darClickEnElElemento("#btn-registrarme");
   }
