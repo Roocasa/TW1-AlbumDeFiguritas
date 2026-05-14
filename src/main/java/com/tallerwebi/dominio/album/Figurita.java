@@ -13,9 +13,13 @@ public class Figurita {
   private String seleccion;
   private Integer score;
 
+  @Column(name = "imagen_url")
+  private String imagenUrl;
+
   @Enumerated(EnumType.STRING)
   private Rareza rareza;
 
+  @Column(columnDefinition = "BOOLEAN DEFAULT false")
   private boolean pegada;
 
   public Figurita() {}
@@ -25,6 +29,14 @@ public class Figurita {
     this.seleccion = seleccion;
     this.rareza = rareza;
     this.pegada = false;
+  }
+
+  public String getImagenUrl() {
+    return imagenUrl;
+  }
+
+  public void setImagenUrl(String imagenUrl) {
+    this.imagenUrl = imagenUrl;
   }
 
   public Long getId() {

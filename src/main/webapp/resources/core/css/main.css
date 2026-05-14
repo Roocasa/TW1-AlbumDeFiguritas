@@ -637,6 +637,60 @@ body {
 h2 {
   color: #ff0000;
 }
+/*  Estilos Inventario   >>>>>        */
+
+/*body { background-color: #f4f6f9; }*/
+.sobre-card { transition: transform 0.2s; }
+.sobre-card:hover { transform: scale(1.05); }
+
+.figurita-card {
+  position: relative;
+  width: 150px;
+  height: 200px;
+  border-radius: 10px;
+  overflow: hidden;
+  color: white;
+}
+
+.fondo-COMUN {
+  background-image: url('/spring/img/fondos_figs/FONDO_FIG_COMUN.png');
+  background-size: cover;
+  background-position: center;
+}
+.fondo-PLATA {
+  background-image: url('/spring/img/fondos_figs/FONDO_FIG_PLATA.png');
+  background-size: cover;
+  background-position: center;
+}
+.fondo-ORO {
+  background-image: url('/spring/img/fondos_figs/FONDO_FIG_ORO.png');
+  background-size: cover;
+  background-position: center;
+}
+.fondo-LEYENDA {
+  background-image: url('/spring/img/fondos_figs/FONDO_FIG_LEYENDA.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.pegar-overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.figurita-card:hover .pegar-overlay {
+  opacity: 1;
+}
+/*  <<<<<   Estilos Inventario        */
 
 @media (max-width: 576px) {
   .auth-main {
@@ -757,4 +811,5 @@ h2 {
   .profile-button {
     width: 100%;
   }
+
 }

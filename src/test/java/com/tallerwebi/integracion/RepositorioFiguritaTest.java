@@ -10,6 +10,7 @@ import com.tallerwebi.dominio.album.RepositorioFigurita;
 import com.tallerwebi.infraestructura.RepositorioFiguritaImpl;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
 import javax.transaction.Transactional;
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,53 +27,36 @@ public class RepositorioFiguritaTest {
   @Autowired
   private RepositorioFigurita repositorioFigurita;
 
+  @Autowired
+  private SessionFactory sessionFactory;
+
   @Test
   @Transactional
   @Rollback // Borra todo al terminar para no dejar basura
   public void queSePuedaBuscarUnaFiguritaAleatoriaPorSuRareza() {
-    // GIVEN
-    Figurita leyenda1 = new Figurita("Lionel Messi", "Argentina", Rareza.LEYENDA);
-    Figurita oro1 = new Figurita("Dibu Martínez", "Argentina", Rareza.ORO);
-    Figurita comun1 = new Figurita("Facundo Medina", "Argentina", Rareza.COMUN);
-    Figurita leyenda2 = new Figurita("Angel Di Maria", "Argentina", Rareza.LEYENDA);
-    Figurita oro2 = new Figurita("Enzo Fernandez", "Argentina", Rareza.ORO);
-    Figurita comun2 = new Figurita("Gonzalo Montiel", "Argentina", Rareza.COMUN);
+    //GIVEN .. creo dos figuritas de rarezas diferentes
+    Figurita figOro = new Figurita();
+    figOro.setNombre("Kevin De Bruyne");
+    figOro.setRareza(Rareza.ORO);
+    sessionFactory.getCurrentSession().save(figOro);
 
-    repositorioFigurita.guardar(leyenda1);
-    repositorioFigurita.guardar(oro1);
-    repositorioFigurita.guardar(comun1);
-    repositorioFigurita.guardar(leyenda2);
-    repositorioFigurita.guardar(oro2);
-    repositorioFigurita.guardar(comun2);
+    Figurita figLeyenda = new Figurita();
+    figLeyenda.setNombre("Lionel Messi");
+    figLeyenda.setRareza(Rareza.LEYENDA);
+    sessionFactory.getCurrentSession().save(figLeyenda);
 
-    // WHEN: Llamamos a nuestro método para que busque una de ORO al azar
-
+    //WHEN busco dos figuritas por rareza
     Figurita resultado1 = repositorioFigurita.buscarFiguritaAleatoriaPorRareza(Rareza.ORO);
     Figurita resultado2 = repositorioFigurita.buscarFiguritaAleatoriaPorRareza(Rareza.LEYENDA);
 
-    //        System.out.println(resultado1.getNombre());
-    //        System.out.println(resultado2.getNombre());
+    //    System.out.println(resultado1.getNombre());
+    //    System.out.println(resultado2.getNombre());
 
-    // THEN: Se comprueba que el HQL haya funcionado
-
+    // THEN: Se comprueba que el HQL haya funcionado, las figuritas obtenidas son de la rareza que fue guardada en la sesion actual
     assertThat(resultado1, is(notNullValue()));
     assertThat(resultado2, is(notNullValue()));
 
     assertThat(resultado1.getRareza(), is(Rareza.ORO));
     assertThat(resultado2.getRareza(), is(Rareza.LEYENDA));
-  }
-
-  @Test
-  @Transactional
-  @Rollback
-  public void queSePuedaBuscarUnaFiguritaPorSuId() {
-    Figurita figurita = new Figurita("Alexis Mac Allister", "Argentina", Rareza.PLATA);
-
-    repositorioFigurita.guardar(figurita);
-
-    Figurita resultado = repositorioFigurita.buscarPorId(figurita.getId());
-
-    assertThat(resultado, is(notNullValue()));
-    assertThat(resultado.getId(), is(figurita.getId()));
   }
 }

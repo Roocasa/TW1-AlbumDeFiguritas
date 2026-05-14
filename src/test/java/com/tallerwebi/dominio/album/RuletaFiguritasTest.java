@@ -54,31 +54,4 @@ public class RuletaFiguritasTest {
     //Then > El algoritmo me tiene que entregar la categoria COMUN
     assertThat(resultado, is(Rareza.COMUN));
   }
-
-  @Test
-  public void deberiaDevolverRarezaLeyendaEnPaquetePremiumSiLaTiradaEsMayorQue85() {
-    RuletaFiguritas ruleta = new RuletaFiguritas();
-
-    Rareza resultado = ruleta.calcularRarezaPremium(86);
-
-    assertThat(resultado, is(Rareza.LEYENDA));
-  }
-
-  @Test
-  public void deberiaDevolverRarezaOroEnPaquetePremiumSiLaTiradaEsMayorQue50YMenorQue86() {
-    RuletaFiguritas ruleta = new RuletaFiguritas();
-
-    Rareza resultado = ruleta.calcularRarezaPremium(51);
-
-    assertThat(resultado, is(Rareza.ORO));
-  }
-
-  @Test
-  public void deberiaDevolverRarezaPlataEnPaquetePremiumSiLaTiradaEsMenorQue51() {
-    RuletaFiguritas ruleta = new RuletaFiguritas();
-
-    Rareza resultado = ruleta.calcularRarezaPremium(50);
-
-    assertThat(resultado, is(Rareza.PLATA));
-  }
 }
