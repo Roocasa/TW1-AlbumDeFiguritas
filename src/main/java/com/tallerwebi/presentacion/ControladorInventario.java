@@ -1,10 +1,9 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.Usuario;
-import com.tallerwebi.dominio.album.Figurita;
 import com.tallerwebi.dominio.album.PaqueteServicio;
+import com.tallerwebi.dominio.album.ResultadoApertura;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
-import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,9 +37,11 @@ public class ControladorInventario {
     Usuario usuario = (Usuario) session.getAttribute("USUARIO");
 
     try {
-      List<Figurita> figuritasNuevas = paqueteServicio.abrirPaquete(usuario.getId(), esPremium);
-      ra.addFlashAttribute("figuritasNuevas", figuritasNuevas);
-      // Post-it, para que el html despliegue el modal con las figuritas nuevas
+      ResultadoApertura resultado = paqueteServicio.abrirPaquete(usuario.getId(), esPremium);
+
+      session.setAttribute("USUARIO", resultado.getUsuarioActualizado());
+
+      ra.addFlashAttribute("figuritasNuevas", resultado.getFiguritasNuevas());
       ra.addFlashAttribute("paqueteAbierto", true);
     } catch (PaquetesInsuficientesException e) {
       ra.addFlashAttribute("error", e.getMessage());
