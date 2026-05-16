@@ -20,7 +20,7 @@ public class PaqueteServicioImpl implements PaqueteServicio {
   private final RepositorioUsuario repositorioUsuario;
   private final RuletaFiguritas ruleta;
 
-  private static final int FIGURITAS_POR_PAQUETE = 5;
+  private static final int FIGURITAS_POR_PAQUETE = 7;
 
   @Autowired
   public PaqueteServicioImpl(
@@ -36,7 +36,7 @@ public class PaqueteServicioImpl implements PaqueteServicio {
   }
 
   @Override
-  public List<Figurita> abrirPaquete(Long idUsuario, boolean esPremium)
+  public ResultadoApertura abrirPaquete(Long idUsuario, boolean esPremium)
     throws PaquetesInsuficientesException {
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
 
@@ -52,7 +52,9 @@ public class PaqueteServicioImpl implements PaqueteServicio {
       usuario.setPaquetesDisponibles(usuario.getPaquetesDisponibles() - 1);
     }
 
-    List<Rareza> rarezasObtenidas = obtenerRarezas(esPremium); // obtiene una lista con 5 rarezas (si es premium el porcentaje de rarezas mejores aumenta)
+    repositorioUsuario.modificar(usuario);
+
+    List<Rareza> rarezasObtenidas = obtenerRarezas(esPremium); // obtiene una lista con 7 rarezas (si es premium el porcentaje de rarezas mejores aumenta)
     List<Figurita> figuritasDelPaquete = new ArrayList<>();
 
     // Buscamos en el catálogo segun las rarezas obtenidas
@@ -64,10 +66,11 @@ public class PaqueteServicioImpl implements PaqueteServicio {
         usuario,
         figuritaObtenida
       );
+
       repositorioInventario.guardar(nuevaRelacion);
     }
 
-    return figuritasDelPaquete;
+    return new ResultadoApertura(figuritasDelPaquete, usuario);
   }
 
   private List<Rareza> obtenerRarezas(boolean esPremium) {

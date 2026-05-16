@@ -28,20 +28,28 @@
 </header>
 
 <main class="home-layout">
-    <section class="home-grid mb-5">
+    <section class="home-grid sobres-contenedor mb-5">
 
-        <div class="home-panel home-panel--promo">
-            <span class="home-panel__tag">Básico</span>
-            <h2>Sobre Común</h2>
-            <p>Disponibles: <strong th:text="${session.USUARIO != null ? session.USUARIO.paquetesDisponibles : 0}">0</strong></p>
-            <a th:href="@{/abrir-paquete(premium=false)}" class="btn btn-primary mt-3">Abrir Sobre</a>
+        <div class="home-panel sobres">
+            <img src="/spring/img/sobres/SOBRE_REGULAR.png" alt="Sobre Común">
+
+            <div class="sobre-badge" th:text="${session.USUARIO != null ? session.USUARIO.paquetesDisponibles : 0}">0</div>
+
+            <div class="sobre-contenido">
+                <h2>Sobre Común</h2>
+                <a th:href="@{/abrir-paquete(premium=false)}" class="btn">Abrir Sobre</a>
+            </div>
         </div>
 
-        <div class="home-panel home-panel--scan">
-            <span class="home-panel__tag">Especial</span>
-            <h2>Sobre Premium</h2>
-            <p>Disponibles: <strong th:text="${session.USUARIO != null ? session.USUARIO.paquetesPremiumDisponibles : 0}">0</strong></p>
-            <a th:href="@{/abrir-paquete(premium=true)}" class="btn btn-warning mt-3 fw-bold">Abrir Premium</a>
+        <div class="home-panel sobres">
+            <img src="/spring/img/sobres/SOBRE_GOLD.png" alt="Sobre Premium">
+
+            <div class="sobre-badge" th:text="${session.USUARIO != null ? session.USUARIO.paquetesPremiumDisponibles : 0}">0</div>
+
+            <div class="sobre-contenido">
+                <h2>Sobre Premium</h2>
+                <a th:href="@{/abrir-paquete(premium=true)}" class="btn btn-premium">Abrir Premium</a>
+            </div>
         </div>
 
     </section>
@@ -49,7 +57,7 @@
     <h2 class="text-white mb-4" style="font-family: 'Bebas Neue'; letter-spacing: 2px;">Mis Figuritas</h2>
 
     <div th:if="${figuritas == null or figuritas.empty}" class="alert alert-info text-center bg-dark text-white border-secondary">
-        Aún no tenés figuritas. ¡Abrí un sobre para empezar!
+        Aún no tenés figuritas ¡Abrí un sobre para empezar!
     </div>
 
     <div class="d-flex flex-wrap justify-content-center gap-3 pb-5">

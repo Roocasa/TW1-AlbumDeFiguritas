@@ -9,7 +9,8 @@ import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
 //import java.util.Iterator;
-import java.util.List;
+//import com.tallerwebi.dominio.album.ResultadoApertura;
+//import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +22,7 @@ public class PaqueteServicioTest {
   RepositorioInventario repositorioInventarioFalso;
   RepositorioUsuario repositorioUsuarioFalso;
   RuletaFiguritas ruleta;
+  ResultadoApertura dtoResultado;
 
   @BeforeEach
   public void init() {
@@ -42,7 +44,7 @@ public class PaqueteServicioTest {
   }
 
   @Test
-  public void alAbrirUnPaqueteComunDeberiaDevolverUnaListaDeCincoFiguritas()
+  public void alAbrirUnPaqueteComunDeberiaDevolverUnDtoConSieteFiguritasYElUsuarioActualizado()
     throws PaquetesInsuficientesException {
     //Given tenemos un usuario cargado en la base de datos
     when(repositorioUsuarioFalso.buscarPorId(usuarioMock.getId())).thenReturn(usuarioMock);
@@ -60,7 +62,7 @@ public class PaqueteServicioTest {
       .thenReturn(new Figurita("Lionel Messi", "Argentina", Rareza.LEYENDA));
 
     //When el usuario abre un paquete de figuritas
-    List<Figurita> paqueteAbierto = paqueteServicio.abrirPaquete(usuarioMock.getId(), false);
+    dtoResultado = paqueteServicio.abrirPaquete(usuarioMock.getId(), false);
 
     //            Iterator<Figurita> it = paqueteAbierto.iterator();
     //            while (it.hasNext()) {
@@ -68,14 +70,14 @@ public class PaqueteServicioTest {
     //            } iterator para ver en consola las figuritas
 
     //Then se verifica que hayan 5 figuritas en la lista, que el primer elemento de la lista sea una figurita y que se haya descontado el paquete del inventario del usuario
-    assertThat(paqueteAbierto, hasSize(5));
-    assertThat(paqueteAbierto.get(0), instanceOf(Figurita.class));
+    assertThat(dtoResultado.getFiguritasNuevas(), hasSize(7));
+    assertThat(dtoResultado.getFiguritasNuevas().get(0), instanceOf(Figurita.class));
     assertThat(usuarioMock.getPaquetesDisponibles(), is(0));
-    verify(repositorioInventarioFalso, times(5)).guardar(any()); // verifica que se guarden las cinco relaciones en el repositorio
+    verify(repositorioInventarioFalso, times(7)).guardar(any()); // verifica que se guarden las siete relaciones en el repositorio
   }
 
   @Test
-  public void alAbrirUnPaquetePremiumDeberiaDevolverUnaListaDeCincoFiguritas()
+  public void alAbrirUnPaquetePremiumDeberiaDevolverUnDtoConSieteFiguritasYElUsuarioActualizado()
     throws PaquetesInsuficientesException {
     //Given tenemos un usuario cargado en la base de datos
     when(repositorioUsuarioFalso.buscarPorId(usuarioMock.getId())).thenReturn(usuarioMock);
@@ -92,13 +94,13 @@ public class PaqueteServicioTest {
       .thenReturn(new Figurita("Lionel Messi", "Argentina", Rareza.LEYENDA));
 
     //When el usuario abre un paquete de figuritas premium
-    List<Figurita> paqueteAbierto = paqueteServicio.abrirPaquete(usuarioMock.getId(), true);
+    dtoResultado = paqueteServicio.abrirPaquete(usuarioMock.getId(), true);
 
     //Then se verifica que hayan 5 figuritas en la lista, que el primer elemento de la lista sea una figurita y que se haya descontado el paquete del inventario del usuario
-    assertThat(paqueteAbierto, hasSize(5));
-    assertThat(paqueteAbierto.get(0), instanceOf(Figurita.class));
+    assertThat(dtoResultado.getFiguritasNuevas(), hasSize(7));
+    assertThat(dtoResultado.getFiguritasNuevas().get(0), instanceOf(Figurita.class));
     assertThat(usuarioMock.getPaquetesDisponibles(), is(0));
-    verify(repositorioInventarioFalso, times(5)).guardar(any()); // verifica que el guardar (relaciones) del repositorio haya sido invocado cinco veces
+    verify(repositorioInventarioFalso, times(7)).guardar(any()); // verifica que el guardar (relaciones) del repositorio haya sido invocado siete veces
   }
 
   @Test
