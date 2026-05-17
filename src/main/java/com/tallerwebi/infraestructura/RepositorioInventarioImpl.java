@@ -48,4 +48,25 @@ public class RepositorioInventarioImpl implements RepositorioInventario {
       .add(Restrictions.eq("estaPegadaEnElAlbum", true))
       .list();
   }
+
+  @Override
+  public RelacionFiguritaUsuario buscarRelacionDisponible(Long idUsuario, Long idFigurita) {
+
+    return (RelacionFiguritaUsuario) sessionFactory
+      .getCurrentSession()
+      .createCriteria(RelacionFiguritaUsuario.class)
+      .createAlias("propietario", "p")
+      .createAlias("figurita", "f")
+      .add(Restrictions.eq("p.id", idUsuario))
+      .add(Restrictions.eq("f.id", idFigurita))
+      .add(Restrictions.eq("estaPegadaEnElAlbum", false))
+      .setMaxResults(1)
+      .uniqueResult();
+  }
+
+  @Override
+  public void modificar(RelacionFiguritaUsuario relacion) {
+    // Actualiza el estado de la relación en la base de datos
+    sessionFactory.getCurrentSession().update(relacion);
+  }
 }

@@ -29,12 +29,9 @@
 
 <main class="home-layout">
     <section class="home-grid sobres-contenedor mb-5">
-
         <div class="home-panel sobres">
             <img src="/spring/img/sobres/SOBRE_REGULAR.png" alt="Sobre Común">
-
             <div class="sobre-badge" th:text="${session.USUARIO != null ? session.USUARIO.paquetesDisponibles : 0}">0</div>
-
             <div class="sobre-contenido">
                 <h2>Sobre Común</h2>
                 <a th:href="@{/abrir-paquete(premium=false)}" class="btn">Abrir Sobre</a>
@@ -43,60 +40,118 @@
 
         <div class="home-panel sobres">
             <img src="/spring/img/sobres/SOBRE_GOLD.png" alt="Sobre Premium">
-
             <div class="sobre-badge" th:text="${session.USUARIO != null ? session.USUARIO.paquetesPremiumDisponibles : 0}">0</div>
-
             <div class="sobre-contenido">
                 <h2>Sobre Premium</h2>
                 <a th:href="@{/abrir-paquete(premium=true)}" class="btn btn-premium">Abrir Premium</a>
             </div>
         </div>
-
     </section>
 
-    <h2 class="text-white mb-4" style="font-family: 'Bebas Neue'; letter-spacing: 2px;">Mis Figuritas</h2>
+    <h2 class="text-white mb-4 text-center" style="font-family: 'Bebas Neue'; letter-spacing: 2px;">Mis Figuritas</h2>
+
+    <div class="inventario-controles">
+        <div class="d-flex align-items-center gap-2">
+            <label class="text-white fw-bold mb-0">Ordenar por:</label>
+            <select id="sort-select" class="form-select w-auto shadow-sm">
+                <option value="numero">Numeración en el álbum</option>
+                <option value="pais">País</option>
+                <option value="score">Score</option>
+            </select>
+        </div>
+        <div class="form-check form-switch ms-md-4">
+            <input class="form-check-input" type="checkbox" id="check-pegables" checked>
+            <label class="form-check-label text-warning fw-bold" for="check-pegables"> Para pegar </label>
+        </div>
+    </div>
 
     <div th:if="${figuritas == null or figuritas.empty}" class="alert alert-info text-center bg-dark text-white border-secondary">
         Aún no tenés figuritas ¡Abrí un sobre para empezar!
     </div>
 
-    <div class="d-flex flex-wrap justify-content-center gap-3 pb-5">
-        <div th:each="fig : ${figuritas}"
+    <div id="figuritas-grid" class="d-flex flex-wrap justify-content-center gap-3 pb-5">
+
+        <div th:each="rel : ${figuritas}"
+             th:if="${!rel.estaPegadaEnElAlbum}"
              class="figurita-card shadow-lg"
-             th:classappend="'fondo-' + ${fig.rareza.name()}">
-            <div class="p-2 text-center" style="position: relative; z-index: 1; margin-top: 25px;">
-                <h6 class="mb-1 fw-bold text-white" style="text-shadow: 2px 2px 4px #000;" th:text="${fig.nombre}">Nombre</h6>
-                <span class="badge bg-dark border border-secondary" th:text="${fig.rareza}">RAREZA</span>
+             th:classappend="'is-pegable'"
+             style="position: relative;"
+             th:data-pais="${rel.figurita.seleccion}"
+             th:data-score="${rel.figurita.score}"
+             th:data-numero="${rel.figurita.ordenAlbum}"
+             th:data-pegable="true">
+
+            <img th:src="@{'/img/fondos_figs/FONDO_FIG_' + ${rel.figurita.rareza.name()} + '.png'}"
+                 alt="Fondo"
+                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; object-fit: cover; border-radius: 12px;">
+
+            <img th:if="${rel.figurita.imagenUrl != null}"
+                 th:src="${rel.figurita.imagenUrl}"
+                 alt="Jugador"
+                 style="position: absolute; top: 14%; left: 0; width: 100%; height: 71%; object-fit: contain; object-position: center bottom; z-index: 1; filter: drop-shadow(0px -5px 15px rgba(0,0,0, 99));">
+
+            <div style="position: absolute; top: 17px; left: 21px; z-index: 2; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem; font-weight: lighter; text-shadow: 1px 1px 2px black; width: 20px; text-align: center;"
+                 th:text="${rel.figurita.ordenAlbum}">
             </div>
+
+            <div style="position: absolute; bottom: 17px; left: 0; width: 100%; text-align: center; z-index: 2; padding: 0 10px;">
+                <h6 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); letter-spacing: 0.5px;"
+                    th:text="${rel.figurita.nombre}"></h6>
+            </div>
+
+            <a th:href="@{/pegar-figurita(id=${rel.figurita.id})}" class="pegar-overlay text-warning text-center fw-bold fs-5" style="z-index: 10;">
+                <span>Pegar en<br>el álbum</span>
+            </a>
         </div>
+
     </div>
 </main>
 
-<div th:if="${paqueteAbierto}" class="modal fade show" tabindex="-1" style="display: block; background: rgba(0,0,0,0.9);">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content bg-dark text-white border-warning">
-            <div class="modal-header border-secondary">
-                <h4 class="modal-title text-warning" style="font-family: 'Bebas Neue'; font-size: 1.8rem;">¡SOBRE ABIERTO!</h4>
-                <a th:href="@{/inventario}" class="btn-close btn-close-white"></a>
+<div th:if="${paqueteAbierto}" class="modal fade show" tabindex="-1" style="display: block; background: rgba(15, 34, 66, 0.95);">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content" style="background-color: #f8fafc; border: none; border-radius: 16px; overflow: hidden;">
+
+            <div class="modal-header border-0 text-center d-flex justify-content-center" style="background: linear-gradient(135deg, #1f6fd1 0%, #144a8a 100%);">
+                <h4 class="modal-title text-white w-100 mt-2" style="font-family: 'Bebas Neue'; font-size: 2.5rem; letter-spacing: 2px;">
+                    ¡SOBRE ABIERTO!
+                </h4>
+                <a th:href="@{/inventario}" class="btn-close btn-close-white position-absolute" style="right: 1.5rem; top: 1.5rem;"></a>
             </div>
-            <div class="modal-body py-4">
-                <div class="d-flex justify-content-center flex-wrap gap-3">
+
+            <div class="modal-body py-5 px-4">
+                <div class="d-flex justify-content-center flex-wrap gap-4">
+
                     <div th:each="fig : ${figuritasNuevas}" th:if="${fig != null}"
-                         class="figurita-card shadow-lg"
-                         th:classappend="'fondo-' + ${fig.rareza.name()}">
-                        <div class="p-2 text-center" style="position: relative; z-index: 1; margin-top: 25px;">
-                            <h6 class="mb-1 fw-bold text-white" th:text="${fig.nombre}">Nombre</h6>
-                            <span class="badge bg-dark border" th:text="${fig.rareza}">RAREZA</span>
+                         class="figurita-card shadow-lg" style="position: relative; background: transparent;">
+
+                        <img th:src="@{'/img/fondos_figs/FONDO_FIG_' + ${fig.rareza.name()} + '.png'}"
+                             alt="Fondo"
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; object-fit: cover; border-radius: 12px;">
+
+                        <img th:if="${fig.imagenUrl != null}"
+                             th:src="${fig.imagenUrl}"
+                             alt="Jugador"
+                             style="position: absolute; top: 14%; left: 0; width: 100%; height: 71%; object-fit: contain; object-position: center bottom; z-index: 1; filter: drop-shadow(0px -5px 15px rgba(0,0,0, 99));">
+
+                        <div style="position: absolute; top: 17px; left: 21px; z-index: 2; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem; font-weight: lighter; text-shadow: 1px 1px 2px black; width: 20px; text-align: center;"
+                             th:text="${fig.ordenAlbum}">
                         </div>
-                        <a th:href="@{/pegar-figurita(id=${fig.id})}" class="pegar-overlay text-warning text-center fw-bold fs-5 p-2">
-                            Pegar en<br>el álbum
-                        </a>
+
+                        <div style="position: absolute; bottom: 17px; left: 0; width: 100%; text-align: center; z-index: 2; padding: 0 10px;">
+                            <h6 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); letter-spacing: 0.5px;"
+                                th:text="${fig.nombre}"></h6>
+                        </div>
                     </div>
+
                 </div>
             </div>
-            <div class="modal-footer border-secondary justify-content-center">
-                <a th:href="@{/inventario}" class="btn btn-warning px-5 fw-bold text-dark">GUARDAR</a>
+
+            <div class="modal-footer border-0 justify-content-center pb-4 bg-white">
+                <a th:href="@{/inventario}" class="btn px-5 py-2 fw-bold text-white shadow" style="background-color: #a30505; border-radius: 999px; font-size: 1.2rem;">
+                    GUARDAR EN INVENTARIO
+                </a>
             </div>
+
         </div>
     </div>
 </div>
@@ -104,5 +159,7 @@
 <footer class="home-footer">Proyecto taller web 1</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<script th:src="@{/js/inventario-ordenamiento-figs.js}"></script>
+
 </body>
 </html>

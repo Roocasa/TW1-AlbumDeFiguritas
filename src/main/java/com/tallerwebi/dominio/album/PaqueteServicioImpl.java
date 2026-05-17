@@ -88,4 +88,27 @@ public class PaqueteServicioImpl implements PaqueteServicio {
     }
     return rarezasObtenidas;
   }
+
+  @Override
+  public void pegarFigurita(Long idUsuario, Long idFigurita) {
+    RelacionFiguritaUsuario relacionDisponible = repositorioInventario.buscarRelacionDisponible(
+      idUsuario,
+      idFigurita
+    );
+
+    if (relacionDisponible != null) {
+      relacionDisponible.setEstaPegadaEnElAlbum(true);
+      repositorioInventario.modificar(relacionDisponible);
+    } else {
+      throw new RuntimeException("No tenés esta figurita disponible para pegar.");
+    }
+  }
+
+  @Override
+  public List<RelacionFiguritaUsuario> obtenerFiguritasDelInventario(Long idUsuario) {
+
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+
+    return repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
+  }
 }

@@ -12,4 +12,8 @@ public interface RepositorioInventario {
 
   // Lista de figuritas que estan pegadas, por usuario
   List<RelacionFiguritaUsuario> buscarFiguritasPegadasPorUsuario(Usuario usuario);
+
+  RelacionFiguritaUsuario buscarRelacionDisponible(Long idUsuario, Long idFigurita);
+
+  void modificar(RelacionFiguritaUsuario relacion);
 }

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.album.PaqueteServicio;
 import com.tallerwebi.dominio.album.PaqueteServicioImpl;
+import com.tallerwebi.dominio.album.RepositorioInventario;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -64,7 +65,4 @@ public class ControladorInventarioTest {
     // Se verifica que nunca se haya llamado a paqueteAbierto con ningun valor booleano
     verify(redirectAttributesMock, never()).addFlashAttribute(eq("paqueteAbierto"), anyBoolean());
   }
-
-  @Test
-  public void dadoQueUnUsuarioTienePaquetesCuandoAbroPaqueteSeLanzanCincoFiguritasEnElModal() {}
 }
