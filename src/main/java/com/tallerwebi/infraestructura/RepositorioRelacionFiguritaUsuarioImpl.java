@@ -8,29 +8,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository("repositorioRelacionAlbumFigurita")
-public class RepositorioRelacionFiguritaUsuarioImpl implements RepositorioRelacionFiguritaUsuario{
-    
-    private SessionFactory sessionFactory;
+public class RepositorioRelacionFiguritaUsuarioImpl implements RepositorioRelacionFiguritaUsuario {
 
-    @Autowired
-    public RepositorioRelacionFiguritaUsuarioImpl(SessionFactory sessionFactory){
-        this.sessionFactory = sessionFactory;
-    }
+  private SessionFactory sessionFactory;
 
-    @Override
-    public void guardar(RelacionFiguritaUsuario relacion){
-        sessionFactory.getCurrentSession().save(relacion);
-    }
+  @Autowired
+  public RepositorioRelacionFiguritaUsuarioImpl(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
 
-    @Override
-    public List<RelacionFiguritaUsuario> buscarPorUsuario(Long usuarioId){
-        String hql = "FROM RelacionFiguritaUsuario r WHERE r.propietario.id = :usuarioId";
+  @Override
+  public void guardar(RelacionFiguritaUsuario relacion) {
+    sessionFactory.getCurrentSession().save(relacion);
+  }
 
-        return (List<RelacionFiguritaUsuario>) sessionFactory
-        .getCurrentSession()
-        .createQuery(hql)
-        .setParameter("usuarioId", usuarioId)
-        .list();
-    }
+  @Override
+  public List<RelacionFiguritaUsuario> buscarPorUsuario(Long usuarioId) {
+    String hql = "FROM RelacionFiguritaUsuario r WHERE r.propietario.id = :usuarioId";
 
+    return (List<RelacionFiguritaUsuario>) sessionFactory
+      .getCurrentSession()
+      .createQuery(hql)
+      .setParameter("usuarioId", usuarioId)
+      .list();
+  }
 }

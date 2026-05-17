@@ -18,6 +18,7 @@ public class RelacionFiguritaUsuario {
   @JoinColumn(name = "figurita_id") // FK en msql
   private Figurita figurita;
 
+  @Column(columnDefinition = "BOOLEAN DEFAULT false")
   private boolean estaPegadaEnElAlbum;
 
   public RelacionFiguritaUsuario() {}
