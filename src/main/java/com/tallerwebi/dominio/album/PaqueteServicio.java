@@ -9,5 +9,5 @@ public interface PaqueteServicio {
 
   public void pegarFigurita(Long idUsuario, Long idFigurita);
 
-  List<RelacionFiguritaUsuario> obtenerFiguritasDelInventario(Long idUsuario);
+  List<InventarioItemDTO> obtenerFiguritasDelInventario(Long idUsuario);
 }

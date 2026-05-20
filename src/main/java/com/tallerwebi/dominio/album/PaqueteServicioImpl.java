@@ -4,8 +4,7 @@ import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.Usuario;
 // import com.tallerwebi.dominio.excepciones.SinPaquetesException;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +51,7 @@ public class PaqueteServicioImpl implements PaqueteServicio {
       usuario.setPaquetesDisponibles(usuario.getPaquetesDisponibles() - 1);
     }
 
-    repositorioUsuario.modificar(usuario);
+    repositorioUsuario.modificar(usuario); // se actualiza el usuario en el repositorio con la resta del correspondiente paquete abierto
 
     List<Rareza> rarezasObtenidas = obtenerRarezas(esPremium); // obtiene una lista con 7 rarezas (si es premium el porcentaje de rarezas mejores aumenta)
     List<Figurita> figuritasDelPaquete = new ArrayList<>();
@@ -91,24 +90,62 @@ public class PaqueteServicioImpl implements PaqueteServicio {
 
   @Override
   public void pegarFigurita(Long idUsuario, Long idFigurita) {
-    RelacionFiguritaUsuario relacionDisponible = repositorioInventario.buscarRelacionDisponible(
+    RelacionFiguritaUsuario relacion = repositorioInventario.buscarRelacionDisponible(
       idUsuario,
       idFigurita
     );
 
-    if (relacionDisponible != null) {
-      relacionDisponible.setEstaPegadaEnElAlbum(true);
-      repositorioInventario.modificar(relacionDisponible);
-    } else {
-      throw new RuntimeException("No tenés esta figurita disponible para pegar.");
+    if (relacion == null) {
+      //  El usuario no la tiene en su inventario
+      throw new RuntimeException("No tenés esta figurita en tu inventario.");
     }
+
+    if (relacion.isEstaPegadaEnElAlbum()) {
+      // La tiene, pero ya la había pegado
+      throw new RuntimeException("Esta figurita ya está pegada en tu álbum.");
+    }
+
+    // Si pasamos los dos controles, significa que la tiene y no está pegada
+    relacion.setEstaPegadaEnElAlbum(true);
+    repositorioInventario.modificar(relacion);
   }
 
+  @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis" })
   @Override
-  public List<RelacionFiguritaUsuario> obtenerFiguritasDelInventario(Long idUsuario) {
-
+  public List<InventarioItemDTO> obtenerFiguritasDelInventario(Long idUsuario) {
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
 
-    return repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
+    List<RelacionFiguritaUsuario> noPegadas =
+      repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
+    List<RelacionFiguritaUsuario> pegadas = repositorioInventario.buscarFiguritasPegadasPorUsuario(
+      usuario
+    );
+
+    Set<Long> idsPegadas = new HashSet<>();
+    for (RelacionFiguritaUsuario rel : pegadas) {
+      idsPegadas.add(rel.getFigurita().getId());
+    }
+
+    Map<Long, Figurita> figuritasMap = new HashMap<>();
+    Map<Long, Integer> conteoMap = new HashMap<>();
+
+    for (RelacionFiguritaUsuario rel : noPegadas) {
+      Long figId = rel.getFigurita().getId();
+      figuritasMap.put(figId, rel.getFigurita());
+      conteoMap.put(figId, conteoMap.getOrDefault(figId, 0) + 1);
+    }
+
+    List<InventarioItemDTO> resultado = new ArrayList<>();
+
+    for (Map.Entry<Long, Integer> entry : conteoMap.entrySet()) {
+      Long figId = entry.getKey();
+      Integer cantidad = entry.getValue();
+      Figurita fig = figuritasMap.get(figId);
+
+      boolean sePuedePegar = !idsPegadas.contains(figId);
+      resultado.add(new InventarioItemDTO(fig, cantidad, sePuedePegar));
+    }
+
+    return resultado;
   }
 }

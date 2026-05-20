@@ -51,7 +51,6 @@ public class RepositorioInventarioImpl implements RepositorioInventario {
 
   @Override
   public RelacionFiguritaUsuario buscarRelacionDisponible(Long idUsuario, Long idFigurita) {
-
     return (RelacionFiguritaUsuario) sessionFactory
       .getCurrentSession()
       .createCriteria(RelacionFiguritaUsuario.class)
