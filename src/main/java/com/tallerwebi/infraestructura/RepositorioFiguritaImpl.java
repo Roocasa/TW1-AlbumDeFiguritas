@@ -28,14 +28,4 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita {
       .setMaxResults(1)
       .uniqueResult();
   }
-
-  @Override
-  public void guardar(Figurita figurita) {
-    sessionFactory.getCurrentSession().save(figurita);
-  }
-
-  @Override
-  public Figurita buscarPorId(Long id) {
-    return sessionFactory.getCurrentSession().get(Figurita.class, id);
-  }
 }

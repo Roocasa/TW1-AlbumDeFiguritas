@@ -5,26 +5,38 @@ import javax.persistence.*;
 @Entity
 public class Figurita {
 
-  @Id //Clave primaria
-  @GeneratedValue(strategy = GenerationType.IDENTITY) // ID incremental
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   private String nombre;
   private String seleccion;
   private Integer score;
+  private Integer ordenAlbum;
+
+  @Column(name = "imagen_url")
+  private String imagenUrl;
 
   @Enumerated(EnumType.STRING)
   private Rareza rareza;
 
-  private boolean pegada;
 
   public Figurita() {}
+
 
   public Figurita(String nombre, String seleccion, Rareza rareza) {
     this.nombre = nombre;
     this.seleccion = seleccion;
     this.rareza = rareza;
-    this.pegada = false;
+  }
+
+
+  public Figurita(String nombre, String seleccion, Integer score, Rareza rareza, String imagenUrl) {
+    this.nombre = nombre;
+    this.seleccion = seleccion;
+    this.rareza = rareza;
+    this.score = score;
+    this.imagenUrl = imagenUrl;
   }
 
   public Long getId() {
@@ -33,6 +45,14 @@ public class Figurita {
 
   public void setId(Long id) {
     this.id = id;
+  }
+
+  public String getNombre() {
+    return nombre;
+  }
+
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
   }
 
   public String getSeleccion() {
@@ -51,27 +71,27 @@ public class Figurita {
     this.score = score;
   }
 
+  public Integer getOrdenAlbum() {
+    return ordenAlbum;
+  }
+
+  public void setOrdenAlbum(Integer ordenAlbum) {
+    this.ordenAlbum = ordenAlbum;
+  }
+
+  public String getImagenUrl() {
+    return imagenUrl;
+  }
+
+  public void setImagenUrl(String imagenUrl) {
+    this.imagenUrl = imagenUrl;
+  }
+
   public Rareza getRareza() {
     return rareza;
   }
 
   public void setRareza(Rareza rareza) {
     this.rareza = rareza;
-  }
-
-  public String getNombre() {
-    return nombre;
-  }
-
-  public void setNombre(String nombre) {
-    this.nombre = nombre;
-  }
-
-  public void pegar() {
-    this.pegada = true;
-  }
-
-  public boolean isPegada() {
-    return this.pegada;
   }
 }

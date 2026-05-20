@@ -638,6 +638,178 @@ h2 {
   color: #ff0000;
 }
 
+/* INVENTARIO ESTILOS (ABRIR SOBRE) >>>> */
+
+.home-layout .home-grid.sobres-contenedor {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding-top: 3rem;
+  grid-template-columns: none !important;
+}
+
+.home-panel.sobres {
+  position: relative;
+  width: 320px;
+  height: 450px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.home-panel.sobres > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0px 15px 20px rgba(0,0,0,0.4));
+}
+
+.sobre-contenido {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 55%;
+  width: 100%;
+}
+
+.sobre-contenido h2 {
+  color: #ffffff;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  text-align: center;
+}
+
+.sobre-contenido .btn {
+  min-width: 160px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  color: #ffffff;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255,255,255, 0.2);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.sobre-contenido .btn:hover {
+  background-color: rgba(163, 5, 5, 0.9);
+  transform: scale(1.05);
+}
+
+.sobre-badge {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  z-index: 10;
+  background-color: #a30505;
+  color: #ffffff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2.4rem;
+  line-height: 1;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255,255,255,0.1);
+}
+/*
+   CONTROLES Y ESTILOS DE FIGURITAS
+*/
+
+.inventario-controles {
+  background: rgba(15, 34, 66, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.inventario-controles select {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  color: #0f2242;
+  cursor: pointer;
+}
+
+.figurita-card {
+  position: relative;
+  overflow: hidden;
+  width: 180px;
+  height: 250px;
+  border-radius: 12px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.figurita-card.is-pegable {
+  border: 2px solid #ffc107;
+  box-shadow: 0 0 15px rgba(255, 193, 7, 0.4);
+}
+
+.figurita-card.is-pegable:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.6);
+}
+
+.pegar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 34, 66, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  text-decoration: none;
+}
+
+.figurita-card.is-pegable:hover .pegar-overlay {
+  opacity: 1;
+}
+
+.pegar-overlay span {
+  border: 2px solid #ffc107;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  background: rgba(255, 193, 7, 0.1);
+}
+
+
 @media (max-width: 576px) {
   .auth-main {
     padding: 6rem 1rem 1.5rem;
@@ -757,4 +929,5 @@ h2 {
   .profile-button {
     width: 100%;
   }
+
 }

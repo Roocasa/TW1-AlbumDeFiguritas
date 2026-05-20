@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository("repositorioUsuario")
 public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
-  private SessionFactory sessionFactory;
+  private final SessionFactory sessionFactory;
 
   @Autowired
   public RepositorioUsuarioImpl(SessionFactory sessionFactory) {
@@ -45,5 +45,10 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
   @Override
   public void modificar(Usuario usuario) {
     sessionFactory.getCurrentSession().update(usuario);
+  }
+
+  @Override
+  public Usuario buscarPorId(Long id) {
+    return sessionFactory.getCurrentSession().get(Usuario.class, id);
   }
 }
