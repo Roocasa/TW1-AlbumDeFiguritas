@@ -1,5 +1,5 @@
-INSERT INTO Usuario (id, email, password, paquetes, paquetesPremium, monedas, activo, rol)
-VALUES (1, 'eze@test.com', '123456789', 200, 200, 100, true, 'USER');
+INSERT INTO Usuario (id, email, password, paquetes, paquetesPremium, monedas, activo, rol, pais)
+VALUES (1, 'eze@test.com', '123456789', 200, 200, 100, true, 'USER', 'Argentina');
 
 
 INSERT INTO Figurita (id, nombre, seleccion, rareza, score, imagen_url, ordenAlbum)

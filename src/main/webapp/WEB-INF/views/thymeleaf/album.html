@@ -39,7 +39,7 @@
     <section class="album-hero" aria-labelledby="titulo-album">
       <div>
         <span class="album-hero__tag">Mundial 2026</span>
-        <h1 id="titulo-album">Album por paises</h1>
+        <h1 id="titulo-album">Album virtual</h1>
         <p>Recorre las 48 selecciones clasificadas y prepara los espacios para pegar tus figuritas.</p>
       </div>
       <img
@@ -49,39 +49,50 @@
         alt="Tapa del album 2026" />
     </section>
 
-    <nav class="album-groups" aria-label="Grupos del mundial">
-      <a href="#grupo-a">A</a>
-      <a href="#grupo-b">B</a>
-      <a href="#grupo-c">C</a>
-      <a href="#grupo-d">D</a>
-      <a href="#grupo-e">E</a>
-      <a href="#grupo-f">F</a>
-      <a href="#grupo-g">G</a>
-      <a href="#grupo-h">H</a>
-      <a href="#grupo-i">I</a>
-      <a href="#grupo-j">J</a>
-      <a href="#grupo-k">K</a>
-      <a href="#grupo-l">L</a>
-    </nav>
+    <section class="album-filters" aria-label="Filtros del album">
+      <label for="album-group-filter">
+        Grupo
+        <select id="album-group-filter">
+          <option value="">Todos</option>
+          <option value="grupo-a">Grupo A</option>
+          <option value="grupo-b">Grupo B</option>
+          <option value="grupo-c">Grupo C</option>
+          <option value="grupo-d">Grupo D</option>
+          <option value="grupo-e">Grupo E</option>
+          <option value="grupo-f">Grupo F</option>
+          <option value="grupo-g">Grupo G</option>
+          <option value="grupo-h">Grupo H</option>
+          <option value="grupo-i">Grupo I</option>
+          <option value="grupo-j">Grupo J</option>
+          <option value="grupo-k">Grupo K</option>
+          <option value="grupo-l">Grupo L</option>
+        </select>
+      </label>
+      <label for="album-country-filter">
+        Pais
+        <input id="album-country-filter" type="search" placeholder="Buscar seleccion" autocomplete="off">
+      </label>
+      <button type="button" id="album-clear-filters">Limpiar</button>
+    </section>
 
     <section class="album-section" id="grupo-a" aria-labelledby="titulo-grupo-a">
       <h2 id="titulo-grupo-a">Grupo A</h2>
       <div class="album-country-grid">
         <article class="country-page">
           <header><span>MEX</span><h3>Mexico</h3></header>
-          <div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div>
+          <div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div>
         </article>
         <article class="country-page">
           <header><span>CZE</span><h3>Republica Checa</h3></header>
-          <div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div>
+          <div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div>
         </article>
         <article class="country-page">
           <header><span>RSA</span><h3>Sudafrica</h3></header>
-          <div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div>
+          <div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div>
         </article>
         <article class="country-page">
           <header><span>KOR</span><h3>Corea del Sur</h3></header>
-          <div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div>
+          <div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div>
         </article>
       </div>
     </section>
@@ -89,110 +100,110 @@
     <section class="album-section" id="grupo-b" aria-labelledby="titulo-grupo-b">
       <h2 id="titulo-grupo-b">Grupo B</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>CAN</span><h3>Canada</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>BIH</span><h3>Bosnia y Herzegovina</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>QAT</span><h3>Qatar</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>SUI</span><h3>Suiza</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>CAN</span><h3>Canada</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>BIH</span><h3>Bosnia y Herzegovina</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>QAT</span><h3>Qatar</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>SUI</span><h3>Suiza</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-c" aria-labelledby="titulo-grupo-c">
       <h2 id="titulo-grupo-c">Grupo C</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>BRA</span><h3>Brasil</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>HAI</span><h3>Haiti</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>MAR</span><h3>Marruecos</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>SCO</span><h3>Escocia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>BRA</span><h3>Brasil</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>HAI</span><h3>Haiti</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>MAR</span><h3>Marruecos</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>SCO</span><h3>Escocia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-d" aria-labelledby="titulo-grupo-d">
       <h2 id="titulo-grupo-d">Grupo D</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>USA</span><h3>Estados Unidos</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>AUS</span><h3>Australia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>PAR</span><h3>Paraguay</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>TUR</span><h3>Turquia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>USA</span><h3>Estados Unidos</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>AUS</span><h3>Australia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>PAR</span><h3>Paraguay</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>TUR</span><h3>Turquia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-e" aria-labelledby="titulo-grupo-e">
       <h2 id="titulo-grupo-e">Grupo E</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>CUW</span><h3>Curazao</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>ECU</span><h3>Ecuador</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>GER</span><h3>Alemania</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>CIV</span><h3>Costa de Marfil</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>CUW</span><h3>Curazao</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>ECU</span><h3>Ecuador</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>GER</span><h3>Alemania</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>CIV</span><h3>Costa de Marfil</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-f" aria-labelledby="titulo-grupo-f">
       <h2 id="titulo-grupo-f">Grupo F</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>NED</span><h3>Paises Bajos</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>JPN</span><h3>Japon</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>SWE</span><h3>Suecia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>TUN</span><h3>Tunez</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>NED</span><h3>Paises Bajos</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>JPN</span><h3>Japon</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>SWE</span><h3>Suecia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>TUN</span><h3>Tunez</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-g" aria-labelledby="titulo-grupo-g">
       <h2 id="titulo-grupo-g">Grupo G</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>BEL</span><h3>Belgica</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>EGY</span><h3>Egipto</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>IRN</span><h3>Iran</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>NZL</span><h3>Nueva Zelanda</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>BEL</span><h3>Belgica</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>EGY</span><h3>Egipto</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>IRN</span><h3>Iran</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>NZL</span><h3>Nueva Zelanda</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-h" aria-labelledby="titulo-grupo-h">
       <h2 id="titulo-grupo-h">Grupo H</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>CPV</span><h3>Cabo Verde</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>KSA</span><h3>Arabia Saudita</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>ESP</span><h3>Espana</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>URU</span><h3>Uruguay</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>CPV</span><h3>Cabo Verde</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>KSA</span><h3>Arabia Saudita</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>ESP</span><h3>Espana</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>URU</span><h3>Uruguay</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-i" aria-labelledby="titulo-grupo-i">
       <h2 id="titulo-grupo-i">Grupo I</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>FRA</span><h3>Francia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>NOR</span><h3>Noruega</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>SEN</span><h3>Senegal</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>IRQ</span><h3>Irak</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>FRA</span><h3>Francia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>NOR</span><h3>Noruega</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>SEN</span><h3>Senegal</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>IRQ</span><h3>Irak</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-j" aria-labelledby="titulo-grupo-j">
       <h2 id="titulo-grupo-j">Grupo J</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>ALG</span><h3>Argelia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>ARG</span><h3>Argentina</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>AUT</span><h3>Austria</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>JOR</span><h3>Jordania</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>ALG</span><h3>Argelia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>ARG</span><h3>Argentina</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>AUT</span><h3>Austria</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>JOR</span><h3>Jordania</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-k" aria-labelledby="titulo-grupo-k">
       <h2 id="titulo-grupo-k">Grupo K</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>COL</span><h3>Colombia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>JAM</span><h3>Jamaica</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>POR</span><h3>Portugal</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>UZB</span><h3>Uzbekistan</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>COL</span><h3>Colombia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>JAM</span><h3>Jamaica</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>POR</span><h3>Portugal</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>UZB</span><h3>Uzbekistan</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
 
     <section class="album-section" id="grupo-l" aria-labelledby="titulo-grupo-l">
       <h2 id="titulo-grupo-l">Grupo L</h2>
       <div class="album-country-grid">
-        <article class="country-page"><header><span>CRO</span><h3>Croacia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>ENG</span><h3>Inglaterra</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>GHA</span><h3>Ghana</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
-        <article class="country-page"><header><span>PAN</span><h3>Panama</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+9</span></div></article>
+        <article class="country-page"><header><span>CRO</span><h3>Croacia</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>ENG</span><h3>Inglaterra</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>GHA</span><h3>Ghana</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
+        <article class="country-page"><header><span>PAN</span><h3>Panama</h3></header><div class="sticker-slots"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>+5</span></div></article>
       </div>
     </section>
   </main>
@@ -202,26 +213,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
-  <script>
-    document.querySelectorAll(".country-page").forEach((card) => {
-      const code = card.querySelector("header span").textContent.trim();
-      const url = `${document.body.dataset.countryUrl}${code}`;
-
-      card.tabIndex = 0;
-      card.setAttribute("role", "link");
-
-      card.addEventListener("click", () => {
-        window.location.href = url;
-      });
-
-      card.addEventListener("keydown", (event) => {
-        if (event.key === "Enter" || event.key === " ") {
-          event.preventDefault();
-          window.location.href = url;
-        }
-      });
-    });
-  </script>
+  <script th:src="@{/js/album.js}"></script>
 </body>
 
 </html>
