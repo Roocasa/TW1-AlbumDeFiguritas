@@ -1,8 +1,8 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.album.InventarioItemDTO;
 import com.tallerwebi.dominio.album.PaqueteServicio;
-import com.tallerwebi.dominio.album.RelacionFiguritaUsuario;
 import com.tallerwebi.dominio.album.ResultadoApertura;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
 import java.util.List;
@@ -33,7 +33,7 @@ public class ControladorInventario {
     Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
 
     if (usuario != null) {
-      List<RelacionFiguritaUsuario> figuritas = paqueteServicio.obtenerFiguritasDelInventario(
+      List<InventarioItemDTO> figuritas = paqueteServicio.obtenerFiguritasDelInventario(
         usuario.getId()
       );
       mav.addObject("figuritas", figuritas);

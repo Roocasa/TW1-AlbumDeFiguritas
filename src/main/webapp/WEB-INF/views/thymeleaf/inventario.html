@@ -59,7 +59,6 @@
             <label class="text-white fw-bold mb-0">Ordenar por:</label>
             <select id="sort-select" class="form-select w-auto shadow-sm">
                 <option value="numero">Numeración en el álbum</option>
-                <option value="pais">País</option>
                 <option value="score">Score</option>
             </select>
         </div>
@@ -75,35 +74,46 @@
 
     <div id="figuritas-grid" class="d-flex flex-wrap justify-content-center gap-3 pb-5">
 
-        <div th:each="rel : ${figuritas}"
-             th:if="${!rel.estaPegadaEnElAlbum}"
+        <div th:each="item : ${figuritas}"
              class="figurita-card shadow-lg"
-             th:classappend="'is-pegable'"
+             th:classappend="${item.sePuedePegar} ? 'is-pegable' : ''"
              style="position: relative;"
-             th:data-pais="${rel.figurita.seleccion}"
-             th:data-score="${rel.figurita.score}"
-             th:data-numero="${rel.figurita.ordenAlbum}"
-             th:data-pegable="true">
+             th:data-pais="${item.figurita.seleccion}"
+             th:data-score="${item.figurita.score}"
+             th:data-numero="${item.figurita.ordenAlbum}"
+             th:data-nombre="${item.figurita.nombre.toLowerCase()}"
+             th:data-rareza="${item.figurita.rareza.name()}"
+             th:data-pegable="${item.sePuedePegar}">
 
-            <img th:src="@{'/img/fondos_figs/FONDO_FIG_' + ${rel.figurita.rareza.name()} + '.png'}"
+            <div th:if="${item.cantidad > 1}"
+                 style="position: absolute; top: 10px; right: 12px; z-index: 5; background-color: #a30505; color: white; min-width: 26px; height: 26px; padding: 0 6px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: bold; box-shadow: 0 2px 6px rgba(0,0,0,0.4); border: 1.5px solid white;">
+                <span th:text="${'x' + item.cantidad}"></span>
+            </div>
+
+            <img th:src="@{'/img/fondos_figs/FONDO_FIG_' + ${item.figurita.rareza.name()} + '.png'}"
                  alt="Fondo"
                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; object-fit: cover; border-radius: 12px;">
 
-            <img th:if="${rel.figurita.imagenUrl != null}"
-                 th:src="${rel.figurita.imagenUrl}"
+            <img th:if="${item.figurita.banderaUrl != null}"
+                 th:src="${item.figurita.banderaUrl}"
+                 alt="Bandera"
+                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; object-fit: cover; border-radius: 12px; pointer-events: none;">
+
+            <img th:if="${item.figurita.imagenUrl != null}"
+                 th:src="${item.figurita.imagenUrl}"
                  alt="Jugador"
-                 style="position: absolute; top: 14%; left: 0; width: 100%; height: 71%; object-fit: contain; object-position: center bottom; z-index: 1; filter: drop-shadow(0px -5px 15px rgba(0,0,0, 99));">
+                 style="position: absolute; top: 14%; left: 0; width: 100%; height: 71%; object-fit: contain; object-position: center bottom; z-index: 2; filter: drop-shadow(0px -5px 15px rgba(0,0,0, 0.99));">
 
-            <div style="position: absolute; top: 17px; left: 21px; z-index: 2; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem; font-weight: lighter; text-shadow: 1px 1px 2px black; width: 20px; text-align: center;"
-                 th:text="${rel.figurita.ordenAlbum}">
+            <div style="position: absolute; top: 17px; left: 21px; z-index: 3; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem; font-weight: lighter; text-shadow: 1px 1px 2px black; width: 20px; text-align: center;"
+                 th:text="${item.figurita.ordenAlbum}">
             </div>
 
-            <div style="position: absolute; bottom: 17px; left: 0; width: 100%; text-align: center; z-index: 2; padding: 0 10px;">
+            <div style="position: absolute; bottom: 17px; left: 0; width: 100%; text-align: center; z-index: 3; padding: 0 10px;">
                 <h6 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); letter-spacing: 0.5px;"
-                    th:text="${rel.figurita.nombre}"></h6>
+                    th:text="${item.figurita.nombre}"></h6>
             </div>
 
-            <a th:href="@{/pegar-figurita(id=${rel.figurita.id})}" class="pegar-overlay text-warning text-center fw-bold fs-5" style="z-index: 10;">
+            <a th:if="${item.sePuedePegar}" th:href="@{/pegar-figurita(id=${item.figurita.id})}" class="pegar-overlay text-warning text-center fw-bold fs-5" style="z-index: 10;">
                 <span>Pegar en<br>el álbum</span>
             </a>
         </div>
@@ -132,16 +142,21 @@
                              alt="Fondo"
                              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; object-fit: cover; border-radius: 12px;">
 
+                        <img th:if="${fig.banderaUrl != null}"
+                             th:src="${fig.banderaUrl}"
+                             alt="Bandera"
+                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; object-fit: cover; border-radius: 12px; pointer-events: none;">
+
                         <img th:if="${fig.imagenUrl != null}"
                              th:src="${fig.imagenUrl}"
                              alt="Jugador"
-                             style="position: absolute; top: 14%; left: 0; width: 100%; height: 71%; object-fit: contain; object-position: center bottom; z-index: 1; filter: drop-shadow(0px -5px 15px rgba(0,0,0, 99));">
+                             style="position: absolute; top: 14%; left: 0; width: 100%; height: 71%; object-fit: contain; object-position: center bottom; z-index: 2; filter: drop-shadow(0px -5px 15px rgba(0,0,0, 0.99));">
 
-                        <div style="position: absolute; top: 17px; left: 21px; z-index: 2; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem; font-weight: lighter; text-shadow: 1px 1px 2px black; width: 20px; text-align: center;"
+                        <div style="position: absolute; top: 17px; left: 21px; z-index: 3; color: white; font-family: 'Space Grotesk', sans-serif; font-size: 0.6rem; font-weight: lighter; text-shadow: 1px 1px 2px black; width: 20px; text-align: center;"
                              th:text="${fig.ordenAlbum}">
                         </div>
 
-                        <div style="position: absolute; bottom: 17px; left: 0; width: 100%; text-align: center; z-index: 2; padding: 0 10px;">
+                        <div style="position: absolute; bottom: 17px; left: 0; width: 100%; text-align: center; z-index: 3; padding: 0 10px;">
                             <h6 style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-size: 0.75rem; font-weight: bold; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); letter-spacing: 0.5px;"
                                 th:text="${fig.nombre}"></h6>
                         </div>

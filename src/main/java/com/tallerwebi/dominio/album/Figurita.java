@@ -17,19 +17,19 @@ public class Figurita {
   @Column(name = "imagen_url")
   private String imagenUrl;
 
+  @Column(name = "bandera_url")
+  private String banderaUrl;
+
   @Enumerated(EnumType.STRING)
   private Rareza rareza;
 
-
   public Figurita() {}
-
 
   public Figurita(String nombre, String seleccion, Rareza rareza) {
     this.nombre = nombre;
     this.seleccion = seleccion;
     this.rareza = rareza;
   }
-
 
   public Figurita(String nombre, String seleccion, Integer score, Rareza rareza, String imagenUrl) {
     this.nombre = nombre;
@@ -93,5 +93,13 @@ public class Figurita {
 
   public void setRareza(Rareza rareza) {
     this.rareza = rareza;
+  }
+
+  public String getBanderaUrl() {
+    return banderaUrl;
+  }
+
+  public void setBanderaUrl(String banderaUrl) {
+    this.banderaUrl = banderaUrl;
   }
 }
