@@ -56,14 +56,14 @@ public class VistaLoginE2E {
 
   @Test
   void deberiaDarUnErrorAlIntentarIniciarSesionConUnUsuarioQueNoExiste() {
-    dadoQueElUsuarioCargaSusDatosDeLoginCon("damian@unlam.edu.ar", "unlam");
+    dadoQueElUsuarioCargaSusDatosDeLoginCon("damian@unlam.edu.ar", "123456");
     cuandoElUsuarioTocaElBotonDeLogin();
     entoncesDeberiaVerUnMensajeDeError();
   }
 
   @Test
   void deberiaNavegarAlHomeSiElUsuarioExiste() throws MalformedURLException {
-    dadoQueElUsuarioCargaSusDatosDeLoginCon("test@unlam.edu.ar", "test");
+    dadoQueElUsuarioCargaSusDatosDeLoginCon("eze@test.com", "123456789");
     cuandoElUsuarioTocaElBotonDeLogin();
     entoncesDeberiaSerRedirigidoALaVistaDeHome();
   }
@@ -99,7 +99,7 @@ public class VistaLoginE2E {
 
   private void entoncesDeberiaVerUnMensajeDeError() {
     String texto = vistaLogin.obtenerMensajeDeError();
-    assertThat("Error Usuario o clave incorrecta", equalToIgnoringCase(texto));
+    assertThat("Error: Usuario o clave incorrecta", equalToIgnoringCase(texto));
   }
 
   private void dadoQueElUsuarioCargaSusDatosDeLoginCon(String email, String clave) {
@@ -116,6 +116,7 @@ public class VistaLoginE2E {
     vistaNuevoUsuario.escribirEMAIL(email);
     vistaNuevoUsuario.seleccionarPais(pais);
     vistaNuevoUsuario.escribirClave(clave);
+    vistaNuevoUsuario.escribirConfirmacionDeClave(clave);
     vistaNuevoUsuario.darClickEnRegistrarme();
   }
 }
