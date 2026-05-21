@@ -95,7 +95,7 @@ public class ControladorAlbum {
 
   private static List<Integer> crearNumerosDeFiguritas() {
     List<Integer> numeros = new ArrayList<>();
-    for (int numero = 1; numero <= 16; numero++) {
+    for (int numero = 1; numero <= 12; numero++) {
       numeros.add(numero);
     }
     return numeros;
