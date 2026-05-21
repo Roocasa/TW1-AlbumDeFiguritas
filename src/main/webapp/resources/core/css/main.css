@@ -780,7 +780,7 @@ h2 {
 }
 
 .figurita-card.is-pegable {
-  border: 3px solid #ffffff;
+  border: 3px solid #00ff80;
 }
 
 .figurita-card.is-pegable:hover {
@@ -809,6 +809,7 @@ h2 {
 }
 
 .pegar-overlay span {
+  color: white;
   border: 2px solid #ffffff;
   padding: 0.8rem 1.5rem;
   border-radius: 999px;
