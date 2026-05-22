@@ -18,6 +18,7 @@ public class PaqueteServicioImpl implements PaqueteServicio {
   private final RepositorioInventario repositorioInventario;
   private final RepositorioUsuario repositorioUsuario;
   private final RuletaFiguritas ruleta;
+  private final ServicioAlbum servicioAlbum;
 
   private static final int FIGURITAS_POR_PAQUETE = 7;
 
@@ -26,12 +27,14 @@ public class PaqueteServicioImpl implements PaqueteServicio {
     RepositorioFigurita repositorioFigurita,
     RepositorioInventario repositorioInventario,
     RepositorioUsuario repositorioUsuario,
-    RuletaFiguritas ruleta
+    RuletaFiguritas ruleta,
+    ServicioAlbum servicioAlbum
   ) {
     this.repositorioFigurita = repositorioFigurita;
     this.repositorioInventario = repositorioInventario;
     this.repositorioUsuario = repositorioUsuario;
     this.ruleta = ruleta;
+    this.servicioAlbum = servicioAlbum;
   }
 
   @Override
@@ -108,6 +111,7 @@ public class PaqueteServicioImpl implements PaqueteServicio {
     // Si pasamos los dos controles, significa que la tiene y no está pegada
     relacion.setEstaPegadaEnElAlbum(true);
     repositorioInventario.modificar(relacion);
+    servicioAlbum.actualizarEstadisticas(idUsuario);
   }
 
   @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis" })

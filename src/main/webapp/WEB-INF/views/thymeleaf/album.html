@@ -41,6 +41,20 @@
         <span class="album-hero__tag">Mundial 2026</span>
         <h1 id="titulo-album">Album virtual</h1>
         <p>Recorre las 48 selecciones clasificadas y prepara los espacios para pegar tus figuritas.</p>
+        <div class="album-stats" th:if="${album != null}">
+          <article>
+            <strong th:text="${album.totalFiguritas}">576</strong>
+            <span>Total</span>
+          </article>
+          <article>
+            <strong th:text="${album.figuritasPegadas}">0</strong>
+            <span>Pegadas</span>
+          </article>
+          <article>
+            <strong th:text="${album.figuritasFaltantes}">576</strong>
+            <span>Faltan</span>
+          </article>
+        </div>
       </div>
       <img
         class="album-hero__image"
@@ -74,7 +88,7 @@
           th:value="${paisBuscado}">
       </label>
       <button type="submit">Filtrar</button>
-      <a class="album-filters__clear" th:href="@{/album}">Limpiar</a>
+      <a id="album-clear-filters" class="album-filters__clear" th:href="@{/album}">Limpiar</a>
     </form>
 
     <p class="album-empty" th:if="${#maps.isEmpty(paisesPorGrupo)}">
@@ -95,7 +109,17 @@
         <article class="country-page" th:each="pais : ${entrada.value}">
           <header>
             <span th:text="${pais.codigo}" th:data-flag-code="${pais.codigoBandera}">MEX</span>
-            <h3 th:text="${pais.nombre}">Mexico</h3>
+            <div class="country-page__title">
+              <div class="country-page__heading">
+                <h3 th:text="${pais.nombre}">Mexico</h3>
+                <span
+                  class="country-page__pending"
+                  th:if="${#maps.containsKey(pendientesPorPais, pais.codigo) and pendientesPorPais[pais.codigo] > 0}"
+                  th:text="'!'"
+                  th:title="${pendientesPorPais[pais.codigo] + ' figuritas pendientes para pegar'}">!</span>
+              </div>
+              <p th:text="${(#maps.containsKey(pegadasPorPais, pais.codigo) ? pegadasPorPais[pais.codigo] : 0) + ' / 12 pegadas'}">0 / 12 pegadas</p>
+            </div>
           </header>
           <div class="sticker-slots">
             <span th:each="numero : ${figuritas}" th:text="${numero}">1</span>

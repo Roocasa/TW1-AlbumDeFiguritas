@@ -5,6 +5,7 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 import com.tallerwebi.dominio.album.Figurita;
+import com.tallerwebi.dominio.album.Pais;
 import com.tallerwebi.dominio.album.Rareza;
 import com.tallerwebi.dominio.album.RepositorioFigurita;
 import com.tallerwebi.infraestructura.RepositorioFiguritaImpl;
@@ -35,13 +36,20 @@ public class RepositorioFiguritaTest {
   @Rollback // Borra todo al terminar para no dejar basura
   public void queSePuedaBuscarUnaFiguritaAleatoriaPorSuRareza() {
     //GIVEN .. creo dos figuritas de rarezas diferentes
+    Pais argentina = new Pais("ARG", "Argentina", "J", 38, "ar");
+    Pais belgica = new Pais("BEL", "Belgica", "G", 25, "be");
+    sessionFactory.getCurrentSession().save(argentina);
+    sessionFactory.getCurrentSession().save(belgica);
+
     Figurita figOro = new Figurita();
     figOro.setNombre("Kevin De Bruyne");
+    figOro.setPais(belgica);
     figOro.setRareza(Rareza.ORO);
     sessionFactory.getCurrentSession().save(figOro);
 
     Figurita figLeyenda = new Figurita();
     figLeyenda.setNombre("Lionel Messi");
+    figLeyenda.setPais(argentina);
     figLeyenda.setRareza(Rareza.LEYENDA);
     sessionFactory.getCurrentSession().save(figLeyenda);
 

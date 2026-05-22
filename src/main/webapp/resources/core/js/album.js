@@ -40,7 +40,7 @@ const countryFlags = {
   AUT: "at",
   JOR: "jo",
   COL: "co",
-  JAM: "jm",
+  COD: "cd",
   POR: "pt",
   UZB: "uz",
   CRO: "hr",
@@ -161,7 +161,11 @@ const initializeCountryDetailFlag = () => {
     return;
   }
 
-  replaceBadgeWithFlag(countryBadge, countryBadge.dataset.countryCode);
+  replaceBadgeWithFlag(
+    countryBadge,
+    countryBadge.dataset.countryCode,
+    countryBadge.dataset.flagCode
+  );
 };
 
 initializeCountryCards();

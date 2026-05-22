@@ -37,6 +37,10 @@ public class RepositorioInventarioTest {
     Figurita figurita = new Figurita();
     figurita.setNombre("Cucinelli Ezequiel");
 
+    Pais argentina = new Pais("ARG", "Argentina", "J", 38, "ar");
+    sessionFactory.getCurrentSession().save(argentina);
+    figurita.setPais(argentina);
+
     Usuario usuario = new Usuario();
     usuario.setEmail("email@deezequiel.com");
 

@@ -9,34 +9,62 @@ public class Figurita {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  private String nombre;
-  private String seleccion;
+  @Column(name = "nombre_jugador")
+  private String nombreJugador;
+
+  @ManyToOne
+  @JoinColumn(name = "pais_id")
+  private Pais pais;
+
   private Integer score;
-  private Integer ordenAlbum;
+
+  @Column(name = "numero_dentro_del_pais")
+  private Integer numeroDentroDelPais;
 
   @Column(name = "imagen_url")
   private String imagenUrl;
 
-  @Column(name = "bandera_url")
-  private String banderaUrl;
+  private String club;
 
   @Enumerated(EnumType.STRING)
   private Rareza rareza;
 
+  @Enumerated(EnumType.STRING)
+  private TipoFigurita tipo = TipoFigurita.TITULAR;
+
   public Figurita() {}
 
-  public Figurita(String nombre, String seleccion, Rareza rareza) {
-    this.nombre = nombre;
-    this.seleccion = seleccion;
+  public Figurita(String nombreJugador, String nombrePais, Rareza rareza) {
+    this.nombreJugador = nombreJugador;
+    this.pais = crearPaisConNombre(nombrePais);
     this.rareza = rareza;
   }
 
-  public Figurita(String nombre, String seleccion, Integer score, Rareza rareza, String imagenUrl) {
-    this.nombre = nombre;
-    this.seleccion = seleccion;
+  public Figurita(String nombreJugador, String nombrePais, Rareza rareza, TipoFigurita tipo) {
+    this.nombreJugador = nombreJugador;
+    this.pais = crearPaisConNombre(nombrePais);
+    this.rareza = rareza;
+    this.tipo = tipo;
+  }
+
+  public Figurita(
+    String nombreJugador,
+    String nombrePais,
+    Integer score,
+    Rareza rareza,
+    String imagenUrl
+  ) {
+    this.nombreJugador = nombreJugador;
+    this.pais = crearPaisConNombre(nombrePais);
     this.rareza = rareza;
     this.score = score;
     this.imagenUrl = imagenUrl;
+  }
+
+  private static Pais crearPaisConNombre(String nombrePais) {
+    Pais paisNuevo = new Pais();
+    paisNuevo.setNombre(nombrePais);
+    return paisNuevo;
   }
 
   public Long getId() {
@@ -47,20 +75,39 @@ public class Figurita {
     this.id = id;
   }
 
+  public String getNombreJugador() {
+    return nombreJugador;
+  }
+
+  public void setNombreJugador(String nombreJugador) {
+    this.nombreJugador = nombreJugador;
+  }
+
+  public Pais getPais() {
+    return pais;
+  }
+
+  public void setPais(Pais pais) {
+    this.pais = pais;
+  }
+
   public String getNombre() {
-    return nombre;
+    return nombreJugador;
   }
 
   public void setNombre(String nombre) {
-    this.nombre = nombre;
+    this.nombreJugador = nombre;
   }
 
   public String getSeleccion() {
-    return seleccion;
+    return pais != null ? pais.getNombre() : null;
   }
 
   public void setSeleccion(String seleccion) {
-    this.seleccion = seleccion;
+    if (this.pais == null) {
+      this.pais = new Pais();
+    }
+    this.pais.setNombre(seleccion);
   }
 
   public Integer getScore() {
@@ -71,12 +118,20 @@ public class Figurita {
     this.score = score;
   }
 
+  public Integer getNumeroDentroDelPais() {
+    return numeroDentroDelPais;
+  }
+
+  public void setNumeroDentroDelPais(Integer numeroDentroDelPais) {
+    this.numeroDentroDelPais = numeroDentroDelPais;
+  }
+
   public Integer getOrdenAlbum() {
-    return ordenAlbum;
+    return numeroDentroDelPais;
   }
 
   public void setOrdenAlbum(Integer ordenAlbum) {
-    this.ordenAlbum = ordenAlbum;
+    this.numeroDentroDelPais = ordenAlbum;
   }
 
   public String getImagenUrl() {
@@ -85,6 +140,14 @@ public class Figurita {
 
   public void setImagenUrl(String imagenUrl) {
     this.imagenUrl = imagenUrl;
+  }
+
+  public String getClub() {
+    return club;
+  }
+
+  public void setClub(String club) {
+    this.club = club;
   }
 
   public Rareza getRareza() {
@@ -96,10 +159,17 @@ public class Figurita {
   }
 
   public String getBanderaUrl() {
-    return banderaUrl;
+    if (pais == null || pais.getCodigoBandera() == null) {
+      return null;
+    }
+    return "https://flagcdn.com/" + pais.getCodigoBandera() + ".svg";
   }
 
-  public void setBanderaUrl(String banderaUrl) {
-    this.banderaUrl = banderaUrl;
+  public TipoFigurita getTipo() {
+    return tipo;
+  }
+
+  public void setTipo(TipoFigurita tipo) {
+    this.tipo = tipo;
   }
 }

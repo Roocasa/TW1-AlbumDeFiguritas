@@ -22,6 +22,7 @@ public class PaqueteServicioTest {
   RepositorioInventario repositorioInventarioFalso;
   RepositorioUsuario repositorioUsuarioFalso;
   RuletaFiguritas ruleta;
+  ServicioAlbum servicioAlbumFalso;
   ResultadoApertura dtoResultado;
 
   @BeforeEach
@@ -29,6 +30,7 @@ public class PaqueteServicioTest {
     repositorioFiguritaFalso = mock(RepositorioFigurita.class);
     repositorioInventarioFalso = mock(RepositorioInventario.class);
     repositorioUsuarioFalso = mock(RepositorioUsuario.class);
+    servicioAlbumFalso = mock(ServicioAlbum.class);
     ruleta = new RuletaFiguritas();
 
     paqueteServicio =
@@ -36,7 +38,8 @@ public class PaqueteServicioTest {
         repositorioFiguritaFalso,
         repositorioInventarioFalso,
         repositorioUsuarioFalso,
-        ruleta
+        ruleta,
+        servicioAlbumFalso
       );
 
     usuarioMock = new Usuario();

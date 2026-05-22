@@ -4,9 +4,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 
-import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
+import com.microsoft.playwright.BrowserType;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
 import com.tallerwebi.punta_a_punta.vistas.VistaAlbum;
@@ -31,11 +31,10 @@ public class VistaAlbumE2E {
   @BeforeAll
   static void abrirNavegador() {
     playwright = Playwright.create();
-    browser = playwright.chromium().launch(
-            new BrowserType.LaunchOptions()
-                    .setHeadless(false)
-                    .setSlowMo(500)
-    );
+    browser =
+      playwright
+        .chromium()
+        .launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(500));
   }
 
   @AfterAll
