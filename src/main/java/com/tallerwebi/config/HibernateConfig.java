@@ -1,9 +1,13 @@
 package com.tallerwebi.config;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -30,7 +34,7 @@ public class HibernateConfig {
     if (dbPassword == null) dbPassword = "user";
 
     String url = String.format(
-      "jdbc:mysql://%s:%s/%s?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true",
+      "jdbc:mysql://%s:%s/%s?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=UTF-8&connectionCollation=utf8mb4_unicode_ci",
       dbHost,
       dbPort,
       dbName
@@ -44,6 +48,29 @@ public class HibernateConfig {
   }
 
   @Bean
+  public String databaseCharsetInitializer(DataSource dataSource) throws SQLException {
+    String dbName = System.getenv("DB_NAME");
+
+    if (dbName == null) dbName = "tallerwebi";
+
+    try (
+      Connection connection = dataSource.getConnection();
+      Statement statement = connection.createStatement()
+    ) {
+      statement.execute("SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci");
+      statement.execute(
+        String.format(
+          "ALTER DATABASE `%s` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci",
+          dbName
+        )
+      );
+    }
+
+    return "utf8mb4";
+  }
+
+  @Bean
+  @DependsOn("databaseCharsetInitializer")
   public LocalSessionFactoryBean sessionFactory(DataSource dataSource) {
     LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
     sessionFactory.setDataSource(dataSource);
@@ -63,8 +90,8 @@ public class HibernateConfig {
     properties.setProperty("hibernate.show_sql", "true");
     properties.setProperty("hibernate.format_sql", "true");
     properties.setProperty("hibernate.hbm2ddl.auto", "create");
-    properties.setProperty("hibernate.connection.characterEncoding", "utf8");
-    properties.setProperty("hibernate.connection.CharSet", "utf8");
+    properties.setProperty("hibernate.connection.characterEncoding", "utf8mb4");
+    properties.setProperty("hibernate.connection.CharSet", "utf8mb4");
     properties.setProperty("hibernate.connection.useUnicode", "true");
     return properties;
   }

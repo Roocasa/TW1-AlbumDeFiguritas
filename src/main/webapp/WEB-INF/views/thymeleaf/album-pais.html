@@ -42,25 +42,76 @@
         class="country-detail-hero__badge"
         th:text="${codigoPais}"
         th:data-country-code="${codigoPais}"
+        th:data-flag-code="${codigoBandera}"
         th:title="${codigoPais}"
         th:aria-label="${codigoPais}">ARG</div>
       <div>
         <span class="album-hero__tag">Seleccion</span>
         <h1 id="titulo-pais" th:text="${nombrePais}">Argentina</h1>
+        <p class="country-detail-hero__subtitle">Pegá tus figuritas disponibles y completá esta selección.</p>
       </div>
     </section>
 
+    <nav class="country-page-nav" aria-label="Navegacion entre selecciones">
+      <a
+        th:if="${paisAnterior != null}"
+        th:href="@{/album/pais/{codigo}(codigo=${paisAnterior.codigo})}"
+        class="country-page-nav__link country-page-nav__link--prev">
+        <span>Anterior</span>
+        <strong th:text="${paisAnterior.nombre}">México</strong>
+      </a>
+      <span th:if="${paisAnterior == null}" class="country-page-nav__spacer"></span>
+      <a
+        th:if="${paisSiguiente != null}"
+        th:href="@{/album/pais/{codigo}(codigo=${paisSiguiente.codigo})}"
+        class="country-page-nav__link country-page-nav__link--next">
+        <span>Siguiente</span>
+        <strong th:text="${paisSiguiente.nombre}">Brasil</strong>
+      </a>
+      <span th:if="${paisSiguiente == null}" class="country-page-nav__spacer"></span>
+    </nav>
+
     <section class="country-sticker-section" aria-labelledby="titulo-figuritas">
       <h2 id="titulo-figuritas">Figuritas</h2>
+      <div class="alert alert-success" th:if="${mensajeExito}" th:text="${mensajeExito}"></div>
+      <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
       <div class="country-sticker-grid">
-        <article class="country-sticker" th:each="numero : ${figuritas}">
+        <article
+          class="country-sticker"
+          th:each="slot : ${albumSlots}"
+          th:classappend="${slot.pegada} ? ' country-sticker--filled' : (${slot.disponibleParaPegar} ? ' country-sticker--available' : '')">
           <div class="country-sticker__image">
-            <span th:text="${codigoPais}">ARG</span>
-            <strong th:text="${numero}">1</strong>
+            <div th:if="${slot.pegada}" class="country-sticker__visual-card">
+              <img
+                th:if="${slot.figurita.pais != null and slot.figurita.pais.codigoBandera != null}"
+                th:src="${'https://flagcdn.com/' + slot.figurita.pais.codigoBandera + '.svg'}"
+                alt="Bandera"
+                class="country-sticker__visual-flag">
+              <div class="country-sticker__visual-number" th:text="${slot.figurita.numeroDentroDelPais}">1</div>
+              <img
+                th:if="${slot.figurita.imagenUrl != null}"
+                th:src="${slot.figurita.imagenUrl}"
+                alt="Jugador"
+                class="country-sticker__player-image">
+              <div class="country-sticker__visual-content">
+                <strong th:text="${slot.figurita.nombreJugador}">Lionel Messi</strong>
+                <span th:text="${slot.figurita.club != null ? slot.figurita.club : nombrePais}">Inter Miami (USA 1)</span>
+              </div>
+            </div>
+            <span
+              th:if="${!slot.pegada}"
+              class="country-sticker__code"
+              th:text="${codigoPais}">ARG</span>
+            <strong th:if="${!slot.pegada}" th:text="${slot.figurita.numeroDentroDelPais}">1</strong>
+            <a
+              th:if="${slot.disponibleParaPegar}"
+              th:href="@{/album/pais/{codigo}/pegar/{idFigurita}(codigo=${codigoPais}, idFigurita=${slot.figurita.id})}"
+              class="country-sticker__plus"
+              aria-label="Pegar figurita en el album">+</a>
           </div>
           <div class="country-sticker__body">
-            <h3 th:text="'Figurita ' + ${numero}">Figurita 1</h3>
-            <p th:text="${nombrePais}">Argentina</p>
+            <h3 th:text="${slot.figurita.nombreJugador}">Figurita 1</h3>
+            <p th:text="${slot.pegada ? 'Pegada en el album' : (slot.disponibleParaPegar ? 'Disponible para pegar' : 'Te falta conseguirla')}">Argentina</p>
           </div>
         </article>
       </div>

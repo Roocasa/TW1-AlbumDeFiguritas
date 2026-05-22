@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository("repositorioInventario")
 public class RepositorioInventarioImpl implements RepositorioInventario {
 
+  private static final String CAMPO_PROPIETARIO = "propietario";
   private final SessionFactory sessionFactory;
 
   @Autowired
@@ -32,7 +33,7 @@ public class RepositorioInventarioImpl implements RepositorioInventario {
     return sessionFactory
       .getCurrentSession()
       .createCriteria(RelacionFiguritaUsuario.class)
-      .add(Restrictions.eq("propietario", usuario))
+      .add(Restrictions.eq(CAMPO_PROPIETARIO, usuario))
       .add(Restrictions.eq("estaPegadaEnElAlbum", false))
       .list();
   }
@@ -44,8 +45,18 @@ public class RepositorioInventarioImpl implements RepositorioInventario {
     return sessionFactory
       .getCurrentSession()
       .createCriteria(RelacionFiguritaUsuario.class)
-      .add(Restrictions.eq("propietario", usuario))
+      .add(Restrictions.eq(CAMPO_PROPIETARIO, usuario))
       .add(Restrictions.eq("estaPegadaEnElAlbum", true))
+      .list();
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public List<RelacionFiguritaUsuario> buscarTodasLasFiguritasPorUsuario(Usuario usuario) {
+    return sessionFactory
+      .getCurrentSession()
+      .createCriteria(RelacionFiguritaUsuario.class)
+      .add(Restrictions.eq(CAMPO_PROPIETARIO, usuario))
       .list();
   }
 
@@ -54,7 +65,7 @@ public class RepositorioInventarioImpl implements RepositorioInventario {
     return (RelacionFiguritaUsuario) sessionFactory
       .getCurrentSession()
       .createCriteria(RelacionFiguritaUsuario.class)
-      .createAlias("propietario", "p")
+      .createAlias(CAMPO_PROPIETARIO, "p")
       .createAlias("figurita", "f")
       .add(Restrictions.eq("p.id", idUsuario))
       .add(Restrictions.eq("f.id", idFigurita))
