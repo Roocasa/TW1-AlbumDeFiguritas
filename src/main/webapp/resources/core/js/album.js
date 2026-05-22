@@ -55,8 +55,8 @@ const normalizeText = (text) =>
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "");
 
-const buildFlagImage = (countryCode) => {
-  const flagCode = countryFlags[countryCode];
+const buildFlagImage = (countryCode, flagCodeFromData) => {
+  const flagCode = flagCodeFromData || countryFlags[countryCode];
 
   if (!flagCode) {
     return null;
@@ -68,8 +68,8 @@ const buildFlagImage = (countryCode) => {
   return image;
 };
 
-const replaceBadgeWithFlag = (badge, countryCode) => {
-  const flagImage = buildFlagImage(countryCode);
+const replaceBadgeWithFlag = (badge, countryCode, flagCode) => {
+  const flagImage = buildFlagImage(countryCode, flagCode);
 
   badge.title = countryCode;
   badge.setAttribute("aria-label", countryCode);
@@ -87,7 +87,7 @@ const initializeCountryCards = () => {
     const code = codeBadge.textContent.trim();
 
     card.dataset.countryCode = code;
-    replaceBadgeWithFlag(codeBadge, code);
+    replaceBadgeWithFlag(codeBadge, code, codeBadge.dataset.flagCode);
 
     if (countryUrl) {
       const url = `${countryUrl}${code}`;

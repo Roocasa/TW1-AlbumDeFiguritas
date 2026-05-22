@@ -1,6 +1,57 @@
 INSERT INTO Usuario (id, email, password, paquetes, paquetesPremium, monedas, activo, rol, pais)
 VALUES (1, 'eze@test.com', '123456789', 200, 200, 100, true, 'USER', 'Argentina');
 
+INSERT INTO Pais (id, codigo, nombre, grupo_album, orden_album, codigo_bandera)
+VALUES
+    (1, 'MEX', 'Mexico', 'A', 1, 'mx'),
+    (2, 'CZE', 'Republica Checa', 'A', 2, 'cz'),
+    (3, 'RSA', 'Sudafrica', 'A', 3, 'za'),
+    (4, 'KOR', 'Corea del Sur', 'A', 4, 'kr'),
+    (5, 'CAN', 'Canada', 'B', 5, 'ca'),
+    (6, 'BIH', 'Bosnia y Herzegovina', 'B', 6, 'ba'),
+    (7, 'QAT', 'Qatar', 'B', 7, 'qa'),
+    (8, 'SUI', 'Suiza', 'B', 8, 'ch'),
+    (9, 'BRA', 'Brasil', 'C', 9, 'br'),
+    (10, 'HAI', 'Haiti', 'C', 10, 'ht'),
+    (11, 'MAR', 'Marruecos', 'C', 11, 'ma'),
+    (12, 'SCO', 'Escocia', 'C', 12, 'gb-sct'),
+    (13, 'USA', 'Estados Unidos', 'D', 13, 'us'),
+    (14, 'AUS', 'Australia', 'D', 14, 'au'),
+    (15, 'PAR', 'Paraguay', 'D', 15, 'py'),
+    (16, 'TUR', 'Turquia', 'D', 16, 'tr'),
+    (17, 'CUW', 'Curazao', 'E', 17, 'cw'),
+    (18, 'ECU', 'Ecuador', 'E', 18, 'ec'),
+    (19, 'GER', 'Alemania', 'E', 19, 'de'),
+    (20, 'CIV', 'Costa de Marfil', 'E', 20, 'ci'),
+    (21, 'NED', 'Paises Bajos', 'F', 21, 'nl'),
+    (22, 'JPN', 'Japon', 'F', 22, 'jp'),
+    (23, 'SWE', 'Suecia', 'F', 23, 'se'),
+    (24, 'TUN', 'Tunez', 'F', 24, 'tn'),
+    (25, 'BEL', 'Belgica', 'G', 25, 'be'),
+    (26, 'EGY', 'Egipto', 'G', 26, 'eg'),
+    (27, 'IRN', 'Iran', 'G', 27, 'ir'),
+    (28, 'NZL', 'Nueva Zelanda', 'G', 28, 'nz'),
+    (29, 'CPV', 'Cabo Verde', 'H', 29, 'cv'),
+    (30, 'KSA', 'Arabia Saudita', 'H', 30, 'sa'),
+    (31, 'ESP', 'Espana', 'H', 31, 'es'),
+    (32, 'URU', 'Uruguay', 'H', 32, 'uy'),
+    (33, 'FRA', 'Francia', 'I', 33, 'fr'),
+    (34, 'NOR', 'Noruega', 'I', 34, 'no'),
+    (35, 'SEN', 'Senegal', 'I', 35, 'sn'),
+    (36, 'IRQ', 'Irak', 'I', 36, 'iq'),
+    (37, 'ALG', 'Argelia', 'J', 37, 'dz'),
+    (38, 'ARG', 'Argentina', 'J', 38, 'ar'),
+    (39, 'AUT', 'Austria', 'J', 39, 'at'),
+    (40, 'JOR', 'Jordania', 'J', 40, 'jo'),
+    (41, 'COL', 'Colombia', 'K', 41, 'co'),
+    (42, 'JAM', 'Jamaica', 'K', 42, 'jm'),
+    (43, 'POR', 'Portugal', 'K', 43, 'pt'),
+    (44, 'UZB', 'Uzbekistan', 'K', 44, 'uz'),
+    (45, 'CRO', 'Croacia', 'L', 45, 'hr'),
+    (46, 'ENG', 'Inglaterra', 'L', 46, 'gb-eng'),
+    (47, 'GHA', 'Ghana', 'L', 47, 'gh'),
+    (48, 'PAN', 'Panama', 'L', 48, 'pa');
+
 
 INSERT INTO Figurita (id, nombre, seleccion, rareza, score, imagen_url, bandera_url, ordenAlbum)
 VALUES
