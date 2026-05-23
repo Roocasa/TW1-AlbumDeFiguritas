@@ -23,6 +23,9 @@ public class Album {
   @Column(name = "figuritas_faltantes")
   private Integer figuritasFaltantes = 0;
 
+  @Column(name = "figuritas_repetidas")
+  private Integer figuritasRepetidas = 0;
+
   public Album() {}
 
   public Album(Usuario usuario) {
@@ -67,5 +70,13 @@ public class Album {
 
   public void setFiguritasFaltantes(Integer figuritasFaltantes) {
     this.figuritasFaltantes = figuritasFaltantes;
+  }
+
+  public Integer getFiguritasRepetidas() {
+    return figuritasRepetidas;
+  }
+
+  public void setFiguritasRepetidas(Integer figuritasRepetidas) {
+    this.figuritasRepetidas = figuritasRepetidas;
   }
 }
