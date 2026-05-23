@@ -54,6 +54,10 @@
             <strong th:text="${album.figuritasFaltantes}">576</strong>
             <span>Faltan</span>
           </article>
+          <article>
+            <strong th:text="${album.figuritasRepetidas}">0</strong>
+            <span>Repetidas</span>
+          </article>
         </div>
       </div>
       <img
@@ -87,7 +91,6 @@
           autocomplete="off"
           th:value="${paisBuscado}">
       </label>
-      <button type="submit">Filtrar</button>
       <a id="album-clear-filters" class="album-filters__clear" th:href="@{/album}">Limpiar</a>
     </form>
 
