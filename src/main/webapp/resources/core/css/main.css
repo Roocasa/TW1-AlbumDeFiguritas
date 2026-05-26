@@ -309,6 +309,32 @@ body {
   line-height: 1.5;
 }
 
+.home-panel__countdown {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 16px;
+  background: rgba(15, 34, 66, 0.08);
+}
+
+.home-panel__countdown span {
+  color: #5d6d86;
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-panel__countdown-time {
+  margin: 0;
+  color: #0f2242;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: 0.06em;
+}
+
 .home-panel strong {
   display: block;
   margin-top: 0.25rem;
@@ -627,6 +653,7 @@ body {
   grid-template-columns: 1fr;
   gap: 1.4rem;
   align-items: start;
+  justify-items: center;
   padding: 1.5rem;
   border: 1px solid rgba(255, 255, 255, 0.58);
   border-radius: 22px;
@@ -640,6 +667,7 @@ body {
 
 .profile-chart-card__copy {
   max-width: 100%;
+  width: 100%;
 }
 
 .profile-chart-card__copy h2 {
@@ -662,10 +690,17 @@ body {
   color: #0f2242;
 }
 
-.profile-chart {
+.profile-chart-shell {
   width: min(100%, 320px);
   height: 320px;
   margin: 0 auto;
+  position: relative;
+}
+
+.profile-chart {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .profile-button {
@@ -1226,7 +1261,7 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .profile-chart {
+  .profile-chart-shell {
     width: min(100%, 280px);
     height: 280px;
   }

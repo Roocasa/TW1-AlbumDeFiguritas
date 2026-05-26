@@ -107,11 +107,13 @@
             <strong th:text="${album.totalFiguritas}">0</strong>.
           </p>
         </div>
-        <canvas
-          id="album-progress-chart"
-          class="profile-chart"
-          th:attr="data-pegadas=${album.figuritasPegadas},data-faltantes=${album.figuritasFaltantes}">
-        </canvas>
+        <div class="profile-chart-shell">
+          <canvas
+            id="album-progress-chart"
+            class="profile-chart"
+            th:attr="data-pegadas=${album.figuritasPegadas},data-faltantes=${album.figuritasFaltantes}">
+          </canvas>
+        </div>
       </article>
 
       <article class="profile-chart-card">
@@ -120,11 +122,13 @@
           <h2>Estado de tus figuritas</h2>
           <p>Compara lo que ya pegaste con lo que te queda disponible y tus repetidas.</p>
         </div>
-        <canvas
-          id="collection-status-chart"
-          class="profile-chart"
-          th:attr="data-pegadas=${album.figuritasPegadas},data-para-pegar=${figuritasParaPegar},data-repetidas=${album.figuritasRepetidas}">
-        </canvas>
+        <div class="profile-chart-shell">
+          <canvas
+            id="collection-status-chart"
+            class="profile-chart"
+            th:attr="data-pegadas=${album.figuritasPegadas},data-para-pegar=${figuritasParaPegar},data-repetidas=${album.figuritasRepetidas}">
+          </canvas>
+        </div>
       </article>
     </section>
   </main>

@@ -4,6 +4,8 @@ import com.tallerwebi.dominio.ServicioLogin;
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +99,9 @@ public class ControladorLogin {
   }
 
   public ModelAndView irAHome() {
-    return new ModelAndView("home");
+    ModelAndView mav = new ModelAndView("home");
+    mav.addObject("proximoPaqueteDiarioEpochMs", calcularProximoPaqueteDiarioEpochMs());
+    return mav;
   }
 
   @RequestMapping(path = "/home", method = RequestMethod.GET)
@@ -118,11 +122,22 @@ public class ControladorLogin {
       session.setAttribute("USUARIO", usuarioActualizado);
     }
 
-    return new ModelAndView("home");
+    ModelAndView mav = new ModelAndView("home");
+    mav.addObject("proximoPaqueteDiarioEpochMs", calcularProximoPaqueteDiarioEpochMs());
+    return mav;
   }
 
   @RequestMapping(path = "/", method = RequestMethod.GET)
   public ModelAndView inicio() {
     return new ModelAndView("redirect:/login");
+  }
+
+  private long calcularProximoPaqueteDiarioEpochMs() {
+    return LocalDate
+      .now()
+      .plusDays(1)
+      .atStartOfDay(ZoneId.systemDefault())
+      .toInstant()
+      .toEpochMilli();
   }
 }

@@ -2,6 +2,7 @@ package com.tallerwebi.presentacion;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.mockito.Mockito.*;
 
@@ -146,6 +147,20 @@ public class ControladorLoginTest {
 
     // validacion
     assertThat(modelAndView.getViewName(), equalToIgnoringCase("home"));
+    assertThat(modelAndView.getModel().get("proximoPaqueteDiarioEpochMs"), notNullValue());
+  }
+
+  @Test
+  public void irAHomeConUsuarioEnSesionDeberiaActualizarUsuarioYEnviarCuentaAtras() {
+    when(usuarioMock.getId()).thenReturn(1L);
+    when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+    when(servicioPerfilMock.otorgarPaquetesDiariosSiCorresponde(1L)).thenReturn(usuarioMock);
+
+    ModelAndView modelAndView = controladorLogin.irAHome(sessionMock);
+
+    assertThat(modelAndView.getViewName(), equalToIgnoringCase("home"));
+    assertThat(modelAndView.getModel().get("proximoPaqueteDiarioEpochMs"), notNullValue());
+    verify(sessionMock, times(1)).setAttribute("USUARIO", usuarioMock);
   }
 
   @Test
