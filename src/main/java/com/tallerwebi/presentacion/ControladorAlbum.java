@@ -1,5 +1,6 @@
 package com.tallerwebi.presentacion;
 
+import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.album.AlbumSlotDTO;
 import com.tallerwebi.dominio.album.Pais;
@@ -27,6 +28,7 @@ public class ControladorAlbum {
   private final ServicioPais servicioPais;
   private final ServicioAlbum servicioAlbum;
   private final PaqueteServicio paqueteServicio;
+  private final ServicioPerfil servicioPerfil;
 
   private static final String ATRIBUTO_USUARIO = "USUARIO";
 
@@ -34,11 +36,21 @@ public class ControladorAlbum {
   public ControladorAlbum(
     ServicioPais servicioPais,
     ServicioAlbum servicioAlbum,
-    PaqueteServicio paqueteServicio
+    PaqueteServicio paqueteServicio,
+    ServicioPerfil servicioPerfil
   ) {
     this.servicioPais = servicioPais;
     this.servicioAlbum = servicioAlbum;
     this.paqueteServicio = paqueteServicio;
+    this.servicioPerfil = servicioPerfil;
+  }
+
+  public ControladorAlbum(
+    ServicioPais servicioPais,
+    ServicioAlbum servicioAlbum,
+    PaqueteServicio paqueteServicio
+  ) {
+    this(servicioPais, servicioAlbum, paqueteServicio, null);
   }
 
   @RequestMapping(path = "/album", method = RequestMethod.GET)
@@ -51,6 +63,11 @@ public class ControladorAlbum {
 
     if (usuario == null) {
       return new ModelAndView("redirect:/login");
+    }
+
+    if (servicioPerfil != null) {
+      usuario = servicioPerfil.otorgarPaquetesDiariosSiCorresponde(usuario.getId());
+      session.setAttribute(ATRIBUTO_USUARIO, usuario);
     }
 
     List<Pais> paises = servicioPais.buscarPaises(grupo, pais);
@@ -75,6 +92,11 @@ public class ControladorAlbum {
 
     if (usuario == null) {
       return new ModelAndView("redirect:/login");
+    }
+
+    if (servicioPerfil != null) {
+      usuario = servicioPerfil.otorgarPaquetesDiariosSiCorresponde(usuario.getId());
+      session.setAttribute(ATRIBUTO_USUARIO, usuario);
     }
 
     Pais pais = servicioPais.buscarPorCodigo(codigo);
@@ -114,6 +136,11 @@ public class ControladorAlbum {
 
     if (usuario == null) {
       return new ModelAndView("redirect:/login");
+    }
+
+    if (servicioPerfil != null) {
+      usuario = servicioPerfil.otorgarPaquetesDiariosSiCorresponde(usuario.getId());
+      session.setAttribute(ATRIBUTO_USUARIO, usuario);
     }
 
     try {

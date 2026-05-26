@@ -2,10 +2,13 @@ package com.tallerwebi.dominio.album;
 
 import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.Usuario;
-// import com.tallerwebi.dominio.excepciones.SinPaquetesException;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,81 +17,50 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class PaqueteServicioImpl implements PaqueteServicio {
 
+  private static final int FIGURITAS_POR_PAQUETE = 5;
+
   private final RepositorioFigurita repositorioFigurita;
   private final RepositorioInventario repositorioInventario;
   private final RepositorioUsuario repositorioUsuario;
-  private final RuletaFiguritas ruleta;
   private final ServicioAlbum servicioAlbum;
-
-  private static final int FIGURITAS_POR_PAQUETE = 7;
 
   @Autowired
   public PaqueteServicioImpl(
     RepositorioFigurita repositorioFigurita,
     RepositorioInventario repositorioInventario,
     RepositorioUsuario repositorioUsuario,
-    RuletaFiguritas ruleta,
     ServicioAlbum servicioAlbum
   ) {
     this.repositorioFigurita = repositorioFigurita;
     this.repositorioInventario = repositorioInventario;
     this.repositorioUsuario = repositorioUsuario;
-    this.ruleta = ruleta;
     this.servicioAlbum = servicioAlbum;
   }
 
   @Override
-  public ResultadoApertura abrirPaquete(Long idUsuario, boolean esPremium)
-    throws PaquetesInsuficientesException {
+  public ResultadoApertura abrirPaquete(Long idUsuario) throws PaquetesInsuficientesException {
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
 
-    if (esPremium) { // se resta un paquete o se lanza una exception si no hay paquetes disponibles
-      if (usuario.getPaquetesPremiumDisponibles() <= 0) {
-        throw new PaquetesInsuficientesException("No tenés paquetes Premium disponibles.");
-      }
-      usuario.setPaquetesPremiumDisponibles(usuario.getPaquetesPremiumDisponibles() - 1);
-    } else {
-      if (usuario.getPaquetesDisponibles() <= 0) {
-        throw new PaquetesInsuficientesException("No tenés paquetes disponibles.");
-      }
-      usuario.setPaquetesDisponibles(usuario.getPaquetesDisponibles() - 1);
+    if (usuario.getPaquetesDisponibles() <= 0) {
+      throw new PaquetesInsuficientesException("No tenes paquetes disponibles.");
     }
 
-    repositorioUsuario.modificar(usuario); // se actualiza el usuario en el repositorio con la resta del correspondiente paquete abierto
+    usuario.setPaquetesDisponibles(usuario.getPaquetesDisponibles() - 1);
+    repositorioUsuario.modificar(usuario);
 
-    List<Rareza> rarezasObtenidas = obtenerRarezas(esPremium); // obtiene una lista con 7 rarezas (si es premium el porcentaje de rarezas mejores aumenta)
-    List<Figurita> figuritasDelPaquete = new ArrayList<>();
+    List<Figurita> figuritasDelPaquete = repositorioFigurita.buscarFiguritasAleatorias(
+      FIGURITAS_POR_PAQUETE
+    );
 
-    // Buscamos en el catálogo segun las rarezas obtenidas
-    for (Rareza r : rarezasObtenidas) {
-      Figurita figuritaObtenida = repositorioFigurita.buscarFiguritaAleatoriaPorRareza(r);
-      figuritasDelPaquete.add(figuritaObtenida);
-
+    for (Figurita figuritaObtenida : figuritasDelPaquete) {
       RelacionFiguritaUsuario nuevaRelacion = new RelacionFiguritaUsuario(
         usuario,
         figuritaObtenida
       );
-
       repositorioInventario.guardar(nuevaRelacion);
     }
 
     return new ResultadoApertura(figuritasDelPaquete, usuario);
-  }
-
-  private List<Rareza> obtenerRarezas(boolean esPremium) {
-    List<Rareza> rarezasObtenidas = new ArrayList<>();
-    int puntosDeRareza;
-
-    for (int i = 0; i < FIGURITAS_POR_PAQUETE; i++) {
-      puntosDeRareza = ThreadLocalRandom.current().nextInt(1, 101);
-
-      Rareza rarezaActual = esPremium
-        ? this.ruleta.calcularRarezaPremium(puntosDeRareza)
-        : this.ruleta.calcularRareza(puntosDeRareza);
-
-      rarezasObtenidas.add(rarezaActual);
-    }
-    return rarezasObtenidas;
   }
 
   @Override
@@ -99,16 +71,13 @@ public class PaqueteServicioImpl implements PaqueteServicio {
     );
 
     if (relacion == null) {
-      //  El usuario no la tiene en su inventario
-      throw new RuntimeException("No tenés esta figurita en tu inventario.");
+      throw new RuntimeException("No tenes esta figurita en tu inventario.");
     }
 
     if (relacion.isEstaPegadaEnElAlbum()) {
-      // La tiene, pero ya la había pegado
-      throw new RuntimeException("Esta figurita ya está pegada en tu álbum.");
+      throw new RuntimeException("Esta figurita ya esta pegada en tu album.");
     }
 
-    // Si pasamos los dos controles, significa que la tiene y no está pegada
     relacion.setEstaPegadaEnElAlbum(true);
     repositorioInventario.modificar(relacion);
     servicioAlbum.actualizarEstadisticas(idUsuario);

@@ -35,4 +35,16 @@ public class InventarioItemDTO {
   public void setSePuedePegar(boolean sePuedePegar) {
     this.sePuedePegar = sePuedePegar;
   }
+
+  public int getCantidadRepetidas() {
+    if (cantidad <= 0) {
+      return 0;
+    }
+
+    return sePuedePegar ? Math.max(cantidad - 1, 0) : cantidad;
+  }
+
+  public boolean isRepetida() {
+    return getCantidadRepetidas() > 0;
+  }
 }

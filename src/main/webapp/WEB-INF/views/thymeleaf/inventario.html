@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Mi Inventario | Taller Web I</title>
+    <title th:text="${soloRepetidas} ? 'Mis repetidas | Taller Web I' : 'Mi inventario | Taller Web I'">Mi inventario | Taller Web I</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,25 +34,35 @@
 <main class="home-layout">
     <section class="home-grid sobres-contenedor mb-5">
         <div class="home-panel sobres">
-            <img src="/spring/img/sobres/SOBRE_REGULAR.png" alt="Sobre Común">
+            <img src="/spring/img/sobres/SOBRE_REGULAR.png" alt="Sobre común">
             <div class="sobre-badge" th:text="${session.USUARIO != null ? session.USUARIO.paquetesDisponibles : 0}">0</div>
             <div class="sobre-contenido">
-                <h2>Sobre Común</h2>
-                <a th:href="@{/abrir-paquete(premium=false)}" class="btn">Abrir Sobre</a>
-            </div>
-        </div>
-
-        <div class="home-panel sobres">
-            <img src="/spring/img/sobres/SOBRE_GOLD.png" alt="Sobre Premium">
-            <div class="sobre-badge" th:text="${session.USUARIO != null ? session.USUARIO.paquetesPremiumDisponibles : 0}">0</div>
-            <div class="sobre-contenido">
-                <h2>Sobre Premium</h2>
-                <a th:href="@{/abrir-paquete(premium=true)}" class="btn btn-premium">Abrir Premium</a>
+                <h2>Sobre común</h2>
+                <a th:href="@{/abrir-paquete}" class="btn">Abrir sobre</a>
             </div>
         </div>
     </section>
 
-    <h2 class="text-white mb-4 text-center" style="font-family: 'Bebas Neue'; letter-spacing: 2px;">Mis Figuritas</h2>
+    <section class="inventory-heading text-center text-white mb-4">
+        <h2
+            class="mb-2"
+            style="font-family: 'Bebas Neue'; letter-spacing: 2px;"
+            th:text="${soloRepetidas} ? 'Mis repetidas' : 'Mis figuritas'">
+            Mis figuritas
+        </h2>
+        <p
+            class="mb-0"
+            th:text="${soloRepetidas} ? 'Acá ves solo las figuritas repetidas para organizar tus intercambios.' : 'Ordená tu inventario y pegá las que todavía te faltan.'">
+            Ordená tu inventario y pegá las que todavía te faltan.
+        </p>
+        <a
+            th:if="${soloRepetidas}"
+            th:href="@{/inventario}"
+            class="profile-button mt-3"
+            style="min-width: 220px;">
+            Ver inventario completo
+        </a>
+    </section>
 
     <div class="inventario-controles">
         <div class="d-flex align-items-center gap-2">
@@ -69,7 +79,9 @@
     </div>
 
     <div th:if="${figuritas == null or figuritas.empty}" class="alert alert-info text-center bg-dark text-white border-secondary">
-        Aún no tenés figuritas ¡Abrí un sobre para empezar!
+        <span th:text="${soloRepetidas} ? 'Todavía no tenés repetidas. Abrí más sobres para empezar a intercambiar.' : 'Todavía no tenés figuritas. Abrí un sobre para empezar.'">
+            Todavía no tenés figuritas. Abrí un sobre para empezar.
+        </span>
     </div>
 
     <div id="figuritas-grid" class="d-flex flex-wrap justify-content-center gap-3 pb-5">
@@ -82,15 +94,14 @@
              th:data-score="${item.figurita.score}"
              th:data-numero="${item.figurita.ordenAlbum}"
              th:data-nombre="${item.figurita.nombreJugador != null ? item.figurita.nombreJugador.toLowerCase() : ''}"
-             th:data-rareza="${item.figurita.rareza.name()}"
              th:data-pegable="${item.sePuedePegar}">
 
-            <div th:if="${item.cantidad > 1}"
+            <div th:if="${item.cantidadRepetidas > 0}"
                  class="figurita-card__duplicates">
-                <span th:text="${'x' + item.cantidad}"></span>
+                <span th:text="${'x' + item.cantidadRepetidas}"></span>
             </div>
 
-            <img th:src="@{'/img/fondos_figs/FONDO_FIG_' + ${item.figurita.rareza.name()} + '.png'}"
+            <img th:src="@{/img/fondos_figs/FONDO_FIG_COMUN.png}"
                  alt="Fondo"
                  class="figurita-card__background">
 
@@ -129,7 +140,7 @@
 
             <div class="modal-header border-0 text-center d-flex justify-content-center" style="background: linear-gradient(135deg, #1f6fd1 0%, #144a8a 100%);">
                 <h4 class="modal-title text-white w-100 mt-2" style="font-family: 'Bebas Neue'; font-size: 2.5rem; letter-spacing: 2px;">
-                    ¡SOBRE ABIERTO!
+                    SOBRE ABIERTO
                 </h4>
                 <a th:href="@{/inventario}" class="btn-close btn-close-white position-absolute" style="right: 1.5rem; top: 1.5rem;"></a>
             </div>
@@ -141,7 +152,7 @@
                          class="pack-result-card">
 
                         <div class="figurita-card shadow-lg figurita-card--pack">
-                            <img th:src="@{'/img/fondos_figs/FONDO_FIG_' + ${fig.rareza.name()} + '.png'}"
+                            <img th:src="@{/img/fondos_figs/FONDO_FIG_COMUN.png}"
                                  alt="Fondo"
                                  class="figurita-card__background">
 

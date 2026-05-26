@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio.album;
 
+import com.tallerwebi.dominio.TextoCorregido;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -61,7 +62,7 @@ public class Pais {
   }
 
   public String getNombre() {
-    return nombre;
+    return TextoCorregido.normalizar(nombre);
   }
 
   public void setNombre(String nombre) {

@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio.album;
 
+import com.tallerwebi.dominio.TextoCorregido;
 import javax.persistence.*;
 
 @Entity
@@ -76,7 +77,7 @@ public class Figurita {
   }
 
   public String getNombreJugador() {
-    return nombreJugador;
+    return TextoCorregido.normalizar(nombreJugador);
   }
 
   public void setNombreJugador(String nombreJugador) {
@@ -92,7 +93,7 @@ public class Figurita {
   }
 
   public String getNombre() {
-    return nombreJugador;
+    return getNombreJugador();
   }
 
   public void setNombre(String nombre) {
@@ -143,7 +144,7 @@ public class Figurita {
   }
 
   public String getClub() {
-    return club;
+    return TextoCorregido.normalizar(club);
   }
 
   public void setClub(String club) {

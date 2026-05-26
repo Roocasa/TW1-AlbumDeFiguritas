@@ -1,7 +1,6 @@
 package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.album.Figurita;
-import com.tallerwebi.dominio.album.Rareza;
 import com.tallerwebi.dominio.album.RepositorioFigurita;
 import java.util.List;
 import org.hibernate.SessionFactory;
@@ -19,15 +18,11 @@ public class RepositorioFiguritaImpl implements RepositorioFigurita {
   }
 
   @Override
-  public Figurita buscarFiguritaAleatoriaPorRareza(Rareza rareza) {
-    String hql = "FROM Figurita f WHERE f.rareza = :laRareza ORDER BY RAND()";
+  @SuppressWarnings("unchecked")
+  public List<Figurita> buscarFiguritasAleatorias(int cantidad) {
+    String hql = "FROM Figurita f ORDER BY RAND()";
 
-    return (Figurita) sessionFactory
-      .getCurrentSession()
-      .createQuery(hql)
-      .setParameter("laRareza", rareza)
-      .setMaxResults(1)
-      .uniqueResult();
+    return sessionFactory.getCurrentSession().createQuery(hql).setMaxResults(cantidad).list();
   }
 
   @Override

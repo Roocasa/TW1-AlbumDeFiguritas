@@ -1,6 +1,7 @@
 package com.tallerwebi.dominio;
 
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
+import java.time.LocalDate;
 import java.util.Locale;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class ServicioLoginImpl implements ServicioLogin {
 
+  private static final int PAQUETES_DE_BIENVENIDA = 5;
   private RepositorioUsuario repositorioUsuario;
 
   @Autowired
@@ -41,6 +43,8 @@ public class ServicioLoginImpl implements ServicioLogin {
     }
 
     usuario.setActivo(Boolean.TRUE);
+    usuario.sumarPaquetesComunes(PAQUETES_DE_BIENVENIDA);
+    usuario.setFechaUltimoRegaloDiario(LocalDate.now());
 
     repositorioUsuario.guardar(usuario);
   }

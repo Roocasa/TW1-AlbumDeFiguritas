@@ -1,5 +1,7 @@
 package com.tallerwebi.dominio;
 
+import java.time.LocalDate;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +23,9 @@ public class Usuario {
   private String password;
   private String rol;
   private Boolean activo = false;
+
+  @Column(name = "fecha_ultimo_regalo_diario")
+  private LocalDate fechaUltimoRegaloDiario;
 
   public Usuario() {}
 
@@ -106,5 +111,13 @@ public class Usuario {
 
   public void setMonedas(int monedas) {
     this.monedas = monedas;
+  }
+
+  public LocalDate getFechaUltimoRegaloDiario() {
+    return fechaUltimoRegaloDiario;
+  }
+
+  public void setFechaUltimoRegaloDiario(LocalDate fechaUltimoRegaloDiario) {
+    this.fechaUltimoRegaloDiario = fechaUltimoRegaloDiario;
   }
 }

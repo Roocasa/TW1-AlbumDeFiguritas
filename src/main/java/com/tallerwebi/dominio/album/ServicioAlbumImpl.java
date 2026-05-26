@@ -24,10 +24,11 @@ public class ServicioAlbumImpl implements ServicioAlbum {
 
   @Autowired
   public ServicioAlbumImpl(
-      RepositorioAlbum repositorioAlbum,
-      RepositorioUsuario repositorioUsuario,
-      RepositorioInventario repositorioInventario,
-      RepositorioFigurita repositorioFigurita) {
+    RepositorioAlbum repositorioAlbum,
+    RepositorioUsuario repositorioUsuario,
+    RepositorioInventario repositorioInventario,
+    RepositorioFigurita repositorioFigurita
+  ) {
     this.repositorioAlbum = repositorioAlbum;
     this.repositorioUsuario = repositorioUsuario;
     this.repositorioInventario = repositorioInventario;
@@ -42,16 +43,17 @@ public class ServicioAlbumImpl implements ServicioAlbum {
 
   @Override
   public void actualizarEstadisticas(Long idUsuario) {
-
     Album album = obtenerOCrearAlbum(idUsuario);
 
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
 
     int total = (int) repositorioFigurita.contarFiguritas();
 
-    List<RelacionFiguritaUsuario> pegadasRelaciones = repositorioInventario.buscarFiguritasPegadasPorUsuario(usuario);
+    List<RelacionFiguritaUsuario> pegadasRelaciones =
+      repositorioInventario.buscarFiguritasPegadasPorUsuario(usuario);
 
-    List<RelacionFiguritaUsuario> inventario = repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
+    List<RelacionFiguritaUsuario> inventario =
+      repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
 
     int pegadas = pegadasRelaciones.size();
 
@@ -76,8 +78,10 @@ public class ServicioAlbumImpl implements ServicioAlbum {
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
     List<Figurita> figuritasDelPais = repositorioFigurita.buscarPorPaisCodigoOrdenadas(codigoPais);
     List<RelacionFiguritaUsuario> pegadas = repositorioInventario.buscarFiguritasPegadasPorUsuario(
-        usuario);
-    List<RelacionFiguritaUsuario> disponibles = repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
+      usuario
+    );
+    List<RelacionFiguritaUsuario> disponibles =
+      repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
 
     Set<Long> idsPegadas = extraerIdsFigurita(pegadas);
     Set<Long> idsDisponibles = extraerIdsFigurita(disponibles);
@@ -96,7 +100,8 @@ public class ServicioAlbumImpl implements ServicioAlbum {
   public Map<String, Integer> obtenerPegadasPorPais(Long idUsuario) {
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
     List<RelacionFiguritaUsuario> pegadas = repositorioInventario.buscarFiguritasPegadasPorUsuario(
-        usuario);
+      usuario
+    );
     Map<String, Integer> pegadasPorPais = new HashMap<>();
 
     for (RelacionFiguritaUsuario relacion : pegadas) {
@@ -112,8 +117,10 @@ public class ServicioAlbumImpl implements ServicioAlbum {
   public Map<String, Integer> obtenerPendientesPorPais(Long idUsuario) {
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
     List<RelacionFiguritaUsuario> pegadas = repositorioInventario.buscarFiguritasPegadasPorUsuario(
-        usuario);
-    List<RelacionFiguritaUsuario> disponibles = repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
+      usuario
+    );
+    List<RelacionFiguritaUsuario> disponibles =
+      repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
 
     Set<Long> idsPegadas = extraerIdsFigurita(pegadas);
     Map<String, Integer> pendientesPorPais = new HashMap<>();
@@ -158,29 +165,25 @@ public class ServicioAlbumImpl implements ServicioAlbum {
   }
 
   private boolean deberiaContarseComoPendiente(
-      Long figuritaId,
-      Set<Long> idsPegadas,
-      Set<Long> figuritasYaContadas) {
+    Long figuritaId,
+    Set<Long> idsPegadas,
+    Set<Long> figuritasYaContadas
+  ) {
     return !idsPegadas.contains(figuritaId) && !figuritasYaContadas.contains(figuritaId);
   }
 
   private int calcularFiguritasRepetidas(List<RelacionFiguritaUsuario> inventario) {
-
     Map<Long, Integer> contador = new HashMap<>();
 
     for (RelacionFiguritaUsuario relacion : inventario) {
-
       Long idFigurita = relacion.getFigurita().getId();
 
-      contador.put(
-          idFigurita,
-          contador.getOrDefault(idFigurita, 0) + 1);
+      contador.put(idFigurita, contador.getOrDefault(idFigurita, 0) + 1);
     }
 
     int repetidas = 0;
 
     for (Integer cantidad : contador.values()) {
-
       if (cantidad > MINIMO_REPETIDAS) {
         repetidas += cantidad - MINIMO_REPETIDAS;
       }

@@ -2,6 +2,7 @@ package com.tallerwebi.dominio;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -51,6 +52,8 @@ public class ServicioLoginTest {
     verify(this.repositorioUsuarioMock, times(1)).guardar(usuario);
     assertThat(usuario.getRol(), equalTo("USER"));
     assertThat(usuario.getActivo(), equalTo(true));
+    assertThat(usuario.getPaquetesDisponibles(), equalTo(5));
+    assertThat(usuario.getFechaUltimoRegaloDiario(), notNullValue());
   }
 
   @Test

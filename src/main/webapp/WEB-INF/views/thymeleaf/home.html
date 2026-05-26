@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Album 2026 | Taller Web I</title>
+  <title>Álbum 2026 | Taller Web I</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,45 +35,26 @@
 
   <main class="home-layout">
     <section class="home-grid">
-      <a class="home-panel home-panel--scan" href="#">
-        <span class="home-panel__tag">Contenido</span>
-        <h2>Escanear Sponsors</h2>
-        <p>Desbloquea desafios, beneficios y activaciones del album.</p>
-      </a>
-
       <a class="home-panel home-panel--album" th:href="@{/album}" href="/album">
         <img
           class="home-panel__album-image"
           th:src="@{/img/Album.jpg}"
           src="/img/Album.jpg"
-          alt="Tapa del album 2026" />
+          alt="Tapa del álbum 2026" />
       </a>
 
-      <a class="home-panel home-panel--promo" href="#">
-        <span class="home-panel__tag">Beneficios</span>
-        <h2>Codigos Promo</h2>
-        <p>Canjea packs especiales y recompensas exclusivas.</p>
-      </a>
-
-      <a class="home-panel home-panel--repe" href="#">
+      <a class="home-panel home-panel--repe" th:href="@{/inventario(soloRepetidas=true)}">
         <span class="home-panel__tag">Intercambio</span>
         <h2>Mis Repetidas</h2>
-        <p>Ordena tu inventario y prepara tus swaps.</p>
+        <p>Entrá directo a las figuritas que ya podés cambiar.</p>
       </a>
 
       <a class="home-panel home-panel--packs" th:href="@{/inventario}">
         <span class="home-panel__tag">Packs</span>
         <h2>Abrir Sobres</h2>
-        <p>Entra directo a tus sobres y descubre nuevas figuritas.</p>
+        <p>Abrí tus sobres y aprovechá los 2 paquetes gratis de cada día.</p>
       </a>
     </section>
-
-    <nav class="home-dock" aria-label="Navegacion inferior">
-      <a href="#">Desafios</a>
-      <a href="#">Zona swap</a>
-      <a href="#">Mi equipo</a>
-      <a href="#">Mas</a>
-    </nav>
   </main>
 
   <footer class="home-footer">Proyecto taller web 1</footer>

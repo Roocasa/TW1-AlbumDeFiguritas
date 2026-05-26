@@ -38,7 +38,7 @@
       <div class="profile-hero__copy">
         <span class="home-panel__tag">Coleccionista</span>
         <h1>Mi perfil</h1>
-        <p>Gestiona tus datos de usuario y revisa el estado de tu cuenta dentro del album.</p>
+        <p>Gestioná tu cuenta, revisá tus estadísticas y seguí de cerca el progreso de tu álbum.</p>
       </div>
 
       <div class="profile-card">
@@ -56,7 +56,7 @@
             <strong th:text="${usuario.email}">usuario@unlam.edu.ar</strong>
           </article>
           <article class="profile-stat">
-            <span>Pais</span>
+            <span>País</span>
             <strong th:text="${usuario.pais != null ? usuario.pais : 'Sin definir'}">Argentina</strong>
           </article>
           <article class="profile-stat">
@@ -67,6 +67,27 @@
             <span>Estado</span>
             <strong th:text="${usuario.activo} ? 'Activo' : 'Inactivo'">Activo</strong>
           </article>
+          <article class="profile-stat">
+            <span>Paquetes</span>
+            <strong th:text="${usuario.paquetesDisponibles}">0</strong>
+          </article>
+          <article class="profile-stat">
+            <span>Monedas</span>
+            <strong th:text="${usuario.monedas}">0</strong>
+          </article>
+          <article class="profile-stat" th:if="${album != null}">
+            <span>Para pegar</span>
+            <strong th:text="${figuritasParaPegar}">0</strong>
+          </article>
+          <article class="profile-stat" th:if="${album != null}">
+            <span>Repetidas</span>
+            <strong th:text="${album.figuritasRepetidas}">0</strong>
+          </article>
+        </div>
+
+        <div class="profile-note">
+          <strong>Regalo diario</strong>
+          <span>Cada nuevo día recibís 2 paquetes comunes. Si no entrás por varios días, no se acumulan.</span>
         </div>
 
         <div class="profile-card__footer">
@@ -74,11 +95,116 @@
         </div>
       </div>
     </section>
+
+    <section class="profile-charts" th:if="${album != null}">
+      <article class="profile-chart-card">
+        <div class="profile-chart-card__copy">
+          <span class="home-panel__tag">Álbum</span>
+          <h2>Progreso general</h2>
+          <p>
+            <strong th:text="${album.figuritasPegadas}">0</strong>
+            figuritas pegadas de
+            <strong th:text="${album.totalFiguritas}">0</strong>.
+          </p>
+        </div>
+        <canvas
+          id="album-progress-chart"
+          class="profile-chart"
+          th:attr="data-pegadas=${album.figuritasPegadas},data-faltantes=${album.figuritasFaltantes}">
+        </canvas>
+      </article>
+
+      <article class="profile-chart-card">
+        <div class="profile-chart-card__copy">
+          <span class="home-panel__tag">Colección</span>
+          <h2>Estado de tus figuritas</h2>
+          <p>Compará lo que ya pegaste con lo que te queda disponible y tus repetidas.</p>
+        </div>
+        <canvas
+          id="collection-status-chart"
+          class="profile-chart"
+          th:attr="data-pegadas=${album.figuritasPegadas},data-para-pegar=${figuritasParaPegar},data-repetidas=${album.figuritasRepetidas}">
+        </canvas>
+      </article>
+    </section>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
     crossorigin="anonymous"></script>
+  <script th:if="${album != null}" src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <script th:if="${album != null}">
+    document.addEventListener('DOMContentLoaded', function () {
+      function renderPieChart(canvasId, labels, values, colors) {
+        const canvas = document.getElementById(canvasId);
+        if (!canvas) {
+          return;
+        }
+
+        const total = values.reduce((sum, value) => sum + value, 0);
+        if (total <= 0) {
+          return;
+        }
+
+        new Chart(canvas, {
+          type: 'pie',
+          data: {
+            labels: labels,
+            datasets: [{
+              data: values,
+              backgroundColor: colors,
+              borderColor: '#ffffff',
+              borderWidth: 3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  color: '#10233f',
+                  font: {
+                    family: 'Space Grotesk',
+                    size: 12,
+                    weight: '600'
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+
+      const albumChart = document.getElementById('album-progress-chart');
+      if (albumChart) {
+        renderPieChart(
+          'album-progress-chart',
+          ['Pegadas', 'Faltantes'],
+          [
+            Number(albumChart.dataset.pegadas || 0),
+            Number(albumChart.dataset.faltantes || 0)
+          ],
+          ['#1f6fd1', '#d8e4f2']
+        );
+      }
+
+      const collectionChart = document.getElementById('collection-status-chart');
+      if (collectionChart) {
+        renderPieChart(
+          'collection-status-chart',
+          ['Pegadas', 'Para pegar', 'Repetidas'],
+          [
+            Number(collectionChart.dataset.pegadas || 0),
+            Number(collectionChart.dataset.paraPegar || 0),
+            Number(collectionChart.dataset.repetidas || 0)
+          ],
+          ['#0f2242', '#2faa6b', '#f2a93b']
+        );
+      }
+    });
+  </script>
 </body>
 
 </html>

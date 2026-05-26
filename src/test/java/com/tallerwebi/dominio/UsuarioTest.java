@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
+import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 
 public class UsuarioTest {
@@ -18,6 +19,7 @@ public class UsuarioTest {
     usuario.setPais("Argentina");
     usuario.setRol("USER");
     usuario.setActivo(false);
+    usuario.setFechaUltimoRegaloDiario(LocalDate.of(2026, 5, 25));
 
     assertThat(usuario.getId(), equalTo(10L));
     assertThat(usuario.getEmail(), equalTo("test@unlam.edu.ar"));
@@ -25,6 +27,7 @@ public class UsuarioTest {
     assertThat(usuario.getPais(), equalTo("Argentina"));
     assertThat(usuario.getRol(), equalTo("USER"));
     assertThat(usuario.getActivo(), is(false));
+    assertThat(usuario.getFechaUltimoRegaloDiario(), equalTo(LocalDate.of(2026, 5, 25)));
   }
 
   @Test

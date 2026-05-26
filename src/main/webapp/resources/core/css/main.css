@@ -250,9 +250,9 @@ body {
 .home-grid {
   display: grid;
   grid-template-areas:
-    "scan album promo"
-    "repe album packs";
-  grid-template-columns: 1fr 1.25fr 1fr;
+    "album album"
+    "repe packs";
+  grid-template-columns: 1fr 1fr;
   gap: 1.25rem;
   align-items: stretch;
 }
@@ -331,24 +331,10 @@ body {
   box-shadow: 0 18px 36px rgba(16, 35, 63, 0.18);
 }
 
-.home-panel--scan {
-  grid-area: scan;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(239, 246, 255, 0.9)),
-    #ffffff;
-}
-
 .home-panel--repe {
   grid-area: repe;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(248, 242, 255, 0.9)),
-    #ffffff;
-}
-
-.home-panel--promo {
-  grid-area: promo;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 246, 239, 0.9)),
     #ffffff;
 }
 
@@ -361,7 +347,7 @@ body {
 
 .home-panel--album {
   grid-area: album;
-  min-height: 500px;
+  min-height: 420px;
   justify-content: flex-start;
   align-items: stretch;
   padding: 0.6rem;
@@ -608,6 +594,75 @@ body {
   justify-content: flex-end;
 }
 
+.profile-note {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: rgba(15, 34, 66, 0.06);
+}
+
+.profile-note strong {
+  color: #0f2242;
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.profile-note span {
+  color: #4d607d;
+  line-height: 1.5;
+}
+
+.profile-charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.profile-chart-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 1.25rem;
+  align-items: center;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.82)),
+    rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 18px 40px rgba(22, 38, 74, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.profile-chart-card__copy h2 {
+  margin: 0;
+  color: #0f2242;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.profile-chart-card__copy p {
+  margin: 0.9rem 0 0;
+  color: #36506f;
+  line-height: 1.6;
+}
+
+.profile-chart-card__copy strong {
+  color: #0f2242;
+}
+
+.profile-chart {
+  width: 100%;
+  height: 260px;
+}
+
 .profile-button {
   min-height: 52px;
   min-width: 180px;
@@ -632,10 +687,6 @@ body {
 .starter-template {
   padding: 3rem 1.5rem;
   text-align: center;
-}
-
-h2 {
-  color: #ff0000;
 }
 
 /* INVENTARIO ESTILOS (ABRIR SOBRE) >>>> */
@@ -784,6 +835,13 @@ h2 {
     0 14px 30px rgba(6, 12, 28, 0.28),
     inset 0 1px 0 rgba(255, 255, 255, 0.24);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.inventory-heading p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
 }
 
 .figurita-card.is-pegable {
@@ -1005,10 +1063,8 @@ h2 {
   .home-grid {
     grid-template-areas:
       "album"
-      "scan"
       "repe"
-      "packs"
-      "promo";
+      "packs";
     grid-template-columns: 1fr;
   }
 
@@ -1024,15 +1080,6 @@ h2 {
   .home-panel--album .home-panel__tag {
     top: 0.75rem;
     width: calc(100% - 2rem);
-  }
-
-  .home-dock {
-    width: min(100%, 520px);
-    border-radius: 28px;
-  }
-
-  .home-dock a {
-    min-width: 120px;
   }
 
   .profile-topbar {
@@ -1075,6 +1122,14 @@ h2 {
   }
 
   .profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-charts {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-chart-card {
     grid-template-columns: 1fr;
   }
 

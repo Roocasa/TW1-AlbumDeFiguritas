@@ -4,8 +4,7 @@ import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
 import java.util.List;
 
 public interface PaqueteServicio {
-  public ResultadoApertura abrirPaquete(Long idUsuario, boolean esPremium)
-    throws PaquetesInsuficientesException;
+  public ResultadoApertura abrirPaquete(Long idUsuario) throws PaquetesInsuficientesException;
 
   public void pegarFigurita(Long idUsuario, Long idFigurita);
 
