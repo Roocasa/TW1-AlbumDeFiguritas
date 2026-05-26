@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class ServicioPerfilImpl implements ServicioPerfil {
 
   private static final int PAQUETES_DIARIOS = 2;
+  private static final int SOBRE_POR_ANUNCIO = 1;
   private RepositorioUsuario repositorioUsuario;
 
   @Autowired
@@ -42,6 +43,24 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
     usuario.sumarPaquetesComunes(PAQUETES_DIARIOS);
     usuario.setFechaUltimoRegaloDiario(hoy);
+    repositorioUsuario.modificar(usuario);
+
+    return usuario;
+  }
+
+  @Override
+  public Usuario otorgarSobrePorAnuncio(Long idUsuario) {
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+
+    if (usuario == null) {
+      return null;
+    }
+
+    if (usuario.getPaquetesDisponibles() > 0) {
+      return usuario;
+    }
+
+    usuario.sumarPaquetesComunes(SOBRE_POR_ANUNCIO);
     repositorioUsuario.modificar(usuario);
 
     return usuario;

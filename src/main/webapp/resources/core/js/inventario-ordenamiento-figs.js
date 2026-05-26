@@ -2,9 +2,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const grid = document.getElementById('figuritas-grid');
     const sortSelect = document.getElementById('sort-select');
     const checkPegables = document.getElementById('check-pegables');
+    const adRewardModal = document.getElementById('adRewardModal');
+    let debeOtorgarRecompensa = false;
 
     function sortFiguritas() {
-        if (!grid) return; // Por si entramos a otra página
+        if (!grid || !sortSelect || !checkPegables) return;
 
         const cards = Array.from(grid.querySelectorAll('.figurita-card'));
         const sortBy = sortSelect.value;
@@ -21,14 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (sortBy === 'numero' || sortBy === 'score') {
-                const valA = parseInt(a.dataset[sortBy]) || 0;
-                const valB = parseInt(b.dataset[sortBy]) || 0;
+                const valA = parseInt(a.dataset[sortBy], 10) || 0;
+                const valB = parseInt(b.dataset[sortBy], 10) || 0;
                 return sortBy === 'score' ? (valB - valA) : (valA - valB);
-            } else {
-                const valA = a.dataset[sortBy] || '';
-                const valB = b.dataset[sortBy] || '';
-                return valA.localeCompare(valB);
             }
+
+            const valA = a.dataset[sortBy] || '';
+            const valB = b.dataset[sortBy] || '';
+            return valA.localeCompare(valB);
         });
 
         grid.innerHTML = '';
@@ -38,7 +40,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (sortSelect && checkPegables) {
         sortSelect.addEventListener('change', sortFiguritas);
         checkPegables.addEventListener('change', sortFiguritas);
+        sortFiguritas();
     }
 
-    sortFiguritas();
+    if (!adRewardModal) {
+        return;
+    }
+
+    adRewardModal.addEventListener('show.bs.modal', () => {
+        debeOtorgarRecompensa = true;
+    });
+
+    adRewardModal.addEventListener('hidden.bs.modal', () => {
+        if (!debeOtorgarRecompensa) {
+            return;
+        }
+
+        debeOtorgarRecompensa = false;
+        const rewardUrl = adRewardModal.dataset.rewardUrl;
+
+        if (rewardUrl) {
+            window.location.href = rewardUrl;
+        }
+    });
 });

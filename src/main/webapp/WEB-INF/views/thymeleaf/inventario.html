@@ -32,14 +32,40 @@
   </header>
 
 <main class="home-layout">
-    <section class="home-grid sobres-contenedor mb-5">
+    <div class="container mb-4">
+        <div th:if="${mensajeSobre}" class="alert alert-success text-center shadow-sm mb-3" th:text="${mensajeSobre}">
+            Cerraste el anuncio y te dimos 1 sobre comun.
+        </div>
+        <div th:if="${mensajeExito}" class="alert alert-success text-center shadow-sm mb-3" th:text="${mensajeExito}">
+            Figurita pegada con exito.
+        </div>
+        <div th:if="${error}" class="alert alert-danger text-center shadow-sm mb-3" th:text="${error}">
+            Ocurrio un error.
+        </div>
+    </div>
+
+    <section th:if="${!soloRepetidas and !sinSobres}" class="home-grid sobres-contenedor mb-5">
         <div class="home-panel sobres">
-            <img src="/spring/img/sobres/SOBRE_REGULAR.png" alt="Sobre común">
+            <img src="/spring/img/sobres/SOBRE_REGULAR.png" alt="Sobre comun">
             <div class="sobre-badge" th:text="${session.USUARIO != null ? session.USUARIO.paquetesDisponibles : 0}">0</div>
             <div class="sobre-contenido">
-                <h2>Sobre común</h2>
+                <h2>Sobre comun</h2>
                 <a th:href="@{/abrir-paquete}" class="btn">Abrir sobre</a>
             </div>
+        </div>
+    </section>
+
+    <section th:if="${!soloRepetidas and sinSobres}" class="inventory-empty-packs mb-5">
+        <div class="alert alert-warning text-center shadow-sm inventory-empty-packs__alert">
+            <h2 class="mb-2">No tienes sobres</h2>
+            <p class="mb-3">Mira un anuncio y te regalamos 1 sobre comun para seguir abriendo figuritas.</p>
+            <button
+                type="button"
+                class="btn profile-button"
+                data-bs-toggle="modal"
+                data-bs-target="#adRewardModal">
+                Ver anuncio por 1 sobre
+            </button>
         </div>
     </section>
 
@@ -52,8 +78,8 @@
         </h2>
         <p
             class="mb-0"
-            th:text="${soloRepetidas} ? 'Acá ves solo las figuritas repetidas para organizar tus intercambios.' : 'Ordená tu inventario y pegá las que todavía te faltan.'">
-            Ordená tu inventario y pegá las que todavía te faltan.
+            th:text="${soloRepetidas} ? 'Aca ves solo las figuritas repetidas para organizar tus intercambios.' : 'Ordena tu inventario y pega las que todavia te faltan.'">
+            Ordena tu inventario y pega las que todavia te faltan.
         </p>
         <a
             th:if="${soloRepetidas}"
@@ -68,7 +94,7 @@
         <div class="d-flex align-items-center gap-2">
             <label class="text-white fw-bold mb-0">Ordenar por:</label>
             <select id="sort-select" class="form-select w-auto shadow-sm">
-                <option value="numero">Numeración en el álbum</option>
+                <option value="numero">Numeracion en el album</option>
                 <option value="score">Score</option>
             </select>
         </div>
@@ -79,8 +105,8 @@
     </div>
 
     <div th:if="${figuritas == null or figuritas.empty}" class="alert alert-info text-center bg-dark text-white border-secondary">
-        <span th:text="${soloRepetidas} ? 'Todavía no tenés repetidas. Abrí más sobres para empezar a intercambiar.' : 'Todavía no tenés figuritas. Abrí un sobre para empezar.'">
-            Todavía no tenés figuritas. Abrí un sobre para empezar.
+        <span th:text="${soloRepetidas} ? 'Todavia no tienes repetidas. Abre mas sobres para empezar a intercambiar.' : 'Todavia no tienes figuritas. Abre un sobre para empezar.'">
+            Todavia no tienes figuritas. Abre un sobre para empezar.
         </span>
     </div>
 
@@ -127,12 +153,33 @@
             </div>
 
             <a th:if="${item.sePuedePegar}" th:href="@{/pegar-figurita(id=${item.figurita.id})}" class="pegar-overlay text-warning text-center fw-bold fs-5" style="z-index: 10;">
-                <span>Pegar en<br>el álbum</span>
+                <span>Pegar en<br>el album</span>
             </a>
         </div>
 
     </div>
 </main>
+
+<div th:if="${!soloRepetidas and sinSobres}" class="modal fade" id="adRewardModal" tabindex="-1" aria-hidden="true" th:attr="data-reward-url=@{/recompensa-anuncio}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content inventory-ad-modal">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title">Anuncio recompensado</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="inventory-ad-modal__video mb-3">
+                    <span>Tu anuncio se esta reproduciendo</span>
+                </div>
+                <p class="mb-2 fw-bold">Gracias por mirar el anuncio.</p>
+                <p class="mb-0">Cuando cierres esta ventana te vamos a regalar 1 sobre comun.</p>
+            </div>
+            <div class="modal-footer border-0 justify-content-center pt-0">
+                <button type="button" class="btn profile-button" data-bs-dismiss="modal">Cerrar y reclamar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div th:if="${paqueteAbierto}" class="modal fade show" tabindex="-1" style="display: block; background: rgba(15, 34, 66, 0.95);">
     <div class="modal-dialog modal-xl modal-dialog-centered">

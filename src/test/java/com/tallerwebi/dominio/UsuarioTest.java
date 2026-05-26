@@ -19,6 +19,7 @@ public class UsuarioTest {
     usuario.setPais("Argentina");
     usuario.setRol("USER");
     usuario.setActivo(false);
+    usuario.setIntercambiosRealizados(4);
     usuario.setFechaUltimoRegaloDiario(LocalDate.of(2026, 5, 25));
 
     assertThat(usuario.getId(), equalTo(10L));
@@ -27,6 +28,7 @@ public class UsuarioTest {
     assertThat(usuario.getPais(), equalTo("Argentina"));
     assertThat(usuario.getRol(), equalTo("USER"));
     assertThat(usuario.getActivo(), is(false));
+    assertThat(usuario.getIntercambiosRealizados(), equalTo(4));
     assertThat(usuario.getFechaUltimoRegaloDiario(), equalTo(LocalDate.of(2026, 5, 25)));
   }
 
@@ -37,5 +39,15 @@ public class UsuarioTest {
     usuario.activar();
 
     assertThat(usuario.getActivo(), is(true));
+  }
+
+  @Test
+  public void sumarIntercambioRealizadoDeberiaIncrementarElContador() {
+    Usuario usuario = new Usuario();
+
+    usuario.sumarIntercambioRealizado();
+    usuario.sumarIntercambioRealizado();
+
+    assertThat(usuario.getIntercambiosRealizados(), equalTo(2));
   }
 }

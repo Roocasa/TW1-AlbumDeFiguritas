@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@SuppressWarnings("PMD.TooManyFields")
 public class Usuario {
 
   @Id
@@ -17,6 +18,7 @@ public class Usuario {
   private int paquetes = 0;
   private int paquetesPremium = 0;
   private int monedas = 0;
+  private int intercambiosRealizados = 0;
 
   private String email;
   private String pais;
@@ -39,6 +41,10 @@ public class Usuario {
 
   public void sumarPaquetesPremium(int cantidad) {
     this.paquetesPremium += cantidad;
+  }
+
+  public void sumarIntercambioRealizado() {
+    this.intercambiosRealizados++;
   }
 
   public Long getId() {
@@ -111,6 +117,14 @@ public class Usuario {
 
   public void setMonedas(int monedas) {
     this.monedas = monedas;
+  }
+
+  public int getIntercambiosRealizados() {
+    return intercambiosRealizados;
+  }
+
+  public void setIntercambiosRealizados(int intercambiosRealizados) {
+    this.intercambiosRealizados = intercambiosRealizados;
   }
 
   public LocalDate getFechaUltimoRegaloDiario() {

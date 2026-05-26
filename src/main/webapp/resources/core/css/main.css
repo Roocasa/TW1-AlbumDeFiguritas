@@ -1019,7 +1019,39 @@ body {
   border-radius: 999px;
   background: rgba(255, 193, 7, 0.1);
 }
+.inventory-empty-packs {
+  display: flex;
+  justify-content: center;
+}
 
+.inventory-empty-packs__alert {
+  width: min(100%, 720px);
+  border: none;
+  border-radius: 24px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #fff2c3 0%, #ffe08a 100%);
+  color: #4f2d00;
+}
+
+.inventory-ad-modal {
+  border: none;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.inventory-ad-modal__video {
+  min-height: 220px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(135deg, rgba(15, 34, 66, 0.92), rgba(31, 111, 209, 0.82)),
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.3), transparent 60%);
+  color: #ffffff;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
 
 @media (max-width: 576px) {
   .auth-main {

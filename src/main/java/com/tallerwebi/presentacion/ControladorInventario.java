@@ -21,6 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ControladorInventario {
 
   private static final String ATRIBUTO_USUARIO = "USUARIO";
+  private static final String REDIRECT_LOGIN = "redirect:/login";
 
   private final PaqueteServicio paqueteServicio;
   private final ServicioPerfil servicioPerfil;
@@ -43,7 +44,7 @@ public class ControladorInventario {
     Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
 
     if (usuario == null) {
-      return new ModelAndView("redirect:/login");
+      return new ModelAndView(REDIRECT_LOGIN);
     }
 
     if (servicioPerfil != null) {
@@ -62,6 +63,7 @@ public class ControladorInventario {
     ModelAndView mav = new ModelAndView("inventario");
     mav.addObject("figuritas", figuritas);
     mav.addObject("soloRepetidas", soloRepetidas);
+    mav.addObject("sinSobres", usuario.getPaquetesDisponibles() <= 0);
     return mav;
   }
 
@@ -70,7 +72,7 @@ public class ControladorInventario {
     Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
 
     if (usuario == null) {
-      return new ModelAndView("redirect:/login");
+      return new ModelAndView(REDIRECT_LOGIN);
     }
 
     if (servicioPerfil != null) {
@@ -99,7 +101,7 @@ public class ControladorInventario {
     Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
 
     if (usuario == null) {
-      return new ModelAndView("redirect:/login");
+      return new ModelAndView(REDIRECT_LOGIN);
     }
 
     try {
@@ -107,6 +109,34 @@ public class ControladorInventario {
       ra.addFlashAttribute("mensajeExito", "Figurita pegada con exito.");
     } catch (Exception e) {
       ra.addFlashAttribute("error", "No se pudo pegar la figurita.");
+    }
+
+    return new ModelAndView("redirect:/inventario");
+  }
+
+  @RequestMapping(path = "/recompensa-anuncio", method = RequestMethod.GET)
+  public ModelAndView otorgarRecompensaPorAnuncio(HttpSession session, RedirectAttributes ra) {
+    Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
+
+    if (usuario == null) {
+      return new ModelAndView(REDIRECT_LOGIN);
+    }
+
+    int sobresAntes = usuario.getPaquetesDisponibles();
+    Usuario usuarioActualizado = servicioPerfil.otorgarSobrePorAnuncio(usuario.getId());
+
+    if (usuarioActualizado != null) {
+      session.setAttribute(ATRIBUTO_USUARIO, usuarioActualizado);
+    }
+
+    if (
+      sobresAntes <= 0 &&
+      usuarioActualizado != null &&
+      usuarioActualizado.getPaquetesDisponibles() > sobresAntes
+    ) {
+      ra.addFlashAttribute("mensajeSobre", "Cerraste el anuncio y te dimos 1 sobre comun.");
+    } else {
+      ra.addFlashAttribute("mensajeSobre", "Todavia tenes sobres disponibles.");
     }
 
     return new ModelAndView("redirect:/inventario");

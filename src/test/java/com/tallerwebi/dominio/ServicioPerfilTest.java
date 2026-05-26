@@ -44,4 +44,38 @@ public class ServicioPerfilTest {
     assertThat(usuario.getFechaUltimoRegaloDiario(), equalTo(LocalDate.now()));
     verify(repositorioUsuario, times(1)).modificar(usuario);
   }
+
+  @Test
+  public void deberiaOtorgarUnSobrePorAnuncioCuandoElUsuarioNoTieneSobres() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(9L);
+    usuario.setPaquetesDisponibles(0);
+
+    when(repositorioUsuario.buscarPorId(9L)).thenReturn(usuario);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Usuario usuarioActualizado = servicioPerfil.otorgarSobrePorAnuncio(9L);
+
+    assertThat(usuarioActualizado.getPaquetesDisponibles(), equalTo(1));
+    verify(repositorioUsuario, times(1)).modificar(usuario);
+  }
+
+  @Test
+  public void noDeberiaOtorgarUnSobrePorAnuncioSiElUsuarioTodaviaTieneSobres() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(10L);
+    usuario.setPaquetesDisponibles(3);
+
+    when(repositorioUsuario.buscarPorId(10L)).thenReturn(usuario);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Usuario usuarioActualizado = servicioPerfil.otorgarSobrePorAnuncio(10L);
+
+    assertThat(usuarioActualizado.getPaquetesDisponibles(), equalTo(3));
+    verify(repositorioUsuario, never()).modificar(usuario);
+  }
 }

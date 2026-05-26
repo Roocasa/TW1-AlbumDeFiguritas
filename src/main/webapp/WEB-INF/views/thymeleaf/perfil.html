@@ -38,7 +38,7 @@
       <div class="profile-hero__copy">
         <span class="home-panel__tag">Coleccionista</span>
         <h1>Mi perfil</h1>
-        <p>Gestioná tu cuenta, revisá tus estadísticas y seguí de cerca el progreso de tu álbum.</p>
+        <p>Gestiona tu cuenta, revisa tus estadisticas y sigue de cerca el progreso de tu album.</p>
       </div>
 
       <div class="profile-card">
@@ -56,7 +56,7 @@
             <strong th:text="${usuario.email}">usuario@unlam.edu.ar</strong>
           </article>
           <article class="profile-stat">
-            <span>País</span>
+            <span>Pais</span>
             <strong th:text="${usuario.pais != null ? usuario.pais : 'Sin definir'}">Argentina</strong>
           </article>
           <article class="profile-stat">
@@ -75,6 +75,10 @@
             <span>Monedas</span>
             <strong th:text="${usuario.monedas}">0</strong>
           </article>
+          <article class="profile-stat">
+            <span>Intercambios</span>
+            <strong th:text="${usuario.intercambiosRealizados}">0</strong>
+          </article>
           <article class="profile-stat" th:if="${album != null}">
             <span>Para pegar</span>
             <strong th:text="${figuritasParaPegar}">0</strong>
@@ -87,7 +91,7 @@
 
         <div class="profile-note">
           <strong>Regalo diario</strong>
-          <span>Cada nuevo día recibís 2 paquetes comunes. Si no entrás por varios días, no se acumulan.</span>
+          <span>Cada nuevo dia recibis 2 paquetes comunes. Si no entras por varios dias, no se acumulan.</span>
         </div>
 
         <div class="profile-card__footer">
@@ -99,7 +103,7 @@
     <section class="profile-charts" th:if="${album != null}">
       <article class="profile-chart-card">
         <div class="profile-chart-card__copy">
-          <span class="home-panel__tag">Álbum</span>
+          <span class="home-panel__tag">Album</span>
           <h2>Progreso general</h2>
           <p>
             <strong th:text="${album.figuritasPegadas}">0</strong>
@@ -116,9 +120,9 @@
 
       <article class="profile-chart-card">
         <div class="profile-chart-card__copy">
-          <span class="home-panel__tag">Colección</span>
+          <span class="home-panel__tag">Coleccion</span>
           <h2>Estado de tus figuritas</h2>
-          <p>Compará lo que ya pegaste con lo que te queda disponible y tus repetidas.</p>
+          <p>Compara lo que ya pegaste con lo que te queda disponible y tus repetidas.</p>
         </div>
         <canvas
           id="collection-status-chart"

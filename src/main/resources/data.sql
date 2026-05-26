@@ -1,5 +1,5 @@
-INSERT INTO Usuario (id, email, password, paquetes, paquetesPremium, monedas, activo, rol, pais)
-VALUES (1, 'eze@test.com', '123456789', 200, 200, 100, true, 'USER', 'Argentina');
+INSERT INTO Usuario (id, email, password, paquetes, paquetesPremium, monedas, intercambiosRealizados, activo, rol, pais)
+VALUES (1, 'eze@test.com', '123456789', 200, 200, 100, 0, true, 'USER', 'Argentina');
 
 INSERT INTO Pais (id, codigo, nombre, grupo_album, orden_album, codigo_bandera)
 VALUES
