@@ -1,5 +1,6 @@
 package com.tallerwebi.dominio.album;
 
+import com.tallerwebi.dominio.TextoCorregido;
 import javax.persistence.*;
 
 @Entity
@@ -16,8 +17,6 @@ public class Figurita {
   @JoinColumn(name = "pais_id")
   private Pais pais;
 
-  private Integer score;
-
   @Column(name = "numero_dentro_del_pais")
   private Integer numeroDentroDelPais;
 
@@ -27,37 +26,24 @@ public class Figurita {
   private String club;
 
   @Enumerated(EnumType.STRING)
-  private Rareza rareza;
-
-  @Enumerated(EnumType.STRING)
   private TipoFigurita tipo = TipoFigurita.TITULAR;
 
   public Figurita() {}
 
-  public Figurita(String nombreJugador, String nombrePais, Rareza rareza) {
+  public Figurita(String nombreJugador, String nombrePais) {
     this.nombreJugador = nombreJugador;
     this.pais = crearPaisConNombre(nombrePais);
-    this.rareza = rareza;
   }
 
-  public Figurita(String nombreJugador, String nombrePais, Rareza rareza, TipoFigurita tipo) {
+  public Figurita(String nombreJugador, String nombrePais, TipoFigurita tipo) {
     this.nombreJugador = nombreJugador;
     this.pais = crearPaisConNombre(nombrePais);
-    this.rareza = rareza;
     this.tipo = tipo;
   }
 
-  public Figurita(
-    String nombreJugador,
-    String nombrePais,
-    Integer score,
-    Rareza rareza,
-    String imagenUrl
-  ) {
+  public Figurita(String nombreJugador, String nombrePais, String imagenUrl) {
     this.nombreJugador = nombreJugador;
     this.pais = crearPaisConNombre(nombrePais);
-    this.rareza = rareza;
-    this.score = score;
     this.imagenUrl = imagenUrl;
   }
 
@@ -76,7 +62,7 @@ public class Figurita {
   }
 
   public String getNombreJugador() {
-    return nombreJugador;
+    return TextoCorregido.normalizar(nombreJugador);
   }
 
   public void setNombreJugador(String nombreJugador) {
@@ -92,7 +78,7 @@ public class Figurita {
   }
 
   public String getNombre() {
-    return nombreJugador;
+    return getNombreJugador();
   }
 
   public void setNombre(String nombre) {
@@ -108,14 +94,6 @@ public class Figurita {
       this.pais = new Pais();
     }
     this.pais.setNombre(seleccion);
-  }
-
-  public Integer getScore() {
-    return score;
-  }
-
-  public void setScore(Integer score) {
-    this.score = score;
   }
 
   public Integer getNumeroDentroDelPais() {
@@ -143,19 +121,11 @@ public class Figurita {
   }
 
   public String getClub() {
-    return club;
+    return TextoCorregido.normalizar(club);
   }
 
   public void setClub(String club) {
     this.club = club;
-  }
-
-  public Rareza getRareza() {
-    return rareza;
-  }
-
-  public void setRareza(Rareza rareza) {
-    this.rareza = rareza;
   }
 
   public String getBanderaUrl() {

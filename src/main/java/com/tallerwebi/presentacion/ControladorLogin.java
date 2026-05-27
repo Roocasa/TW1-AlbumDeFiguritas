@@ -1,9 +1,13 @@
 package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioLogin;
+import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,11 +20,17 @@ import org.springframework.web.servlet.ModelAndView;
 public class ControladorLogin {
 
   private static final String USUARIO = "usuario";
-  private ServicioLogin servicioLogin;
+  private final ServicioLogin servicioLogin;
+  private final ServicioPerfil servicioPerfil;
 
   @Autowired
-  public ControladorLogin(ServicioLogin servicioLogin) {
+  public ControladorLogin(ServicioLogin servicioLogin, ServicioPerfil servicioPerfil) {
     this.servicioLogin = servicioLogin;
+    this.servicioPerfil = servicioPerfil;
+  }
+
+  public ControladorLogin(ServicioLogin servicioLogin) {
+    this(servicioLogin, null);
   }
 
   @RequestMapping("/login")
@@ -41,6 +51,10 @@ public class ControladorLogin {
     );
 
     if (usuarioBuscado != null) {
+      if (servicioPerfil != null) {
+        usuarioBuscado = servicioPerfil.otorgarPaquetesDiariosSiCorresponde(usuarioBuscado.getId());
+      }
+
       request.getSession().setAttribute("EMAIL", usuarioBuscado.getEmail());
       request.getSession().setAttribute("ROL", usuarioBuscado.getRol());
 
@@ -84,13 +98,46 @@ public class ControladorLogin {
     return new ModelAndView("nuevo-usuario", model);
   }
 
-  @RequestMapping(path = "/home", method = RequestMethod.GET)
   public ModelAndView irAHome() {
-    return new ModelAndView("home");
+    ModelAndView mav = new ModelAndView("home");
+    mav.addObject("proximoPaqueteDiarioEpochMs", calcularProximoPaqueteDiarioEpochMs());
+    return mav;
+  }
+
+  @RequestMapping(path = "/home", method = RequestMethod.GET)
+  public ModelAndView irAHome(HttpSession session) {
+    if (session == null) {
+      return irAHome();
+    }
+
+    Usuario usuario = (Usuario) session.getAttribute("USUARIO");
+    if (usuario == null) {
+      return new ModelAndView("redirect:/login");
+    }
+
+    if (servicioPerfil != null) {
+      Usuario usuarioActualizado = servicioPerfil.otorgarPaquetesDiariosSiCorresponde(
+        usuario.getId()
+      );
+      session.setAttribute("USUARIO", usuarioActualizado);
+    }
+
+    ModelAndView mav = new ModelAndView("home");
+    mav.addObject("proximoPaqueteDiarioEpochMs", calcularProximoPaqueteDiarioEpochMs());
+    return mav;
   }
 
   @RequestMapping(path = "/", method = RequestMethod.GET)
   public ModelAndView inicio() {
     return new ModelAndView("redirect:/login");
+  }
+
+  private long calcularProximoPaqueteDiarioEpochMs() {
+    return LocalDate
+      .now()
+      .plusDays(1)
+      .atStartOfDay(ZoneId.systemDefault())
+      .toInstant()
+      .toEpochMilli();
   }
 }

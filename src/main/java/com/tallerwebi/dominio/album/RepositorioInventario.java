@@ -18,4 +18,6 @@ public interface RepositorioInventario {
   RelacionFiguritaUsuario buscarRelacionDisponible(Long idUsuario, Long idFigurita);
 
   void modificar(RelacionFiguritaUsuario relacion);
+
+  void eliminar(RelacionFiguritaUsuario relacion);
 }

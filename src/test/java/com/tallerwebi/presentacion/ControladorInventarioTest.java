@@ -5,10 +5,11 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
+import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.album.Figurita;
 import com.tallerwebi.dominio.album.PaqueteServicio;
-import com.tallerwebi.dominio.album.PaqueteServicioImpl;
-import com.tallerwebi.dominio.album.RepositorioInventario;
+import com.tallerwebi.dominio.excepcion.CanjeFiguritasException;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -21,6 +22,7 @@ public class ControladorInventarioTest {
 
   private ControladorInventario controladorInventario;
   private PaqueteServicio paqueteServicioMock;
+  private ServicioPerfil servicioPerfilMock;
   private HttpSession sessionMock;
   private HttpServletRequest requestMock;
   private RedirectAttributes redirectAttributesMock;
@@ -28,41 +30,95 @@ public class ControladorInventarioTest {
   @BeforeEach
   public void init() {
     paqueteServicioMock = mock(PaqueteServicio.class);
+    servicioPerfilMock = mock(ServicioPerfil.class);
     sessionMock = mock(HttpSession.class);
     requestMock = mock(HttpServletRequest.class);
     redirectAttributesMock = mock(RedirectAttributes.class);
 
     when(requestMock.getSession()).thenReturn(sessionMock);
 
-    controladorInventario = new ControladorInventario(paqueteServicioMock);
+    controladorInventario = new ControladorInventario(paqueteServicioMock, servicioPerfilMock);
   }
 
   @Test
   public void dadoQueUnUsuarioNoTienePaquetesCuandoIntentaAbrirUnSobreEntoncesRecibeUnMensajeDeError()
     throws PaquetesInsuficientesException {
-    //Given
-    Usuario usuarioMock = new Usuario(); // por defecto se instancia con 0 paquetes
+    Usuario usuarioMock = new Usuario();
     usuarioMock.setId(1L);
     when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+    when(servicioPerfilMock.otorgarPaquetesDiariosSiCorresponde(1L)).thenReturn(usuarioMock);
 
-    when(paqueteServicioMock.abrirPaquete(usuarioMock.getId(), false))
-      .thenThrow(new PaquetesInsuficientesException("No tenés paquetes disponibles."));
+    when(paqueteServicioMock.abrirPaquete(usuarioMock.getId()))
+      .thenThrow(new PaquetesInsuficientesException("No tenes paquetes disponibles."));
 
-    //When el controlador intenta abrir el paquete
     ModelAndView modelAndView = controladorInventario.abrirUnPaquete(
-      false,
       sessionMock,
       redirectAttributesMock
     );
 
-    //Then verificamos el comportamiento del controlador ante el error
-
-    assertThat(modelAndView.getViewName(), is(equalTo("redirect:/inventario"))); //verifico que se redirija al inventario
-
-    // Se verifivs que el controlador haya llamado a ese metodo pasandole exactamente esos dos textos una sola vez
+    assertThat(modelAndView.getViewName(), is(equalTo("redirect:/inventario")));
     verify(redirectAttributesMock, times(1))
-      .addFlashAttribute("error", "No tenés paquetes disponibles.");
-    // Se verifica que nunca se haya llamado a paqueteAbierto con ningun valor booleano
+      .addFlashAttribute("error", "No tenes paquetes disponibles.");
     verify(redirectAttributesMock, never()).addFlashAttribute(eq("paqueteAbierto"), anyBoolean());
+  }
+
+  @Test
+  public void dadoQueElUsuarioNoTieneSobresCuandoCierraElAnuncioEntoncesRecibeUnSobre() {
+    Usuario usuarioMock = new Usuario();
+    usuarioMock.setId(1L);
+    usuarioMock.setPaquetesDisponibles(0);
+
+    Usuario usuarioActualizado = new Usuario();
+    usuarioActualizado.setId(1L);
+    usuarioActualizado.setPaquetesDisponibles(1);
+
+    when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+    when(servicioPerfilMock.otorgarSobrePorAnuncio(1L)).thenReturn(usuarioActualizado);
+
+    ModelAndView modelAndView = controladorInventario.otorgarRecompensaPorAnuncio(
+      sessionMock,
+      redirectAttributesMock
+    );
+
+    assertThat(modelAndView.getViewName(), is(equalTo("redirect:/inventario")));
+    verify(sessionMock, times(1)).setAttribute("USUARIO", usuarioActualizado);
+    verify(redirectAttributesMock, times(1))
+      .addFlashAttribute("mensajeSobre", "Cerraste el anuncio y te dimos 1 sobre comun.");
+  }
+
+  @Test
+  public void cuandoCanjeaRepetidasPorPaqueteEntoncesSeMuestraElPopupDelSobreGanado()
+    throws CanjeFiguritasException {
+    Usuario usuarioMock = new Usuario();
+    usuarioMock.setId(1L);
+    when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+
+    ModelAndView modelAndView = controladorInventario.canjearRepetidasPorPaquete(
+      sessionMock,
+      redirectAttributesMock
+    );
+
+    assertThat(modelAndView.getViewName(), is(equalTo("redirect:/inventario?soloRepetidas=true")));
+    verify(paqueteServicioMock, times(1)).canjearRepetidasPorPaquete(1L);
+    verify(redirectAttributesMock, times(1)).addFlashAttribute("canjePaqueteExitoso", true);
+  }
+
+  @Test
+  public void cuandoCanjeaRepetidasPorEscudoEntoncesSeMuestraElEscudoGanado()
+    throws CanjeFiguritasException {
+    Usuario usuarioMock = new Usuario();
+    usuarioMock.setId(1L);
+    Figurita escudo = new Figurita("Escudo de Argentina", "Argentina");
+
+    when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+    when(paqueteServicioMock.canjearRepetidasPorEscudo(1L)).thenReturn(escudo);
+
+    ModelAndView modelAndView = controladorInventario.canjearRepetidasPorEscudo(
+      sessionMock,
+      redirectAttributesMock
+    );
+
+    assertThat(modelAndView.getViewName(), is(equalTo("redirect:/inventario?soloRepetidas=true")));
+    verify(redirectAttributesMock, times(1)).addFlashAttribute("escudoCanjeado", escudo);
   }
 }

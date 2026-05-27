@@ -1,11 +1,14 @@
 package com.tallerwebi.dominio;
 
+import java.time.LocalDate;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
+@SuppressWarnings("PMD.TooManyFields")
 public class Usuario {
 
   @Id
@@ -14,13 +17,16 @@ public class Usuario {
 
   private int paquetes = 0;
   private int paquetesPremium = 0;
-  private int monedas = 0;
+  private int intercambiosRealizados = 0;
 
   private String email;
   private String pais;
   private String password;
   private String rol;
   private Boolean activo = false;
+
+  @Column(name = "fecha_ultimo_regalo_diario")
+  private LocalDate fechaUltimoRegaloDiario;
 
   public Usuario() {}
 
@@ -34,6 +40,10 @@ public class Usuario {
 
   public void sumarPaquetesPremium(int cantidad) {
     this.paquetesPremium += cantidad;
+  }
+
+  public void sumarIntercambioRealizado() {
+    this.intercambiosRealizados++;
   }
 
   public Long getId() {
@@ -100,11 +110,19 @@ public class Usuario {
     this.paquetesPremium = paquetesPremium;
   }
 
-  public int getMonedas() {
-    return monedas;
+  public int getIntercambiosRealizados() {
+    return intercambiosRealizados;
   }
 
-  public void setMonedas(int monedas) {
-    this.monedas = monedas;
+  public void setIntercambiosRealizados(int intercambiosRealizados) {
+    this.intercambiosRealizados = intercambiosRealizados;
+  }
+
+  public LocalDate getFechaUltimoRegaloDiario() {
+    return fechaUltimoRegaloDiario;
+  }
+
+  public void setFechaUltimoRegaloDiario(LocalDate fechaUltimoRegaloDiario) {
+    this.fechaUltimoRegaloDiario = fechaUltimoRegaloDiario;
   }
 }

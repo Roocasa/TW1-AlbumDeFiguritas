@@ -3,7 +3,9 @@ package com.tallerwebi.dominio.album;
 import java.util.List;
 
 public interface RepositorioFigurita {
-  Figurita buscarFiguritaAleatoriaPorRareza(Rareza rareza);
+  List<Figurita> buscarFiguritasAleatorias(int cantidad);
+
+  Figurita buscarEscudoAleatorio();
 
   List<Figurita> buscarPorPaisCodigoOrdenadas(String codigoPais);
 

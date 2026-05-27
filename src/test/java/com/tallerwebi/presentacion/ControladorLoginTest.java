@@ -2,10 +2,12 @@ package com.tallerwebi.presentacion;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.mockito.Mockito.*;
 
 import com.tallerwebi.dominio.ServicioLogin;
+import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,7 @@ public class ControladorLoginTest {
   private HttpServletRequest requestMock;
   private HttpSession sessionMock;
   private ServicioLogin servicioLoginMock;
+  private ServicioPerfil servicioPerfilMock;
 
   @BeforeEach
   public void init() {
@@ -31,7 +34,8 @@ public class ControladorLoginTest {
     requestMock = mock(HttpServletRequest.class);
     sessionMock = mock(HttpSession.class);
     servicioLoginMock = mock(ServicioLogin.class);
-    controladorLogin = new ControladorLogin(servicioLoginMock);
+    servicioPerfilMock = mock(ServicioPerfil.class);
+    controladorLogin = new ControladorLogin(servicioLoginMock, servicioPerfilMock);
   }
 
   @Test
@@ -56,9 +60,12 @@ public class ControladorLoginTest {
     // preparacion
     Usuario usuarioEncontradoMock = mock(Usuario.class);
     when(usuarioEncontradoMock.getRol()).thenReturn("ADMIN");
+    when(usuarioEncontradoMock.getId()).thenReturn(1L);
 
     when(requestMock.getSession()).thenReturn(sessionMock);
     when(servicioLoginMock.consultarUsuario(anyString(), anyString()))
+      .thenReturn(usuarioEncontradoMock);
+    when(servicioPerfilMock.otorgarPaquetesDiariosSiCorresponde(1L))
       .thenReturn(usuarioEncontradoMock);
 
     // ejecucion
@@ -140,6 +147,20 @@ public class ControladorLoginTest {
 
     // validacion
     assertThat(modelAndView.getViewName(), equalToIgnoringCase("home"));
+    assertThat(modelAndView.getModel().get("proximoPaqueteDiarioEpochMs"), notNullValue());
+  }
+
+  @Test
+  public void irAHomeConUsuarioEnSesionDeberiaActualizarUsuarioYEnviarCuentaAtras() {
+    when(usuarioMock.getId()).thenReturn(1L);
+    when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+    when(servicioPerfilMock.otorgarPaquetesDiariosSiCorresponde(1L)).thenReturn(usuarioMock);
+
+    ModelAndView modelAndView = controladorLogin.irAHome(sessionMock);
+
+    assertThat(modelAndView.getViewName(), equalToIgnoringCase("home"));
+    assertThat(modelAndView.getModel().get("proximoPaqueteDiarioEpochMs"), notNullValue());
+    verify(sessionMock, times(1)).setAttribute("USUARIO", usuarioMock);
   }
 
   @Test

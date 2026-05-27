@@ -2,10 +2,15 @@ package com.tallerwebi.dominio.album;
 
 import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.Usuario;
-// import com.tallerwebi.dominio.excepciones.SinPaquetesException;
+import com.tallerwebi.dominio.excepcion.CanjeFiguritasException;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
-import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,81 +19,52 @@ import org.springframework.stereotype.Service;
 @Transactional
 public class PaqueteServicioImpl implements PaqueteServicio {
 
+  private static final int FIGURITAS_POR_PAQUETE = 5;
+  private static final int REPETIDAS_POR_PAQUETE = 5;
+  private static final int REPETIDAS_POR_ESCUDO = 3;
+
   private final RepositorioFigurita repositorioFigurita;
   private final RepositorioInventario repositorioInventario;
   private final RepositorioUsuario repositorioUsuario;
-  private final RuletaFiguritas ruleta;
   private final ServicioAlbum servicioAlbum;
-
-  private static final int FIGURITAS_POR_PAQUETE = 7;
 
   @Autowired
   public PaqueteServicioImpl(
     RepositorioFigurita repositorioFigurita,
     RepositorioInventario repositorioInventario,
     RepositorioUsuario repositorioUsuario,
-    RuletaFiguritas ruleta,
     ServicioAlbum servicioAlbum
   ) {
     this.repositorioFigurita = repositorioFigurita;
     this.repositorioInventario = repositorioInventario;
     this.repositorioUsuario = repositorioUsuario;
-    this.ruleta = ruleta;
     this.servicioAlbum = servicioAlbum;
   }
 
   @Override
-  public ResultadoApertura abrirPaquete(Long idUsuario, boolean esPremium)
-    throws PaquetesInsuficientesException {
+  public ResultadoApertura abrirPaquete(Long idUsuario) throws PaquetesInsuficientesException {
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
 
-    if (esPremium) { // se resta un paquete o se lanza una exception si no hay paquetes disponibles
-      if (usuario.getPaquetesPremiumDisponibles() <= 0) {
-        throw new PaquetesInsuficientesException("No tenés paquetes Premium disponibles.");
-      }
-      usuario.setPaquetesPremiumDisponibles(usuario.getPaquetesPremiumDisponibles() - 1);
-    } else {
-      if (usuario.getPaquetesDisponibles() <= 0) {
-        throw new PaquetesInsuficientesException("No tenés paquetes disponibles.");
-      }
-      usuario.setPaquetesDisponibles(usuario.getPaquetesDisponibles() - 1);
+    if (usuario.getPaquetesDisponibles() <= 0) {
+      throw new PaquetesInsuficientesException("No tenes paquetes disponibles.");
     }
 
-    repositorioUsuario.modificar(usuario); // se actualiza el usuario en el repositorio con la resta del correspondiente paquete abierto
+    usuario.setPaquetesDisponibles(usuario.getPaquetesDisponibles() - 1);
+    repositorioUsuario.modificar(usuario);
 
-    List<Rareza> rarezasObtenidas = obtenerRarezas(esPremium); // obtiene una lista con 7 rarezas (si es premium el porcentaje de rarezas mejores aumenta)
-    List<Figurita> figuritasDelPaquete = new ArrayList<>();
+    List<Figurita> figuritasDelPaquete = repositorioFigurita.buscarFiguritasAleatorias(
+      FIGURITAS_POR_PAQUETE
+    );
 
-    // Buscamos en el catálogo segun las rarezas obtenidas
-    for (Rareza r : rarezasObtenidas) {
-      Figurita figuritaObtenida = repositorioFigurita.buscarFiguritaAleatoriaPorRareza(r);
-      figuritasDelPaquete.add(figuritaObtenida);
-
+    for (Figurita figuritaObtenida : figuritasDelPaquete) {
       RelacionFiguritaUsuario nuevaRelacion = new RelacionFiguritaUsuario(
         usuario,
         figuritaObtenida
       );
-
       repositorioInventario.guardar(nuevaRelacion);
     }
 
     return new ResultadoApertura(figuritasDelPaquete, usuario);
-  }
-
-  private List<Rareza> obtenerRarezas(boolean esPremium) {
-    List<Rareza> rarezasObtenidas = new ArrayList<>();
-    int puntosDeRareza;
-
-    for (int i = 0; i < FIGURITAS_POR_PAQUETE; i++) {
-      puntosDeRareza = ThreadLocalRandom.current().nextInt(1, 101);
-
-      Rareza rarezaActual = esPremium
-        ? this.ruleta.calcularRarezaPremium(puntosDeRareza)
-        : this.ruleta.calcularRareza(puntosDeRareza);
-
-      rarezasObtenidas.add(rarezaActual);
-    }
-    return rarezasObtenidas;
   }
 
   @Override
@@ -99,22 +75,18 @@ public class PaqueteServicioImpl implements PaqueteServicio {
     );
 
     if (relacion == null) {
-      //  El usuario no la tiene en su inventario
-      throw new RuntimeException("No tenés esta figurita en tu inventario.");
+      throw new RuntimeException("No tenes esta figurita en tu inventario.");
     }
 
     if (relacion.isEstaPegadaEnElAlbum()) {
-      // La tiene, pero ya la había pegado
-      throw new RuntimeException("Esta figurita ya está pegada en tu álbum.");
+      throw new RuntimeException("Esta figurita ya esta pegada en tu album.");
     }
 
-    // Si pasamos los dos controles, significa que la tiene y no está pegada
     relacion.setEstaPegadaEnElAlbum(true);
     repositorioInventario.modificar(relacion);
     servicioAlbum.actualizarEstadisticas(idUsuario);
   }
 
-  @SuppressWarnings({ "PMD.DataflowAnomalyAnalysis" })
   @Override
   public List<InventarioItemDTO> obtenerFiguritasDelInventario(Long idUsuario) {
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
@@ -125,12 +97,12 @@ public class PaqueteServicioImpl implements PaqueteServicio {
       usuario
     );
 
-    Set<Long> idsPegadas = new HashSet<>();
+    Set<Long> idsPegadas = new HashSet<>(); // NOPMD - false positive from PMD dataflow analysis
     for (RelacionFiguritaUsuario rel : pegadas) {
       idsPegadas.add(rel.getFigurita().getId());
     }
 
-    Map<Long, Figurita> figuritasMap = new HashMap<>();
+    Map<Long, Figurita> figuritasMap = new HashMap<>(); // NOPMD - false positive from PMD dataflow analysis
     Map<Long, Integer> conteoMap = new HashMap<>();
 
     for (RelacionFiguritaUsuario rel : noPegadas) {
@@ -151,5 +123,104 @@ public class PaqueteServicioImpl implements PaqueteServicio {
     }
 
     return resultado;
+  }
+
+  @Override
+  public void canjearRepetidasPorPaquete(Long idUsuario) throws CanjeFiguritasException {
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+    consumirRepetidas(idUsuario, REPETIDAS_POR_PAQUETE);
+    usuario.sumarPaquetesComunes(1);
+    usuario.sumarIntercambioRealizado();
+    repositorioUsuario.modificar(usuario);
+    servicioAlbum.actualizarEstadisticas(idUsuario);
+  }
+
+  @Override
+  public Figurita canjearRepetidasPorEscudo(Long idUsuario) throws CanjeFiguritasException {
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario); // NOPMD - false positive from PMD dataflow analysis
+    consumirRepetidas(idUsuario, REPETIDAS_POR_ESCUDO);
+
+    Figurita escudoAleatorio = repositorioFigurita.buscarEscudoAleatorio();
+    if (escudoAleatorio == null) {
+      throw new CanjeFiguritasException("No hay escudos disponibles para canjear.");
+    }
+
+    repositorioInventario.guardar(new RelacionFiguritaUsuario(usuario, escudoAleatorio));
+    usuario.sumarIntercambioRealizado();
+    repositorioUsuario.modificar(usuario);
+    servicioAlbum.actualizarEstadisticas(idUsuario);
+
+    return escudoAleatorio;
+  }
+
+  @Override
+  public int obtenerCantidadTotalRepetidas(Long idUsuario) {
+    int totalRepetidas = 0;
+
+    for (InventarioItemDTO item : obtenerFiguritasDelInventario(idUsuario)) {
+      totalRepetidas += item.getCantidadRepetidas();
+    }
+
+    return totalRepetidas;
+  }
+
+  @Override
+  public int obtenerCostoCanjePaquete() {
+    return REPETIDAS_POR_PAQUETE;
+  }
+
+  @Override
+  public int obtenerCostoCanjeEscudo() {
+    return REPETIDAS_POR_ESCUDO;
+  }
+
+  private void consumirRepetidas(Long idUsuario, int cantidadNecesaria)
+    throws CanjeFiguritasException {
+    List<RelacionFiguritaUsuario> repetidasDisponibles = obtenerRelacionesRepetidasCanjeables(
+      idUsuario
+    );
+
+    if (repetidasDisponibles.size() < cantidadNecesaria) {
+      throw new CanjeFiguritasException(
+        "No tienes suficientes figuritas repetidas para hacer ese canje."
+      );
+    }
+
+    for (int i = 0; i < cantidadNecesaria; i++) {
+      repositorioInventario.eliminar(repetidasDisponibles.get(i));
+    }
+  }
+
+  private List<RelacionFiguritaUsuario> obtenerRelacionesRepetidasCanjeables(Long idUsuario) {
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+    List<RelacionFiguritaUsuario> noPegadas =
+      repositorioInventario.buscarFiguritasEnInventarioPorUsuario(usuario);
+    List<RelacionFiguritaUsuario> pegadas = repositorioInventario.buscarFiguritasPegadasPorUsuario(
+      usuario
+    );
+
+    Set<Long> idsPegadas = new HashSet<>(); // NOPMD - false positive from PMD dataflow analysis
+    for (RelacionFiguritaUsuario relacionPegada : pegadas) {
+      idsPegadas.add(relacionPegada.getFigurita().getId());
+    }
+
+    Map<Long, List<RelacionFiguritaUsuario>> relacionesPorFigurita = new HashMap<>();
+    for (RelacionFiguritaUsuario relacion : noPegadas) {
+      Long figuritaId = relacion.getFigurita().getId();
+      relacionesPorFigurita.computeIfAbsent(figuritaId, key -> new ArrayList<>()).add(relacion);
+    }
+
+    List<RelacionFiguritaUsuario> repetidasCanjeables = new ArrayList<>();
+    for (List<RelacionFiguritaUsuario> relaciones : relacionesPorFigurita.values()) {
+      relaciones.sort(Comparator.comparing(RelacionFiguritaUsuario::getId));
+
+      int indiceInicial = idsPegadas.contains(relaciones.get(0).getFigurita().getId()) ? 0 : 1;
+      for (int i = indiceInicial; i < relaciones.size(); i++) {
+        repetidasCanjeables.add(relaciones.get(i));
+      }
+    }
+
+    repetidasCanjeables.sort(Comparator.comparing(RelacionFiguritaUsuario::getId));
+    return repetidasCanjeables;
   }
 }

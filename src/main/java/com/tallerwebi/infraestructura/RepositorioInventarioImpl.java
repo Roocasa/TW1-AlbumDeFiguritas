@@ -79,4 +79,9 @@ public class RepositorioInventarioImpl implements RepositorioInventario {
     // Actualiza el estado de la relación en la base de datos
     sessionFactory.getCurrentSession().update(relacion);
   }
+
+  @Override
+  public void eliminar(RelacionFiguritaUsuario relacion) {
+    sessionFactory.getCurrentSession().delete(relacion);
+  }
 }
