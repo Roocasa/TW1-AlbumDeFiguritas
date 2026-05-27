@@ -43,6 +43,24 @@ document.addEventListener('DOMContentLoaded', () => {
         sortFiguritas();
     }
 
+    document.querySelectorAll('.js-pegar-figurita').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            const card = link.closest('.figurita-card');
+
+            if (!card || card.classList.contains('is-pasting')) {
+                return;
+            }
+
+            event.preventDefault();
+            card.classList.add('is-pasting');
+            link.setAttribute('aria-disabled', 'true');
+
+            window.setTimeout(() => {
+                window.location.href = link.href;
+            }, 620);
+        });
+    });
+
     if (!adRewardModal) {
         return;
     }

@@ -2,7 +2,7 @@ SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci;
 SET CHARACTER SET utf8mb4;
 
 INSERT INTO Usuario (id, email, password, paquetes, paquetesPremium, intercambiosRealizados, activo, rol, pais)
-VALUES (1, 'eze@test.com', '123456789', 200, 200, 0, true, 'USER', 'Argentina');
+VALUES (1, 'test@unlam.edu.ar', '123456789', 200, 200, 0, true, 'USER', 'Argentina');
 
 INSERT INTO Pais (id, codigo, nombre, grupo_album, orden_album, codigo_bandera)
 VALUES
@@ -680,3 +680,19 @@ WHERE numero_dentro_del_pais = 11;
 UPDATE Figurita
 SET imagen_url = '/spring/img/players/lautaro-martinez.webp'
 WHERE numero_dentro_del_pais = 12;
+
+INSERT INTO Usuario (id, email, password, paquetes, paquetesPremium, intercambiosRealizados, activo, rol, pais)
+VALUES (2, 'albumcompleto@test.com', '123456789', 0, 0, 0, true, 'USER', 'Argentina');
+
+INSERT INTO RelacionFiguritaUsuario (usuario_id, figurita_id, estaPegadaEnElAlbum)
+SELECT 2, id, true
+FROM Figurita;
+
+INSERT INTO Album (
+    usuario_id,
+    total_figuritas,
+    figuritas_pegadas,
+    figuritas_faltantes,
+    figuritas_repetidas
+)
+VALUES (2, 576, 576, 0, 0);

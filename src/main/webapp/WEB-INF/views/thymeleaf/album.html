@@ -15,6 +15,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
   <link rel="stylesheet" th:href="@{/css/album.css}" />
 </head>
 
@@ -65,6 +66,14 @@
         th:src="@{/img/Album.jpg}"
         src="/img/Album.jpg"
         alt="Tapa del album 2026" />
+    </section>
+
+    <section
+      class="album-complete-banner"
+      th:if="${album != null and album.totalFiguritas > 0 and album.figuritasFaltantes == 0}"
+      aria-live="polite">
+      <span>Album completado</span>
+      <strong>Tenes todas las figuritas pegadas.</strong>
     </section>
 
     <form class="album-filters" th:action="@{/album}" method="get" aria-label="Filtros del album">
@@ -125,7 +134,21 @@
             </div>
           </header>
           <div class="sticker-slots">
-            <span th:each="numero : ${figuritas}" th:text="${numero}">1</span>
+            <div
+              th:each="slot : ${albumSlotsPorPais[pais.codigo]}"
+              class="sticker-slots__slot"
+              th:classappend="${slot.pegada} ? ' sticker-slots__slot--filled' : ''"
+              th:title="${slot.figurita.nombreJugador}">
+              <img
+                th:if="${slot.pegada and slot.figurita.imagenUrl != null}"
+                th:src="${slot.figurita.imagenUrl}"
+                alt="Figurita pegada">
+              <span
+                class="sticker-slots__number"
+                th:text="${slot.figurita.numeroDentroDelPais}">
+                1
+              </span>
+            </div>
           </div>
         </article>
       </div>

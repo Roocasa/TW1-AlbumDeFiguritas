@@ -7,8 +7,10 @@ import static org.mockito.Mockito.*;
 
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.album.Album;
 import com.tallerwebi.dominio.album.Figurita;
 import com.tallerwebi.dominio.album.PaqueteServicio;
+import com.tallerwebi.dominio.album.ServicioAlbum;
 import com.tallerwebi.dominio.excepcion.CanjeFiguritasException;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +25,7 @@ public class ControladorInventarioTest {
   private ControladorInventario controladorInventario;
   private PaqueteServicio paqueteServicioMock;
   private ServicioPerfil servicioPerfilMock;
+  private ServicioAlbum servicioAlbumMock;
   private HttpSession sessionMock;
   private HttpServletRequest requestMock;
   private RedirectAttributes redirectAttributesMock;
@@ -31,13 +34,15 @@ public class ControladorInventarioTest {
   public void init() {
     paqueteServicioMock = mock(PaqueteServicio.class);
     servicioPerfilMock = mock(ServicioPerfil.class);
+    servicioAlbumMock = mock(ServicioAlbum.class);
     sessionMock = mock(HttpSession.class);
     requestMock = mock(HttpServletRequest.class);
     redirectAttributesMock = mock(RedirectAttributes.class);
 
     when(requestMock.getSession()).thenReturn(sessionMock);
 
-    controladorInventario = new ControladorInventario(paqueteServicioMock, servicioPerfilMock);
+    controladorInventario =
+      new ControladorInventario(paqueteServicioMock, servicioPerfilMock, servicioAlbumMock);
   }
 
   @Test
@@ -120,5 +125,26 @@ public class ControladorInventarioTest {
 
     assertThat(modelAndView.getViewName(), is(equalTo("redirect:/inventario?soloRepetidas=true")));
     verify(redirectAttributesMock, times(1)).addFlashAttribute("escudoCanjeado", escudo);
+  }
+
+  @Test
+  public void cuandoPegaLaUltimaFiguritaEntoncesSeMuestraElCartelDeAlbumCompletado() {
+    Usuario usuarioMock = new Usuario();
+    usuarioMock.setId(1L);
+    Album albumCompleto = new Album(usuarioMock);
+    albumCompleto.setFiguritasFaltantes(0);
+
+    when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+    when(servicioAlbumMock.obtenerAlbumActualizado(1L)).thenReturn(albumCompleto);
+
+    ModelAndView modelAndView = controladorInventario.pegarFigurita(
+      576L,
+      sessionMock,
+      redirectAttributesMock
+    );
+
+    assertThat(modelAndView.getViewName(), is(equalTo("redirect:/inventario")));
+    verify(paqueteServicioMock, times(1)).pegarFigurita(1L, 576L);
+    verify(redirectAttributesMock, times(1)).addFlashAttribute("albumCompletado", true);
   }
 }

@@ -6,6 +6,7 @@ import com.tallerwebi.dominio.album.Figurita;
 import com.tallerwebi.dominio.album.InventarioItemDTO;
 import com.tallerwebi.dominio.album.PaqueteServicio;
 import com.tallerwebi.dominio.album.ResultadoApertura;
+import com.tallerwebi.dominio.album.ServicioAlbum;
 import com.tallerwebi.dominio.excepcion.CanjeFiguritasException;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
 import java.util.ArrayList;
@@ -28,11 +29,21 @@ public class ControladorInventario {
 
   private final PaqueteServicio paqueteServicio;
   private final ServicioPerfil servicioPerfil;
+  private final ServicioAlbum servicioAlbum;
 
   @Autowired
-  public ControladorInventario(PaqueteServicio paqueteServicio, ServicioPerfil servicioPerfil) {
+  public ControladorInventario(
+    PaqueteServicio paqueteServicio,
+    ServicioPerfil servicioPerfil,
+    ServicioAlbum servicioAlbum
+  ) {
     this.paqueteServicio = paqueteServicio;
     this.servicioPerfil = servicioPerfil;
+    this.servicioAlbum = servicioAlbum;
+  }
+
+  public ControladorInventario(PaqueteServicio paqueteServicio, ServicioPerfil servicioPerfil) {
+    this(paqueteServicio, servicioPerfil, null);
   }
 
   public ControladorInventario(PaqueteServicio paqueteServicio) {
@@ -116,6 +127,7 @@ public class ControladorInventario {
     try {
       paqueteServicio.pegarFigurita(usuario.getId(), idFigurita);
       ra.addFlashAttribute("mensajeExito", "Figurita pegada con exito.");
+      agregarMensajeAlbumCompletadoSiCorresponde(usuario.getId(), ra);
     } catch (Exception e) {
       ra.addFlashAttribute(FLASH_ERROR, "No se pudo pegar la figurita.");
     }
@@ -208,5 +220,18 @@ public class ControladorInventario {
 
     Usuario usuarioActualizado = servicioPerfil.buscarUsuarioPorId(idUsuario);
     session.setAttribute(ATRIBUTO_USUARIO, usuarioActualizado);
+  }
+
+  private void agregarMensajeAlbumCompletadoSiCorresponde(
+    Long idUsuario,
+    RedirectAttributes redirectAttributes
+  ) {
+    if (servicioAlbum == null) {
+      return;
+    }
+
+    if (servicioAlbum.obtenerAlbumActualizado(idUsuario).getFiguritasFaltantes() == 0) {
+      redirectAttributes.addFlashAttribute("albumCompletado", true);
+    }
   }
 }

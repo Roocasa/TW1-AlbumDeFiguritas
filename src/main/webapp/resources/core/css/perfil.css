@@ -1,0 +1,348 @@
+.profile-shell {
+  min-height: 100vh;
+  background:
+    linear-gradient(180deg, rgba(7, 17, 34, 0.72), rgba(7, 17, 34, 0.78)),
+    url("/spring/img/imagen-nota-mundial-2026.png") center / cover no-repeat fixed,
+    linear-gradient(180deg, #8fd0ff 0%, #def1ff 28%, #edf1f7 28.1%, #7c838f 100%);
+}
+
+.profile-topbar__brand {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.profile-topbar__brand:hover,
+.profile-topbar__brand:focus {
+  color: #ffffff;
+}
+
+.profile-topbar__title {
+  font-size: clamp(2.2rem, 4vw, 3.6rem);
+}
+
+.profile-topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.profile-topbar__actions a {
+  min-width: 92px;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  color: #ffffff;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+}
+
+.profile-topbar__actions a:hover,
+.profile-topbar__actions a:focus {
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+}
+
+.profile-layout {
+  width: min(1080px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 3rem 0;
+}
+
+.profile-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(360px, 1.15fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.profile-hero__copy,
+.profile-card {
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.82)),
+    rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 18px 40px rgba(22, 38, 74, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.profile-hero__copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 420px;
+  padding: 2rem;
+}
+
+.profile-hero__copy h1 {
+  margin: 0;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(3.8rem, 8vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: 0.06em;
+  color: #0f2242;
+  text-transform: uppercase;
+}
+
+.profile-hero__copy p {
+  max-width: 360px;
+  margin: 1rem 0 0;
+  color: #36506f;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 420px;
+  padding: 1.5rem;
+}
+
+.profile-card__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(15, 34, 66, 0.1);
+}
+
+.profile-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 86px;
+  height: 86px;
+  flex: 0 0 86px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #1f6fd1 0%, #144a8a 100%);
+  color: #ffffff;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.08em;
+  box-shadow: 0 18px 32px rgba(20, 74, 138, 0.22);
+}
+
+.profile-card__label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #5d6d86;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.profile-card h2 {
+  margin: 0;
+  overflow-wrap: anywhere;
+  color: #0f2242;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 700;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.profile-stat {
+  min-height: 118px;
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(15, 34, 66, 0.06);
+}
+
+.profile-stat span {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #5d6d86;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.profile-stat strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: #0f2242;
+  font-size: 1.05rem;
+  line-height: 1.35;
+}
+
+.profile-card__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-note {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 1.25rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: rgba(15, 34, 66, 0.06);
+}
+
+.profile-note strong {
+  color: #0f2242;
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.profile-note span {
+  color: #4d607d;
+  line-height: 1.5;
+}
+
+.profile-charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.profile-chart-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.4rem;
+  align-items: start;
+  justify-items: center;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 22px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.82)),
+    rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 18px 40px rgba(22, 38, 74, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.86);
+}
+
+.profile-chart-card__copy {
+  max-width: 100%;
+  width: 100%;
+}
+
+.profile-chart-card__copy h2 {
+  margin: 0;
+  color: #0f2242;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.profile-chart-card__copy p {
+  margin: 0.9rem 0 0;
+  color: #36506f;
+  line-height: 1.6;
+}
+
+.profile-chart-card__copy strong {
+  color: #0f2242;
+}
+
+.profile-chart-shell {
+  width: min(100%, 320px);
+  height: 320px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.profile-chart {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.profile-button {
+  min-height: 52px;
+  min-width: 180px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.25rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #1f6fd1 0%, #144a8a 100%);
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.profile-button:hover,
+.profile-button:focus {
+  color: #ffffff;
+  box-shadow: 0 14px 25px rgba(20, 74, 138, 0.22);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 576px) {
+  .profile-topbar {
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .profile-topbar__brand {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-topbar__actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .profile-layout {
+    width: min(100%, calc(100% - 1rem));
+    padding: 1rem 0 2rem;
+  }
+
+  .profile-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-hero__copy,
+  .profile-card {
+    min-height: auto;
+  }
+
+  .profile-hero__copy {
+    padding: 1.5rem;
+  }
+
+  .profile-card__header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .profile-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-charts {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-chart-card {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-chart-shell {
+    width: min(100%, 280px);
+    height: 280px;
+  }
+
+  .profile-card__footer,
+  .profile-button {
+    width: 100%;
+  }
+}

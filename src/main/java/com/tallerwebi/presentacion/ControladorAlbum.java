@@ -8,6 +8,7 @@ import com.tallerwebi.dominio.album.PaqueteServicio;
 import com.tallerwebi.dominio.album.ServicioAlbum;
 import com.tallerwebi.dominio.album.ServicioPais;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -72,6 +73,7 @@ public class ControladorAlbum {
 
     List<Pais> paises = servicioPais.buscarPaises(grupo, pais);
     Map<String, List<Pais>> paisesPorGrupo = servicioPais.agruparPorGrupo(paises);
+    Map<String, List<AlbumSlotDTO>> albumSlotsPorPais = obtenerSlotsPorPais(paises, usuario);
 
     ModelMap modelo = new ModelMap();
     modelo.put("paisesPorGrupo", paisesPorGrupo);
@@ -82,6 +84,7 @@ public class ControladorAlbum {
     modelo.put("album", servicioAlbum.obtenerAlbumActualizado(usuario.getId()));
     modelo.put("pegadasPorPais", servicioAlbum.obtenerPegadasPorPais(usuario.getId()));
     modelo.put("pendientesPorPais", servicioAlbum.obtenerPendientesPorPais(usuario.getId()));
+    modelo.put("albumSlotsPorPais", albumSlotsPorPais);
 
     return new ModelAndView("album", modelo);
   }
@@ -119,6 +122,7 @@ public class ControladorAlbum {
     modelo.put("nombrePais", pais.getNombre());
     modelo.put("figuritas", NUMEROS_DE_FIGURITAS);
     modelo.put("albumSlots", slots);
+    modelo.put("album", servicioAlbum.obtenerAlbumActualizado(usuario.getId()));
     modelo.put("paisAnterior", paisAnterior);
     modelo.put("paisSiguiente", paisSiguiente);
 
@@ -145,12 +149,11 @@ public class ControladorAlbum {
 
     try {
       paqueteServicio.pegarFigurita(usuario.getId(), idFigurita);
-      ra.addFlashAttribute("mensajeExito", "Figurita pegada en el album.");
     } catch (RuntimeException e) {
       ra.addFlashAttribute("error", e.getMessage());
     }
 
-    return new ModelAndView("redirect:/album/pais/" + codigo);
+    return new ModelAndView("redirect:/album/pais/" + codigo + "#figurita-" + idFigurita);
   }
 
   private static List<Integer> crearNumerosDeFiguritas() {
@@ -169,5 +172,18 @@ public class ControladorAlbum {
     }
 
     return -1;
+  }
+
+  private Map<String, List<AlbumSlotDTO>> obtenerSlotsPorPais(List<Pais> paises, Usuario usuario) {
+    Map<String, List<AlbumSlotDTO>> slotsPorPais = new HashMap<>();
+
+    for (Pais pais : paises) {
+      slotsPorPais.put(
+        pais.getCodigo(),
+        servicioAlbum.obtenerSlotsPorPais(usuario.getId(), pais.getCodigo())
+      );
+    }
+
+    return slotsPorPais;
   }
 }

@@ -1,0 +1,858 @@
+/* INVENTARIO ESTILOS (ABRIR SOBRE) >>>> */
+
+.home-layout .home-grid.sobres-contenedor {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 4rem;
+  padding-top: 3rem;
+  grid-template-columns: none !important;
+}
+
+.home-panel.sobres {
+  position: relative;
+  width: 320px;
+  height: 450px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.home-panel.sobres > img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+  pointer-events: none;
+  filter: drop-shadow(0px 15px 20px rgba(0,0,0,0.4));
+}
+
+.sobre-contenido {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 55%;
+  width: 100%;
+}
+
+.sobre-contenido h2 {
+  color: #ffffff;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  margin: 0;
+  text-align: center;
+}
+
+.sobre-contenido .btn {
+  min-width: 160px;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  color: #ffffff;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  background-color: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255,255,255, 0.2);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.sobre-contenido .btn:hover {
+  background-color: rgba(163, 5, 5, 0.9);
+  transform: scale(1.05);
+}
+
+.sobre-badge {
+  position: absolute;
+  top: -15px;
+  right: -15px;
+  z-index: 10;
+  background-color: #a30505;
+  color: #ffffff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2.4rem;
+  line-height: 1;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255,255,255,0.1);
+}
+/*
+   CONTROLES Y ESTILOS DE FIGURITAS
+*/
+
+.inventario-controles {
+  background: rgba(15, 34, 66, 0.6);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.inventario-controles select {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  color: #0f2242;
+  cursor: pointer;
+}
+
+.inventory-trade-panel {
+  display: flex;
+  justify-content: center;
+}
+
+.inventory-trade-panel__content {
+  width: min(100%, 980px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(234, 244, 255, 0.93)),
+    #ffffff;
+  box-shadow: 0 18px 40px rgba(7, 17, 34, 0.16);
+}
+
+.inventory-trade-panel__eyebrow {
+  display: inline-flex;
+  margin-bottom: 0.55rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: #ffe3a3;
+  color: #7a4a00;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.inventory-trade-panel__content h3 {
+  margin: 0;
+  color: #0f2242;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.inventory-trade-panel__content p {
+  margin-top: 0.5rem;
+  color: #36506f;
+  font-size: 1rem;
+}
+
+.inventory-trade-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.inventory-trade-panel__button {
+  min-width: 240px;
+}
+
+.inventory-trade-panel__button--secondary {
+  background: linear-gradient(135deg, #1a8f6a 0%, #0c6a51 100%);
+}
+
+.inventory-trade-panel__button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.inventory-trade-panel__button[disabled]:hover,
+.inventory-trade-panel__button[disabled]:focus {
+  box-shadow: none;
+  transform: none;
+}
+
+.form-check-input {
+ background-color: #ffffff;
+}
+
+.form-check-label {
+  color: #ffffff;
+}
+
+.figurita-card {
+  position: relative;
+  overflow: hidden;
+  width: 180px;
+  height: 250px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(15, 34, 66, 0.16)),
+    rgba(9, 20, 41, 0.5);
+  box-shadow:
+    0 14px 30px rgba(6, 12, 28, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.24);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.inventory-heading p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+}
+
+.figurita-card.is-pegable {
+  border: 2px solid rgba(66, 255, 173, 0.92);
+}
+
+.figurita-card.is-pegable:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 16px 32px rgba(5, 12, 29, 0.4),
+    0 0 0 1px rgba(66, 255, 173, 0.28);
+}
+
+.figurita-card__background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.figurita-card__flag {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  z-index: 3;
+  width: 34px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, 0.88);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.24);
+}
+
+.figurita-card__player-image {
+  position: absolute;
+  left: 50%;
+  bottom: 3.45rem;
+  z-index: 2;
+  width: 94%;
+  height: 70%;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.58));
+}
+
+.figurita-card__number {
+  position: absolute;
+  top: 0.95rem;
+  left: 1rem;
+  z-index: 3;
+  min-width: 32px;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(9, 20, 41, 0.56);
+  color: #ffffff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: center;
+  backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.figurita-card__footer {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  z-index: 3;
+  padding: 0.75rem 0.85rem 0.7rem;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(10, 22, 44, 0.7), rgba(10, 22, 44, 0.95));
+  backdrop-filter: blur(10px);
+  text-align: center;
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.22);
+}
+
+.figurita-card__name {
+  margin: 0;
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.figurita-card__country {
+  margin: 0.24rem 0 0;
+  color: rgba(236, 243, 255, 0.82);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.figurita-card__duplicates {
+  position: absolute;
+  top: 2.9rem;
+  z-index: 4;
+  right: 0.8rem;
+  min-width: 28px;
+  height: 28px;
+  padding: 0 0.45rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #a30505;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border: 1.5px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.22);
+}
+
+.pack-result-card {
+  display: grid;
+  justify-items: center;
+  gap: 0.9rem;
+}
+
+.figurita-card--pack {
+  width: 188px;
+  height: 262px;
+}
+
+.figurita-card.country-sticker {
+  width: auto;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 40px rgba(7, 17, 34, 0.14);
+}
+
+.figurita-card.country-sticker.is-pegable {
+  border-color: rgba(255, 193, 7, 0.55);
+  box-shadow:
+    0 18px 40px rgba(7, 17, 34, 0.14),
+    0 0 0 1px rgba(255, 193, 7, 0.24);
+}
+
+.figurita-card.country-sticker.is-pegable:hover {
+  transform: translateY(-5px);
+  box-shadow:
+    0 24px 50px rgba(7, 17, 34, 0.22),
+    0 0 0 1px rgba(255, 193, 7, 0.24);
+}
+
+.figurita-card.country-sticker .country-sticker__image {
+  margin: 0.8rem 0.8rem 0;
+}
+
+.figurita-card.country-sticker .country-sticker__body {
+  padding-top: 0.85rem;
+}
+
+.figurita-card.country-sticker .figurita-card__duplicates {
+  top: 1.15rem;
+  right: 1.15rem;
+}
+
+.figurita-card.country-sticker .pegar-overlay {
+  top: 0.8rem;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  width: auto;
+  height: auto;
+  padding: 1rem 1rem 1.35rem;
+  border-radius: 16px;
+  align-items: center;
+  justify-content: center;
+  background:
+    linear-gradient(180deg, rgba(15, 34, 66, 0.12) 0%, rgba(15, 34, 66, 0.38) 54%, rgba(15, 34, 66, 0.86) 100%);
+}
+
+.figurita-card.country-sticker .pegar-overlay span {
+  min-width: 132px;
+  padding: 0.7rem 1rem;
+  border-width: 1.5px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 22px rgba(7, 17, 34, 0.18);
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+
+.figurita-card--pack.country-sticker {
+  width: 188px;
+  height: 250px;
+}
+
+.figurita-card--pack.country-sticker .country-sticker__player-stage {
+  top: 2.15rem;
+  right: 0.95rem;
+  bottom: 3.55rem;
+  left: 0.95rem;
+}
+
+.figurita-card--pack.country-sticker .country-sticker__visual-number {
+  font-size: 3.3rem;
+}
+
+.pack-result-card__info {
+  max-width: 188px;
+  text-align: center;
+}
+
+.pack-result-card__info strong {
+  display: block;
+  color: #10233f;
+  font-size: 0.96rem;
+  line-height: 1.2;
+}
+
+.pack-result-card__info span {
+  display: block;
+  margin-top: 0.25rem;
+  color: #556b89;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pegar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 34, 66, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  transform: translateY(6px);
+  z-index: 10;
+  text-decoration: none;
+}
+
+.figurita-card.is-pegable:hover .pegar-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pegar-overlay span {
+  color: white;
+  border: 2px solid #ffffff;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  background: rgba(255, 193, 7, 0.1);
+  text-align: center;
+}
+
+.figurita-card.is-pasting {
+  animation: sticker-paste 0.62s cubic-bezier(0.2, 0.84, 0.34, 1) forwards;
+}
+
+.figurita-card.is-pasting .pegar-overlay {
+  opacity: 1;
+  background: rgba(255, 183, 3, 0.9);
+}
+
+.figurita-card.is-pasting .pegar-overlay span {
+  color: #0f2242;
+}
+
+@keyframes sticker-paste {
+  0% {
+    transform: translateY(0) scale(1) rotate(0deg);
+    box-shadow: 0 18px 40px rgba(7, 17, 34, 0.14);
+  }
+  45% {
+    transform: translateY(-18px) scale(1.07) rotate(-2deg);
+    box-shadow: 0 28px 50px rgba(255, 183, 3, 0.36);
+  }
+  100% {
+    transform: translateY(4px) scale(0.92) rotate(0deg);
+    opacity: 0.2;
+    box-shadow: 0 8px 20px rgba(7, 17, 34, 0.12);
+  }
+}
+.inventory-empty-packs {
+  display: flex;
+  justify-content: center;
+}
+
+.inventory-empty-packs__alert {
+  width: min(100%, 720px);
+  border: none;
+  border-radius: 24px;
+  padding: 2rem;
+  background: linear-gradient(135deg, #fff2c3 0%, #ffe08a 100%);
+  color: #4f2d00;
+}
+
+.inventory-ad-modal {
+  border: none;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.inventory-ad-modal__video {
+  min-height: 220px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(135deg, rgba(15, 34, 66, 0.92), rgba(31, 111, 209, 0.82)),
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.3), transparent 60%);
+  color: #ffffff;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.inventory-reward-modal {
+  border: none;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.inventory-reward-modal__header {
+  background: linear-gradient(135deg, #1f6fd1 0%, #144a8a 100%);
+}
+
+.inventory-reward-modal__title {
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+}
+
+.inventory-reward-modal__close {
+  right: 1.5rem;
+  top: 1.5rem;
+}
+
+.inventory-reward-modal__copy {
+  max-width: 540px;
+  margin: 0 auto 1.5rem;
+  color: #36506f;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.inventory-reward-modal__pack-preview {
+  display: flex;
+  justify-content: center;
+}
+
+.inventory-reward-modal__pack-preview img {
+  width: min(100%, 250px);
+  filter: drop-shadow(0 20px 30px rgba(7, 17, 34, 0.25));
+}
+
+.inventory-reward-modal__footer {
+  gap: 0.85rem;
+}
+
+.inventory-reward-modal__action {
+  background-color: #a30505;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.inventory-reward-modal__action:hover,
+.inventory-reward-modal__action:focus {
+  color: #ffffff;
+}
+
+.inventory-reward-modal__action--ghost {
+  background: #ffffff;
+  border: 1px solid rgba(15, 34, 66, 0.14);
+  color: #0f2242;
+}
+
+.inventory-reward-modal__action--ghost:hover,
+.inventory-reward-modal__action--ghost:focus {
+  color: #0f2242;
+  background: #eef3f8;
+}
+
+@media (max-width: 576px) {
+  .inventory-reward-modal__footer {
+    flex-direction: column;
+  }
+}
+/* Estilos compartidos por las figuritas del inventario */
+.album-complete-banner {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid rgba(255, 216, 95, 0.72);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 248, 220, 0.98), rgba(255, 229, 143, 0.94)),
+    #fff3bf;
+  color: #5a3700;
+  box-shadow: 0 18px 36px rgba(7, 17, 34, 0.18);
+}
+
+.album-complete-banner span {
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.album-complete-banner strong {
+  color: #0f2242;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.album-complete-banner--inventory {
+  margin: 0 0 1rem;
+  text-align: center;
+}
+
+.country-sticker-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.country-sticker {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 18px 40px rgba(7, 17, 34, 0.14);
+  scroll-margin-top: 96px;
+}
+
+.country-sticker--filled {
+  border-color: rgba(34, 197, 94, 0.45);
+  box-shadow:
+    0 18px 40px rgba(7, 17, 34, 0.14),
+    0 0 0 1px rgba(34, 197, 94, 0.18);
+}
+
+.country-sticker--available {
+  border-color: rgba(255, 193, 7, 0.55);
+  box-shadow:
+    0 18px 40px rgba(7, 17, 34, 0.14),
+    0 0 0 1px rgba(255, 193, 7, 0.24);
+}
+
+.country-sticker__image {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 3 / 4;
+  margin: 1rem 1rem 0;
+  border: 2px dashed rgba(15, 34, 66, 0.24);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(228, 237, 247, 0.88)),
+    #eef3f8;
+  color: #0f2242;
+}
+
+.country-sticker__code {
+  position: relative;
+  z-index: 2;
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.country-sticker__image strong {
+  position: relative;
+  z-index: 2;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 4rem;
+  line-height: 1;
+}
+
+.country-sticker__player-image {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.2));
+}
+
+.country-sticker__visual-card {
+  position: absolute;
+  inset: 0.8rem;
+  border-radius: 16px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    linear-gradient(160deg, rgba(35, 91, 175, 0.92), rgba(31, 168, 189, 0.88)),
+    #2a5db0;
+  box-shadow: 0 14px 26px rgba(7, 17, 34, 0.22);
+}
+
+.country-sticker__visual-flag {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  width: 34px;
+  height: 24px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+}
+
+.country-sticker__visual-number {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.85rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 3rem;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.country-sticker__player-stage {
+  position: absolute;
+  top: 2.4rem;
+  right: 1.1rem;
+  bottom: 3.85rem;
+  left: 1.1rem;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.country-sticker__visual-content {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  padding: 0.7rem 0.75rem;
+  border-radius: 14px;
+  background: linear-gradient(90deg, rgba(8, 18, 39, 0.84), rgba(22, 47, 88, 0.8));
+  text-align: center;
+}
+
+.country-sticker__visual-content strong {
+  display: block;
+  color: #ffffff;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.country-sticker__visual-content span {
+  display: block;
+  margin-top: 0.2rem;
+  color: rgba(234, 242, 255, 0.84);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.country-sticker__plus {
+  position: absolute;
+  right: 0.8rem;
+  bottom: 0.8rem;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #ffd85f 0%, #ffb703 100%);
+  color: #0f2242;
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+  text-decoration: none;
+  box-shadow: 0 16px 28px rgba(255, 183, 3, 0.34);
+  animation: album-pulse 1.25s ease-in-out infinite;
+}
+
+.country-sticker__plus:hover,
+.country-sticker__plus:focus {
+  color: #0f2242;
+  transform: scale(1.06);
+}
+
+.country-sticker__body {
+  padding: 1rem;
+}
+
+.country-sticker__body h3 {
+  margin: 0;
+  color: #0f2242;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.country-sticker__body p {
+  margin: 0.25rem 0 0;
+  color: #5d6d86;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+@media (max-width: 576px) {
+  .country-sticker-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
