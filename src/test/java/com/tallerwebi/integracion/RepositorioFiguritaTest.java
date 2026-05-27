@@ -7,7 +7,6 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import com.tallerwebi.dominio.album.Figurita;
 import com.tallerwebi.dominio.album.Pais;
-import com.tallerwebi.dominio.album.Rareza;
 import com.tallerwebi.dominio.album.RepositorioFigurita;
 import com.tallerwebi.infraestructura.RepositorioFiguritaImpl;
 import com.tallerwebi.infraestructura.config.HibernateInfraestructuraTestConfig;
@@ -44,7 +43,6 @@ public class RepositorioFiguritaTest {
       Figurita figurita = new Figurita();
       figurita.setNombre("Jugador " + i);
       figurita.setPais(argentina);
-      figurita.setRareza(Rareza.COMUN);
       sessionFactory.getCurrentSession().save(figurita);
     }
 

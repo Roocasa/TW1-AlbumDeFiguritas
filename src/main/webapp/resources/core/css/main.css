@@ -247,6 +247,10 @@ body {
   padding: 2rem 0 1.5rem;
 }
 
+.inventory-layout {
+  width: min(1220px, calc(100% - 2rem));
+}
+
 .home-grid {
   display: grid;
   grid-template-areas:
@@ -853,6 +857,82 @@ body {
   color: #0f2242;
   cursor: pointer;
 }
+
+.inventory-trade-panel {
+  display: flex;
+  justify-content: center;
+}
+
+.inventory-trade-panel__content {
+  width: min(100%, 980px);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.97), rgba(234, 244, 255, 0.93)),
+    #ffffff;
+  box-shadow: 0 18px 40px rgba(7, 17, 34, 0.16);
+}
+
+.inventory-trade-panel__eyebrow {
+  display: inline-flex;
+  margin-bottom: 0.55rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  background: #ffe3a3;
+  color: #7a4a00;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.inventory-trade-panel__content h3 {
+  margin: 0;
+  color: #0f2242;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 3vw, 2.6rem);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.inventory-trade-panel__content p {
+  margin-top: 0.5rem;
+  color: #36506f;
+  font-size: 1rem;
+}
+
+.inventory-trade-panel__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  align-items: center;
+}
+
+.inventory-trade-panel__button {
+  min-width: 240px;
+}
+
+.inventory-trade-panel__button--secondary {
+  background: linear-gradient(135deg, #1a8f6a 0%, #0c6a51 100%);
+}
+
+.inventory-trade-panel__button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.inventory-trade-panel__button[disabled]:hover,
+.inventory-trade-panel__button[disabled]:focus {
+  box-shadow: none;
+  transform: none;
+}
+
 .form-check-input {
  background-color: #ffffff;
 }
@@ -1012,7 +1092,7 @@ body {
 }
 
 .figurita-card.country-sticker {
-  width: 180px;
+  width: auto;
   height: auto;
   border: 1px solid rgba(255, 255, 255, 0.58);
   border-radius: 18px;
@@ -1050,21 +1130,43 @@ body {
 .figurita-card.country-sticker .pegar-overlay {
   top: 0.8rem;
   right: 0.8rem;
-  bottom: auto;
+  bottom: 0.8rem;
   left: 0.8rem;
   width: auto;
-  height: calc(100% - 4.6rem);
-  border-radius: 14px;
-  background: rgba(15, 34, 66, 0.72);
+  height: auto;
+  padding: 1rem 1rem 1.35rem;
+  border-radius: 16px;
+  align-items: center;
+  justify-content: flex-end;
+  background:
+    linear-gradient(180deg, rgba(15, 34, 66, 0.12) 0%, rgba(15, 34, 66, 0.38) 54%, rgba(15, 34, 66, 0.86) 100%);
 }
 
 .figurita-card.country-sticker .pegar-overlay span {
-  background: rgba(255, 193, 7, 0.12);
+  min-width: 132px;
+  padding: 0.7rem 1rem;
+  border-width: 1.5px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: 0 12px 22px rgba(7, 17, 34, 0.18);
+  font-size: 0.95rem;
+  line-height: 1.25;
 }
 
 .figurita-card--pack.country-sticker {
   width: 188px;
   height: auto;
+}
+
+.figurita-card--pack.country-sticker .country-sticker__player-stage {
+  top: 2.15rem;
+  right: 0.95rem;
+  bottom: 3.55rem;
+  left: 0.95rem;
+}
+
+.figurita-card--pack.country-sticker .country-sticker__visual-number {
+  font-size: 3.3rem;
 }
 
 .pack-result-card__info {
@@ -1099,13 +1201,17 @@ body {
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+  transform: translateY(6px);
   z-index: 10;
   text-decoration: none;
 }
 
 .figurita-card.is-pegable:hover .pegar-overlay {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .pegar-overlay span {
@@ -1114,6 +1220,7 @@ body {
   padding: 0.8rem 1.5rem;
   border-radius: 999px;
   background: rgba(255, 193, 7, 0.1);
+  text-align: center;
 }
 .inventory-empty-packs {
   display: flex;
@@ -1147,6 +1254,75 @@ body {
   font-family: "Bebas Neue", sans-serif;
   font-size: 2rem;
   letter-spacing: 1px;
+}
+
+.inventory-reward-modal {
+  border: none;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.inventory-reward-modal__header {
+  background: linear-gradient(135deg, #1f6fd1 0%, #144a8a 100%);
+}
+
+.inventory-reward-modal__title {
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 2px;
+}
+
+.inventory-reward-modal__close {
+  right: 1.5rem;
+  top: 1.5rem;
+}
+
+.inventory-reward-modal__copy {
+  max-width: 540px;
+  margin: 0 auto 1.5rem;
+  color: #36506f;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.inventory-reward-modal__pack-preview {
+  display: flex;
+  justify-content: center;
+}
+
+.inventory-reward-modal__pack-preview img {
+  width: min(100%, 250px);
+  filter: drop-shadow(0 20px 30px rgba(7, 17, 34, 0.25));
+}
+
+.inventory-reward-modal__footer {
+  gap: 0.85rem;
+}
+
+.inventory-reward-modal__action {
+  background-color: #a30505;
+  border-radius: 999px;
+  color: #ffffff;
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+
+.inventory-reward-modal__action:hover,
+.inventory-reward-modal__action:focus {
+  color: #ffffff;
+}
+
+.inventory-reward-modal__action--ghost {
+  background: #ffffff;
+  border: 1px solid rgba(15, 34, 66, 0.14);
+  color: #0f2242;
+}
+
+.inventory-reward-modal__action--ghost:hover,
+.inventory-reward-modal__action--ghost:focus {
+  color: #0f2242;
+  background: #eef3f8;
 }
 
 @media (max-width: 576px) {
@@ -1186,6 +1362,10 @@ body {
   .home-layout {
     width: min(100%, calc(100% - 1rem));
     padding-bottom: 2rem;
+  }
+
+  .inventory-layout {
+    width: min(100%, calc(100% - 1rem));
   }
 
   .home-grid {
@@ -1269,6 +1449,10 @@ body {
   .profile-card__footer,
   .profile-button {
     width: 100%;
+  }
+
+  .inventory-reward-modal__footer {
+    flex-direction: column;
   }
 
 }

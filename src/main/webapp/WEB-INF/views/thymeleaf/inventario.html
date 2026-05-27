@@ -32,7 +32,7 @@
     </nav>
   </header>
 
-<main class="home-layout">
+<main class="home-layout inventory-layout">
     <div class="container mb-4">
         <div th:if="${mensajeSobre}" class="alert alert-success text-center shadow-sm mb-3" th:text="${mensajeSobre}">
             Cerraste el anuncio y te dimos 1 sobre comun.
@@ -91,12 +91,43 @@
         </a>
     </section>
 
+    <section class="inventory-trade-panel mb-4">
+        <div class="inventory-trade-panel__content">
+            <div>
+                <span class="inventory-trade-panel__eyebrow">Intercambios</span>
+                <h3>Canjea tus repetidas</h3>
+                <p class="mb-0">
+                    Tienes
+                    <strong th:text="${repetidasDisponibles}">0</strong>
+                    figuritas repetidas disponibles para intercambio.
+                </p>
+            </div>
+            <div class="inventory-trade-panel__actions">
+                <form th:action="@{/canjear-repetidas/paquete}" method="get">
+                    <button
+                        type="submit"
+                        class="profile-button inventory-trade-panel__button"
+                        th:disabled="${repetidasDisponibles < canjePaqueteCosto}">
+                        <span th:text="${canjePaqueteCosto + ' repetidas por 1 sobre'}">5 repetidas por 1 sobre</span>
+                    </button>
+                </form>
+                <form th:action="@{/canjear-repetidas/escudo}" method="get">
+                    <button
+                        type="submit"
+                        class="profile-button inventory-trade-panel__button inventory-trade-panel__button--secondary"
+                        th:disabled="${repetidasDisponibles < canjeEscudoCosto}">
+                        <span th:text="${canjeEscudoCosto + ' repetidas por 1 escudo aleatorio'}">3 repetidas por 1 escudo aleatorio</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
     <div class="inventario-controles">
         <div class="d-flex align-items-center gap-2">
             <label class="text-white fw-bold mb-0">Ordenar por:</label>
             <select id="sort-select" class="form-select w-auto shadow-sm">
                 <option value="numero">Numeracion en el album</option>
-                <option value="score">Score</option>
             </select>
         </div>
         <div class="form-check form-switch ms-md-4">
@@ -111,14 +142,13 @@
         </span>
     </div>
 
-    <div id="figuritas-grid" class="d-flex flex-wrap justify-content-center gap-3 pb-5">
+    <div id="figuritas-grid" class="country-sticker-grid pb-5">
 
         <div th:each="item : ${figuritas}"
              class="figurita-card country-sticker shadow-lg"
              th:classappend="${item.sePuedePegar} ? ' is-pegable country-sticker--available' : ''"
              style="position: relative;"
              th:data-pais="${item.figurita.seleccion}"
-             th:data-score="${item.figurita.score}"
              th:data-numero="${item.figurita.ordenAlbum}"
              th:data-nombre="${item.figurita.nombreJugador != null ? item.figurita.nombreJugador.toLowerCase() : ''}"
              th:data-pegable="${item.sePuedePegar}">
@@ -139,10 +169,12 @@
                          th:text="${item.figurita.numeroDentroDelPais}">
                     </div>
 
-                    <img th:if="${item.figurita.imagenUrl != null}"
-                         th:src="${item.figurita.imagenUrl}"
-                         alt="Jugador"
-                         class="country-sticker__player-image">
+                    <div class="country-sticker__player-stage">
+                        <img th:if="${item.figurita.imagenUrl != null}"
+                             th:src="${item.figurita.imagenUrl}"
+                             alt="Jugador"
+                             class="country-sticker__player-image">
+                    </div>
 
                     <div class="country-sticker__visual-content">
                         <strong
@@ -158,10 +190,8 @@
             </div>
 
             <div class="country-sticker__body">
-                <h3
-                    th:text="${item.figurita.tipo != null and item.figurita.tipo.name() == 'ESCUDO' ? 'Escudo de ' + item.figurita.pais.nombre : item.figurita.nombreJugador}">Jugador</h3>
                 <p
-                    th:text="${item.sePuedePegar} ? 'Disponible para pegar' : 'Guardada en tu inventario'">Guardada en tu inventario</p>
+                    th:text="${item.cantidadRepetidas > 0 and item.sePuedePegar} ? 'Disponible para pegar e intercambiar' : (${item.cantidadRepetidas > 0} ? 'Disponible para intercambio' : (${item.sePuedePegar} ? 'Disponible para pegar' : 'Guardada en tu inventario'))">Guardada en tu inventario</p>
             </div>
         </div>
 
@@ -218,10 +248,12 @@
                                          th:text="${fig.numeroDentroDelPais}">
                                     </div>
 
-                                    <img th:if="${fig.imagenUrl != null}"
-                                         th:src="${fig.imagenUrl}"
-                                         alt="Jugador"
-                                         class="country-sticker__player-image">
+                                    <div class="country-sticker__player-stage">
+                                        <img th:if="${fig.imagenUrl != null}"
+                                             th:src="${fig.imagenUrl}"
+                                             alt="Jugador"
+                                             class="country-sticker__player-image">
+                                    </div>
 
                                     <div class="country-sticker__visual-content">
                                         <strong
@@ -233,10 +265,6 @@
                             </div>
                         </div>
 
-                        <div class="pack-result-card__info">
-                            <strong th:text="${fig.tipo != null and fig.tipo.name() == 'ESCUDO' ? 'Escudo de ' + fig.pais.nombre : fig.nombreJugador}"></strong>
-                            <span th:text="${fig.tipo != null and fig.tipo.name() == 'ESCUDO' ? (fig.pais != null ? fig.pais.nombre : '') : (fig.club != null ? fig.club : (fig.pais != null ? fig.pais.nombre : ''))}"></span>
-                        </div>
                     </div>
 
                 </div>
@@ -248,6 +276,94 @@
                 </a>
             </div>
 
+        </div>
+    </div>
+</div>
+
+<div th:if="${escudoCanjeado != null}" class="modal fade show" tabindex="-1" style="display: block; background: rgba(15, 34, 66, 0.95);">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content inventory-reward-modal">
+            <div class="modal-header border-0 text-center d-flex justify-content-center inventory-reward-modal__header">
+                <h4 class="modal-title text-white w-100 mt-2 inventory-reward-modal__title">
+                    ESCUDO GANADO
+                </h4>
+                <a th:href="@{/inventario(soloRepetidas=true)}" class="btn-close btn-close-white position-absolute inventory-reward-modal__close"></a>
+            </div>
+
+            <div class="modal-body py-5 px-4 text-center">
+                <p class="inventory-reward-modal__copy">
+                    Canjeaste tus repetidas y este fue el escudo que te toco.
+                </p>
+
+                <div class="pack-result-card mx-auto">
+                    <div class="figurita-card country-sticker shadow-lg figurita-card--pack">
+                        <div class="country-sticker__image">
+                            <div class="country-sticker__visual-card">
+                                <img th:if="${escudoCanjeado.pais != null and escudoCanjeado.pais.codigoBandera != null}"
+                                     th:src="${'https://flagcdn.com/' + escudoCanjeado.pais.codigoBandera + '.svg'}"
+                                     alt="Bandera"
+                                     class="country-sticker__visual-flag">
+
+                                <div class="country-sticker__visual-number"
+                                     th:text="${escudoCanjeado.numeroDentroDelPais}">
+                                </div>
+
+                                <div class="country-sticker__player-stage">
+                                    <img th:if="${escudoCanjeado.imagenUrl != null}"
+                                         th:src="${escudoCanjeado.imagenUrl}"
+                                         alt="Escudo"
+                                         class="country-sticker__player-image">
+                                </div>
+
+                                <div class="country-sticker__visual-content">
+                                    <strong
+                                        th:text="${'Escudo de ' + escudoCanjeado.pais.nombre}">Escudo</strong>
+                                    <span
+                                        th:text="${escudoCanjeado.pais != null ? escudoCanjeado.pais.nombre : ''}">Pais</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="modal-footer border-0 justify-content-center pb-4 bg-white">
+                <a th:href="@{/inventario(soloRepetidas=true)}" class="btn px-5 py-2 fw-bold text-white shadow inventory-reward-modal__action">
+                    SEGUIR VIENDO REPETIDAS
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:if="${canjePaqueteExitoso}" class="modal fade show" tabindex="-1" style="display: block; background: rgba(15, 34, 66, 0.95);">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content inventory-reward-modal">
+            <div class="modal-header border-0 text-center d-flex justify-content-center inventory-reward-modal__header">
+                <h4 class="modal-title text-white w-100 mt-2 inventory-reward-modal__title">
+                    SOBRE GANADO
+                </h4>
+                <a th:href="@{/inventario(soloRepetidas=true)}" class="btn-close btn-close-white position-absolute inventory-reward-modal__close"></a>
+            </div>
+
+            <div class="modal-body py-5 px-4 text-center">
+                <p class="inventory-reward-modal__copy">
+                    Canjeaste 5 repetidas y sumaste 1 sobre comun.
+                </p>
+                <div class="inventory-reward-modal__pack-preview">
+                    <img src="/spring/img/sobres/SOBRE_REGULAR.png" alt="Sobre comun">
+                </div>
+            </div>
+
+            <div class="modal-footer border-0 justify-content-center pb-4 bg-white inventory-reward-modal__footer">
+                <a th:href="@{/abrir-paquete}" class="btn px-5 py-2 fw-bold text-white shadow inventory-reward-modal__action">
+                    ABRIR AHORA
+                </a>
+                <a th:href="@{/inventario}" class="btn px-5 py-2 fw-bold shadow inventory-reward-modal__action inventory-reward-modal__action--ghost">
+                    IR AL INVENTARIO
+                </a>
+            </div>
         </div>
     </div>
 </div>

@@ -17,7 +17,6 @@ public class Usuario {
 
   private int paquetes = 0;
   private int paquetesPremium = 0;
-  private int monedas = 0;
   private int intercambiosRealizados = 0;
 
   private String email;
@@ -109,14 +108,6 @@ public class Usuario {
 
   public void setPaquetesPremiumDisponibles(int paquetesPremium) {
     this.paquetesPremium = paquetesPremium;
-  }
-
-  public int getMonedas() {
-    return monedas;
-  }
-
-  public void setMonedas(int monedas) {
-    this.monedas = monedas;
   }
 
   public int getIntercambiosRealizados() {

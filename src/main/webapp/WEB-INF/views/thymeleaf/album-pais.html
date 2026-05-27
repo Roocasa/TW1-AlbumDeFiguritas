@@ -88,11 +88,13 @@
                 alt="Bandera"
                 class="country-sticker__visual-flag">
               <div class="country-sticker__visual-number" th:text="${slot.figurita.numeroDentroDelPais}">1</div>
-              <img
-                th:if="${slot.figurita.imagenUrl != null}"
-                th:src="${slot.figurita.imagenUrl}"
-                alt="Jugador"
-                class="country-sticker__player-image">
+              <div class="country-sticker__player-stage">
+                <img
+                  th:if="${slot.figurita.imagenUrl != null}"
+                  th:src="${slot.figurita.imagenUrl}"
+                  alt="Jugador"
+                  class="country-sticker__player-image">
+              </div>
               <div class="country-sticker__visual-content">
                 <strong th:text="${slot.figurita.nombreJugador}">Lionel Messi</strong>
                 <span th:text="${slot.figurita.club != null ? slot.figurita.club : nombrePais}">Inter Miami (USA 1)</span>
@@ -110,7 +112,7 @@
               aria-label="Pegar figurita en el album">+</a>
           </div>
           <div class="country-sticker__body">
-            <h3 th:text="${slot.figurita.nombreJugador}">Figurita 1</h3>
+            <h3 th:if="${!slot.pegada}" th:text="${slot.figurita.nombreJugador}">Figurita 1</h3>
             <p th:text="${slot.pegada ? 'Pegada en el album' : (slot.disponibleParaPegar ? 'Disponible para pegar' : 'Te falta conseguirla')}">Argentina</p>
           </div>
         </article>

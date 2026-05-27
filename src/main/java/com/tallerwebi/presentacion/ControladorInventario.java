@@ -2,9 +2,11 @@ package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.album.Figurita;
 import com.tallerwebi.dominio.album.InventarioItemDTO;
 import com.tallerwebi.dominio.album.PaqueteServicio;
 import com.tallerwebi.dominio.album.ResultadoApertura;
+import com.tallerwebi.dominio.excepcion.CanjeFiguritasException;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,7 @@ public class ControladorInventario {
 
   private static final String ATRIBUTO_USUARIO = "USUARIO";
   private static final String REDIRECT_LOGIN = "redirect:/login";
+  private static final String FLASH_ERROR = "error";
 
   private final PaqueteServicio paqueteServicio;
   private final ServicioPerfil servicioPerfil;
@@ -64,6 +67,12 @@ public class ControladorInventario {
     mav.addObject("figuritas", figuritas);
     mav.addObject("soloRepetidas", soloRepetidas);
     mav.addObject("sinSobres", usuario.getPaquetesDisponibles() <= 0);
+    mav.addObject(
+      "repetidasDisponibles",
+      paqueteServicio.obtenerCantidadTotalRepetidas(usuario.getId())
+    );
+    mav.addObject("canjePaqueteCosto", paqueteServicio.obtenerCostoCanjePaquete());
+    mav.addObject("canjeEscudoCosto", paqueteServicio.obtenerCostoCanjeEscudo());
     return mav;
   }
 
@@ -86,7 +95,7 @@ public class ControladorInventario {
       ra.addFlashAttribute("figuritasNuevas", resultado.getFiguritasNuevas());
       ra.addFlashAttribute("paqueteAbierto", true);
     } catch (PaquetesInsuficientesException e) {
-      ra.addFlashAttribute("error", e.getMessage());
+      ra.addFlashAttribute(FLASH_ERROR, e.getMessage());
     }
 
     return new ModelAndView("redirect:/inventario");
@@ -108,7 +117,7 @@ public class ControladorInventario {
       paqueteServicio.pegarFigurita(usuario.getId(), idFigurita);
       ra.addFlashAttribute("mensajeExito", "Figurita pegada con exito.");
     } catch (Exception e) {
-      ra.addFlashAttribute("error", "No se pudo pegar la figurita.");
+      ra.addFlashAttribute(FLASH_ERROR, "No se pudo pegar la figurita.");
     }
 
     return new ModelAndView("redirect:/inventario");
@@ -142,6 +151,44 @@ public class ControladorInventario {
     return new ModelAndView("redirect:/inventario");
   }
 
+  @RequestMapping(path = "/canjear-repetidas/paquete", method = RequestMethod.GET)
+  public ModelAndView canjearRepetidasPorPaquete(HttpSession session, RedirectAttributes ra) {
+    Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
+
+    if (usuario == null) {
+      return new ModelAndView(REDIRECT_LOGIN);
+    }
+
+    try {
+      paqueteServicio.canjearRepetidasPorPaquete(usuario.getId());
+      actualizarUsuarioEnSesion(session, usuario.getId());
+      ra.addFlashAttribute("canjePaqueteExitoso", true);
+    } catch (CanjeFiguritasException e) {
+      ra.addFlashAttribute(FLASH_ERROR, e.getMessage());
+    }
+
+    return new ModelAndView("redirect:/inventario?soloRepetidas=true");
+  }
+
+  @RequestMapping(path = "/canjear-repetidas/escudo", method = RequestMethod.GET)
+  public ModelAndView canjearRepetidasPorEscudo(HttpSession session, RedirectAttributes ra) {
+    Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
+
+    if (usuario == null) {
+      return new ModelAndView(REDIRECT_LOGIN);
+    }
+
+    try {
+      Figurita escudoGanado = paqueteServicio.canjearRepetidasPorEscudo(usuario.getId());
+      actualizarUsuarioEnSesion(session, usuario.getId());
+      ra.addFlashAttribute("escudoCanjeado", escudoGanado);
+    } catch (CanjeFiguritasException e) {
+      ra.addFlashAttribute(FLASH_ERROR, e.getMessage());
+    }
+
+    return new ModelAndView("redirect:/inventario?soloRepetidas=true");
+  }
+
   private List<InventarioItemDTO> filtrarRepetidas(List<InventarioItemDTO> figuritas) {
     List<InventarioItemDTO> repetidas = new ArrayList<>();
 
@@ -152,5 +199,14 @@ public class ControladorInventario {
     }
 
     return repetidas;
+  }
+
+  private void actualizarUsuarioEnSesion(HttpSession session, Long idUsuario) {
+    if (servicioPerfil == null) {
+      return;
+    }
+
+    Usuario usuarioActualizado = servicioPerfil.buscarUsuarioPorId(idUsuario);
+    session.setAttribute(ATRIBUTO_USUARIO, usuarioActualizado);
   }
 }

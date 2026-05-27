@@ -22,10 +22,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            if (sortBy === 'numero' || sortBy === 'score') {
+            if (sortBy === 'numero') {
                 const valA = parseInt(a.dataset[sortBy], 10) || 0;
                 const valB = parseInt(b.dataset[sortBy], 10) || 0;
-                return sortBy === 'score' ? (valB - valA) : (valA - valB);
+                return valA - valB;
             }
 
             const valA = a.dataset[sortBy] || '';

@@ -7,7 +7,9 @@ import static org.mockito.Mockito.*;
 
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.album.Figurita;
 import com.tallerwebi.dominio.album.PaqueteServicio;
+import com.tallerwebi.dominio.excepcion.CanjeFiguritasException;
 import com.tallerwebi.dominio.excepcion.PaquetesInsuficientesException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -82,5 +84,41 @@ public class ControladorInventarioTest {
     verify(sessionMock, times(1)).setAttribute("USUARIO", usuarioActualizado);
     verify(redirectAttributesMock, times(1))
       .addFlashAttribute("mensajeSobre", "Cerraste el anuncio y te dimos 1 sobre comun.");
+  }
+
+  @Test
+  public void cuandoCanjeaRepetidasPorPaqueteEntoncesSeMuestraElPopupDelSobreGanado()
+    throws CanjeFiguritasException {
+    Usuario usuarioMock = new Usuario();
+    usuarioMock.setId(1L);
+    when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+
+    ModelAndView modelAndView = controladorInventario.canjearRepetidasPorPaquete(
+      sessionMock,
+      redirectAttributesMock
+    );
+
+    assertThat(modelAndView.getViewName(), is(equalTo("redirect:/inventario?soloRepetidas=true")));
+    verify(paqueteServicioMock, times(1)).canjearRepetidasPorPaquete(1L);
+    verify(redirectAttributesMock, times(1)).addFlashAttribute("canjePaqueteExitoso", true);
+  }
+
+  @Test
+  public void cuandoCanjeaRepetidasPorEscudoEntoncesSeMuestraElEscudoGanado()
+    throws CanjeFiguritasException {
+    Usuario usuarioMock = new Usuario();
+    usuarioMock.setId(1L);
+    Figurita escudo = new Figurita("Escudo de Argentina", "Argentina");
+
+    when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+    when(paqueteServicioMock.canjearRepetidasPorEscudo(1L)).thenReturn(escudo);
+
+    ModelAndView modelAndView = controladorInventario.canjearRepetidasPorEscudo(
+      sessionMock,
+      redirectAttributesMock
+    );
+
+    assertThat(modelAndView.getViewName(), is(equalTo("redirect:/inventario?soloRepetidas=true")));
+    verify(redirectAttributesMock, times(1)).addFlashAttribute("escudoCanjeado", escudo);
   }
 }

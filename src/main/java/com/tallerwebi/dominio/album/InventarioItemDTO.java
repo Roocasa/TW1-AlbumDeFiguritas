@@ -44,7 +44,11 @@ public class InventarioItemDTO {
     return sePuedePegar ? Math.max(cantidad - 1, 0) : cantidad;
   }
 
-  public boolean isRepetida() {
+  public boolean isDisponibleParaIntercambio() {
     return getCantidadRepetidas() > 0;
+  }
+
+  public boolean isRepetida() {
+    return isDisponibleParaIntercambio();
   }
 }

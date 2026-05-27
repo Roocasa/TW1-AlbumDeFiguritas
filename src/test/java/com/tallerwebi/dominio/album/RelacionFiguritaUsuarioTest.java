@@ -12,7 +12,7 @@ public class RelacionFiguritaUsuarioTest {
   @Test
   public void constructorConParametrosDeberiaInicializarLaRelacion() {
     Usuario usuario = new Usuario();
-    Figurita figurita = new Figurita("Julian Alvarez", "Argentina", Rareza.COMUN);
+    Figurita figurita = new Figurita("Julian Alvarez", "Argentina");
 
     RelacionFiguritaUsuario relacion = new RelacionFiguritaUsuario(usuario, figurita);
 
@@ -25,7 +25,7 @@ public class RelacionFiguritaUsuarioTest {
   public void deberiaPermitirModificarLosDatosDeLaRelacion() {
     RelacionFiguritaUsuario relacion = new RelacionFiguritaUsuario();
     Usuario usuario = new Usuario();
-    Figurita figurita = new Figurita("Thiago Almada", "Argentina", Rareza.COMUN);
+    Figurita figurita = new Figurita("Thiago Almada", "Argentina");
 
     relacion.setId(7L);
     relacion.setPropietario(usuario);
