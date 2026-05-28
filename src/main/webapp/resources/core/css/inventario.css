@@ -184,6 +184,14 @@
   background: linear-gradient(135deg, #1a8f6a 0%, #0c6a51 100%);
 }
 
+.inventory-trade-panel__button--swap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  background: linear-gradient(135deg, #1f6fd1 0%, #144a8a 100%);
+}
+
 .inventory-trade-panel__button[disabled] {
   opacity: 0.6;
   cursor: not-allowed;
@@ -618,9 +626,196 @@
   background: #eef3f8;
 }
 
+.exchange-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+}
+
+.exchange-panel--balanced {
+  align-items: start;
+}
+
+.exchange-panel__block {
+  padding: 1.35rem;
+  border-radius: 24px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(236, 245, 255, 0.94)),
+    #ffffff;
+  box-shadow: 0 18px 40px rgba(7, 17, 34, 0.16);
+}
+
+.exchange-panel__block h3 {
+  margin: 0 0 1rem;
+  color: #0f2242;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 2.1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.exchange-empty {
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(15, 34, 66, 0.08);
+  color: #36506f;
+  font-weight: 700;
+}
+
+.exchange-select-list,
+.exchange-offers {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.exchange-radio-card,
+.exchange-offer__item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  padding: 0.95rem;
+  border: 1px solid rgba(15, 34, 66, 0.12);
+  border-radius: 16px;
+  background: #ffffff;
+  color: #0f2242;
+}
+
+.exchange-radio-card {
+  cursor: pointer;
+}
+
+.exchange-radio-card input {
+  width: 18px;
+  height: 18px;
+  accent-color: #1f6fd1;
+}
+
+.exchange-radio-card span,
+.exchange-offer__info {
+  display: grid;
+  gap: 0.18rem;
+  min-width: 0;
+  flex: 1;
+}
+
+.exchange-radio-card strong,
+.exchange-offer__item strong {
+  font-size: 0.98rem;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.exchange-radio-card small,
+.exchange-offer__item span,
+.exchange-offer__item small {
+  color: #5d6d86;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.exchange-radio-card em {
+  color: #a30505;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.exchange-offer {
+  padding: 0.75rem;
+  border-radius: 18px;
+  background: rgba(15, 34, 66, 0.06);
+}
+
+.exchange-offer h4 {
+  margin: 0 0 0.7rem;
+  color: #0f2242;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.exchange-offer__button {
+  min-width: 130px;
+  padding: 0.65rem 1rem;
+}
+
+.exchange-sticker-thumb {
+  position: relative;
+  flex: 0 0 58px;
+  width: 58px;
+  height: 72px;
+  border: 2px solid rgba(255, 255, 255, 0.86);
+  border-radius: 10px;
+  overflow: hidden;
+  background:
+    linear-gradient(160deg, rgba(35, 91, 175, 0.92), rgba(31, 168, 189, 0.88)),
+    #2a5db0;
+  box-shadow: 0 10px 18px rgba(7, 17, 34, 0.16);
+}
+
+.exchange-sticker-thumb__flag {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  z-index: 2;
+  width: 18px;
+  height: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.exchange-sticker-thumb strong {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.35rem;
+  z-index: 2;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 1.35rem;
+  line-height: 1;
+}
+
+.exchange-sticker-thumb__player {
+  position: absolute;
+  right: 0;
+  bottom: 0.15rem;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 82%;
+  object-fit: contain;
+  object-position: center bottom;
+  padding: 0.3rem;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.2));
+}
+
+.exchange-sticker-thumb small {
+  position: absolute;
+  right: 0.3rem;
+  bottom: 0.35rem;
+  left: 0.3rem;
+  z-index: 2;
+  max-height: 2.25rem;
+  overflow: hidden;
+  color: #ffffff;
+  font-size: 0.56rem;
+  font-weight: 900;
+  line-height: 1.12;
+  text-align: center;
+  text-transform: uppercase;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+}
+
 @media (max-width: 576px) {
   .inventory-reward-modal__footer {
     flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .exchange-panel {
+    grid-template-columns: 1fr;
   }
 }
 /* Estilos compartidos por las figuritas del inventario */

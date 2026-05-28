@@ -1,0 +1,195 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Intercambios | Taller Web I</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <link rel="stylesheet" th:href="@{/css/home.css}" />
+    <link rel="stylesheet" th:href="@{/css/inventario.css}" />
+</head>
+
+<body class="home-shell">
+  <header class="home-topbar profile-topbar">
+    <a class="home-topbar__brand profile-topbar__brand" th:href="@{/home}">
+      <img
+        class="home-topbar__logo"
+        th:src="@{/img/mundial_2026.png}"
+        src="/img/mundial_2026.png"
+        alt="Logo Mundial 2026" />
+      <span class="home-topbar__title profile-topbar__title">Album 2026</span>
+    </a>
+    <nav class="profile-topbar__actions" aria-label="Navegacion principal">
+      <a th:href="@{/home}">Inicio</a>
+      <a th:href="@{/inventario}">Inventario</a>
+      <a th:href="@{/perfil}">Perfil</a>
+      <a th:href="@{/login}">Salir</a>
+    </nav>
+  </header>
+
+  <main class="home-layout inventory-layout">
+    <div class="container mb-4">
+      <div th:if="${mensajeExito}" class="alert alert-success text-center shadow-sm mb-3" th:text="${mensajeExito}">
+        Intercambio realizado con exito.
+      </div>
+      <div th:if="${error}" class="alert alert-danger text-center shadow-sm mb-3" th:text="${error}">
+        No se pudo realizar el intercambio.
+      </div>
+    </div>
+
+    <section class="inventory-heading text-center text-white mb-4">
+      <h2 class="mb-2" style="font-family: 'Bebas Neue'; letter-spacing: 2px;">
+        Intercambio de figuritas
+      </h2>
+      <p class="mb-0">
+        Elegi una repetida tuya y cambiala por una repetida disponible de otro usuario.
+      </p>
+    </section>
+
+    <section class="exchange-panel exchange-panel--balanced mb-4">
+      <div class="exchange-panel__block">
+        <span class="inventory-trade-panel__eyebrow">Tus repetidas</span>
+        <h3>Figurita que das</h3>
+
+        <div th:if="${misFiguritas == null or misFiguritas.empty}" class="exchange-empty">
+          Todavia no tenes figuritas repetidas para intercambiar.
+        </div>
+
+        <div th:if="${misFiguritas != null and !misFiguritas.empty}" class="exchange-select-list">
+          <label th:each="item : ${misFiguritas}" class="exchange-radio-card">
+            <input
+              type="radio"
+              name="miFiguritaGlobal"
+              th:value="${item.figurita.id}">
+            <span class="exchange-sticker-thumb">
+              <img
+                th:if="${item.figurita.pais != null and item.figurita.pais.codigoBandera != null}"
+                th:src="${'https://flagcdn.com/' + item.figurita.pais.codigoBandera + '.svg'}"
+                alt="Bandera"
+                class="exchange-sticker-thumb__flag">
+              <strong
+                th:text="${item.figurita.numeroDentroDelPais}">
+                1
+              </strong>
+              <img
+                th:if="${item.figurita.imagenUrl != null}"
+                th:src="${item.figurita.imagenUrl}"
+                alt="Figurita"
+                class="exchange-sticker-thumb__player">
+              <small
+                th:if="${item.figurita.imagenUrl == null}"
+                th:text="${item.figurita.tipo != null and item.figurita.tipo.name() == 'ESCUDO' ? 'ESC' : item.figurita.nombreJugador}">
+                Figurita
+              </small>
+            </span>
+            <span>
+              <strong
+                th:text="${item.figurita.tipo != null and item.figurita.tipo.name() == 'ESCUDO' ? 'Escudo de ' + item.figurita.pais.nombre : item.figurita.nombreJugador}">
+                Figurita
+              </strong>
+              <small
+                th:text="${item.figurita.pais != null ? item.figurita.pais.nombre : 'Seleccion'}">
+                Pais
+              </small>
+              <em th:text="${'Repetidas: ' + item.cantidadRepetidas}">Repetidas: 1</em>
+            </span>
+          </label>
+        </div>
+      </div>
+
+      <div class="exchange-panel__block">
+        <span class="inventory-trade-panel__eyebrow">Otros usuarios</span>
+        <h3>Figurita que recibis</h3>
+
+        <div th:if="${ofertas == null or ofertas.empty}" class="exchange-empty">
+          Todavia no hay otros usuarios con repetidas disponibles.
+        </div>
+
+        <div th:if="${ofertas != null and !ofertas.empty}" class="exchange-offers">
+          <article th:each="oferta : ${ofertas}" class="exchange-offer">
+            <h4 th:text="${oferta.usuario.email}">usuario@email.com</h4>
+
+            <form
+              th:each="item : ${oferta.figuritasRepetidas}"
+              th:action="@{/intercambiar}"
+              method="post"
+              class="exchange-offer__item">
+              <input type="hidden" name="miFiguritaId" class="js-mi-figurita">
+              <input type="hidden" name="usuarioDestinoId" th:value="${oferta.usuario.id}">
+              <input type="hidden" name="figuritaDestinoId" th:value="${item.figurita.id}">
+
+              <span class="exchange-sticker-thumb">
+                <img
+                  th:if="${item.figurita.pais != null and item.figurita.pais.codigoBandera != null}"
+                  th:src="${'https://flagcdn.com/' + item.figurita.pais.codigoBandera + '.svg'}"
+                  alt="Bandera"
+                  class="exchange-sticker-thumb__flag">
+                <strong
+                  th:text="${item.figurita.numeroDentroDelPais}">
+                  1
+                </strong>
+                <img
+                  th:if="${item.figurita.imagenUrl != null}"
+                  th:src="${item.figurita.imagenUrl}"
+                  alt="Figurita"
+                  class="exchange-sticker-thumb__player">
+                <small
+                  th:if="${item.figurita.imagenUrl == null}"
+                  th:text="${item.figurita.tipo != null and item.figurita.tipo.name() == 'ESCUDO' ? 'ESC' : item.figurita.nombreJugador}">
+                  Figurita
+                </small>
+              </span>
+
+              <div class="exchange-offer__info">
+                <strong
+                  th:text="${item.figurita.tipo != null and item.figurita.tipo.name() == 'ESCUDO' ? 'Escudo de ' + item.figurita.pais.nombre : item.figurita.nombreJugador}">
+                  Figurita
+                </strong>
+                <span
+                  th:text="${item.figurita.pais != null ? item.figurita.pais.nombre : 'Seleccion'}">
+                  Pais
+                </span>
+                <small th:text="${'Repetidas: ' + item.cantidadRepetidas}">Repetidas: 1</small>
+              </div>
+
+              <button
+                type="submit"
+                class="profile-button exchange-offer__button"
+                th:disabled="${misFiguritas == null or misFiguritas.empty}">
+                Intercambiar
+              </button>
+            </form>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="home-footer">Proyecto taller web 1</footer>
+
+  <script>
+    document.addEventListener("submit", function (event) {
+      const form = event.target;
+      if (!form.classList.contains("exchange-offer__item")) {
+        return;
+      }
+
+      const seleccion = document.querySelector("input[name='miFiguritaGlobal']:checked");
+      if (!seleccion) {
+        event.preventDefault();
+        alert("Selecciona primero una figurita repetida tuya.");
+        return;
+      }
+
+      form.querySelector(".js-mi-figurita").value = seleccion.value;
+    });
+  </script>
+</body>
+</html>
