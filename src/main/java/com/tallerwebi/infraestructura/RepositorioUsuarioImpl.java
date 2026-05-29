@@ -2,6 +2,7 @@ package com.tallerwebi.infraestructura;
 
 import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.Usuario;
+import java.util.List;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,15 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
   @Override
   public Usuario buscarPorId(Long id) {
     return sessionFactory.getCurrentSession().get(Usuario.class, id);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public List<Usuario> buscarTodosExcepto(Long idUsuario) {
+    return sessionFactory
+      .getCurrentSession()
+      .createCriteria(Usuario.class)
+      .add(Restrictions.ne("id", idUsuario))
+      .list();
   }
 }

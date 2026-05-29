@@ -29,6 +29,7 @@
     <nav class="profile-topbar__actions" aria-label="Navegacion principal">
       <a th:href="@{/home}">Inicio</a>
       <a th:href="@{/perfil}">Perfil</a>
+      <a th:href="@{/intercambios}">Intercambios</a>
       <a th:href="@{/login}">Salir</a>
     </nav>
   </header>
@@ -108,6 +109,9 @@
                 </p>
             </div>
             <div class="inventory-trade-panel__actions">
+                <a th:href="@{/intercambios}" class="profile-button inventory-trade-panel__button inventory-trade-panel__button--swap">
+                    Intercambiar con usuarios
+                </a>
                 <form th:action="@{/canjear-repetidas/paquete}" method="get">
                     <button
                         type="submit"
