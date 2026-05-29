@@ -18,6 +18,7 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
 
   private final RepositorioUsuario repositorioUsuario;
   private final RepositorioInventario repositorioInventario;
+  private final RepositorioPropuestaIntercambio repositorioPropuestaIntercambio;
   private final PaqueteServicio paqueteServicio;
   private final ServicioAlbum servicioAlbum;
 
@@ -25,11 +26,13 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
   public ServicioIntercambioImpl(
     RepositorioUsuario repositorioUsuario,
     RepositorioInventario repositorioInventario,
+    RepositorioPropuestaIntercambio repositorioPropuestaIntercambio,
     PaqueteServicio paqueteServicio,
     ServicioAlbum servicioAlbum
   ) {
     this.repositorioUsuario = repositorioUsuario;
     this.repositorioInventario = repositorioInventario;
+    this.repositorioPropuestaIntercambio = repositorioPropuestaIntercambio;
     this.paqueteServicio = paqueteServicio;
     this.servicioAlbum = servicioAlbum;
   }
@@ -51,6 +54,85 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
     }
 
     return ofertas;
+  }
+
+  @Override
+  public List<PropuestaIntercambio> obtenerPropuestasRecibidas(Long idUsuario) {
+    return repositorioPropuestaIntercambio.buscarPendientesRecibidas(idUsuario);
+  }
+
+  @Override
+  public List<PropuestaIntercambio> obtenerPropuestasEnviadas(Long idUsuario) {
+    return repositorioPropuestaIntercambio.buscarPendientesEnviadas(idUsuario);
+  }
+
+  @Override
+  public void enviarPropuesta(
+    Long idUsuarioOrigen,
+    Long idFiguritaOrigen,
+    Long idUsuarioDestino,
+    Long idFiguritaDestino
+  ) throws IntercambioFiguritasException {
+    validarUsuarios(idUsuarioOrigen, idUsuarioDestino);
+
+    RelacionFiguritaUsuario relacionOrigen = buscarRelacionRepetida(
+      idUsuarioOrigen,
+      idFiguritaOrigen
+    );
+    RelacionFiguritaUsuario relacionDestino = buscarRelacionRepetida( // NOPMD - false positive from PMD dataflow analysis
+      idUsuarioDestino,
+      idFiguritaDestino
+    );
+
+    if (relacionOrigen == null) {
+      throw new IntercambioFiguritasException("No tenes esa figurita repetida disponible.");
+    }
+
+    if (relacionDestino == null) {
+      throw new IntercambioFiguritasException(
+        "El otro usuario ya no tiene esa repetida disponible."
+      );
+    }
+
+    repositorioPropuestaIntercambio.guardar(
+      new PropuestaIntercambio(
+        relacionOrigen.getPropietario(),
+        relacionDestino.getPropietario(),
+        relacionOrigen.getFigurita(),
+        relacionDestino.getFigurita()
+      )
+    );
+  }
+
+  @Override
+  public void aceptarPropuesta(Long idUsuarioReceptor, Long idPropuesta)
+    throws IntercambioFiguritasException {
+    PropuestaIntercambio propuesta = obtenerPropuestaPendienteParaReceptor(
+      idUsuarioReceptor,
+      idPropuesta
+    );
+
+    intercambiarFiguritas(
+      propuesta.getSolicitante().getId(),
+      propuesta.getFiguritaOfrecida().getId(),
+      propuesta.getReceptor().getId(),
+      propuesta.getFiguritaSolicitada().getId()
+    );
+
+    propuesta.aceptar();
+    repositorioPropuestaIntercambio.modificar(propuesta);
+  }
+
+  @Override
+  public void rechazarPropuesta(Long idUsuarioReceptor, Long idPropuesta)
+    throws IntercambioFiguritasException {
+    PropuestaIntercambio propuesta = obtenerPropuestaPendienteParaReceptor(
+      idUsuarioReceptor,
+      idPropuesta
+    );
+
+    propuesta.rechazar();
+    repositorioPropuestaIntercambio.modificar(propuesta);
   }
 
   @Override
@@ -152,5 +234,22 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
     int indiceCanjeable = idsPegadas.contains(idFigurita) ? 0 : 1;
 
     return candidatas.size() > indiceCanjeable ? candidatas.get(indiceCanjeable) : null;
+  }
+
+  private PropuestaIntercambio obtenerPropuestaPendienteParaReceptor(
+    Long idUsuarioReceptor,
+    Long idPropuesta
+  ) throws IntercambioFiguritasException {
+    PropuestaIntercambio propuesta = repositorioPropuestaIntercambio.buscarPorId(idPropuesta);
+
+    if (propuesta == null || !propuesta.isPendiente()) {
+      throw new IntercambioFiguritasException("La propuesta ya no esta disponible.");
+    }
+
+    if (!propuesta.getReceptor().getId().equals(idUsuarioReceptor)) {
+      throw new IntercambioFiguritasException("No podes responder una propuesta de otro usuario.");
+    }
+
+    return propuesta;
   }
 }

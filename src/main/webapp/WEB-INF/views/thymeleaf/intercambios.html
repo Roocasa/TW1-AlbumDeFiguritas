@@ -49,8 +49,121 @@
         Intercambio de figuritas
       </h2>
       <p class="mb-0">
-        Elegi una repetida tuya y cambiala por una repetida disponible de otro usuario.
+        Envia propuestas, revisa las recibidas y acepta solo cuando quieras hacer el cambio.
       </p>
+    </section>
+
+    <section class="exchange-requests mb-4">
+      <div class="exchange-panel__block">
+        <span class="inventory-trade-panel__eyebrow">Recibidas</span>
+        <h3>Propuestas pendientes</h3>
+
+        <div th:if="${propuestasRecibidas == null or propuestasRecibidas.empty}" class="exchange-empty">
+          No tenes propuestas recibidas pendientes.
+        </div>
+
+        <article
+          th:each="propuesta : ${propuestasRecibidas}"
+          class="exchange-proposal-card">
+          <div class="exchange-proposal-card__summary">
+            <strong th:text="${propuesta.solicitante.email}">usuario@email.com</strong>
+            <span>Te ofrece</span>
+          </div>
+
+          <div class="exchange-proposal-card__stickers">
+            <div class="exchange-proposal-card__sticker">
+              <span class="exchange-sticker-thumb">
+                <img
+                  th:if="${propuesta.figuritaOfrecida.pais != null and propuesta.figuritaOfrecida.pais.codigoBandera != null}"
+                  th:src="${'https://flagcdn.com/' + propuesta.figuritaOfrecida.pais.codigoBandera + '.svg'}"
+                  alt="Bandera"
+                  class="exchange-sticker-thumb__flag">
+                <strong th:text="${propuesta.figuritaOfrecida.numeroDentroDelPais}">1</strong>
+                <img
+                  th:if="${propuesta.figuritaOfrecida.imagenUrl != null}"
+                  th:src="${propuesta.figuritaOfrecida.imagenUrl}"
+                  alt="Figurita"
+                  class="exchange-sticker-thumb__player">
+                <small
+                  th:if="${propuesta.figuritaOfrecida.imagenUrl == null}"
+                  th:text="${propuesta.figuritaOfrecida.tipo != null and propuesta.figuritaOfrecida.tipo.name() == 'ESCUDO' ? 'ESC' : propuesta.figuritaOfrecida.nombreJugador}">
+                  Figurita
+                </small>
+              </span>
+              <p
+                th:text="${propuesta.figuritaOfrecida.tipo != null and propuesta.figuritaOfrecida.tipo.name() == 'ESCUDO' ? 'Escudo de ' + propuesta.figuritaOfrecida.pais.nombre : propuesta.figuritaOfrecida.nombreJugador}">
+                Figurita ofrecida
+              </p>
+            </div>
+
+            <div class="exchange-proposal-card__arrow">por</div>
+
+            <div class="exchange-proposal-card__sticker">
+              <span class="exchange-sticker-thumb">
+                <img
+                  th:if="${propuesta.figuritaSolicitada.pais != null and propuesta.figuritaSolicitada.pais.codigoBandera != null}"
+                  th:src="${'https://flagcdn.com/' + propuesta.figuritaSolicitada.pais.codigoBandera + '.svg'}"
+                  alt="Bandera"
+                  class="exchange-sticker-thumb__flag">
+                <strong th:text="${propuesta.figuritaSolicitada.numeroDentroDelPais}">1</strong>
+                <img
+                  th:if="${propuesta.figuritaSolicitada.imagenUrl != null}"
+                  th:src="${propuesta.figuritaSolicitada.imagenUrl}"
+                  alt="Figurita"
+                  class="exchange-sticker-thumb__player">
+                <small
+                  th:if="${propuesta.figuritaSolicitada.imagenUrl == null}"
+                  th:text="${propuesta.figuritaSolicitada.tipo != null and propuesta.figuritaSolicitada.tipo.name() == 'ESCUDO' ? 'ESC' : propuesta.figuritaSolicitada.nombreJugador}">
+                  Figurita
+                </small>
+              </span>
+              <p
+                th:text="${propuesta.figuritaSolicitada.tipo != null and propuesta.figuritaSolicitada.tipo.name() == 'ESCUDO' ? 'Escudo de ' + propuesta.figuritaSolicitada.pais.nombre : propuesta.figuritaSolicitada.nombreJugador}">
+                Figurita solicitada
+              </p>
+            </div>
+          </div>
+
+          <div class="exchange-proposal-card__actions">
+            <form th:action="@{/intercambios/propuestas/aceptar}" method="post">
+              <input type="hidden" name="idPropuesta" th:value="${propuesta.id}">
+              <button type="submit" class="profile-button exchange-offer__button">Aceptar</button>
+            </form>
+            <form th:action="@{/intercambios/propuestas/rechazar}" method="post">
+              <input type="hidden" name="idPropuesta" th:value="${propuesta.id}">
+              <button type="submit" class="profile-button exchange-offer__button exchange-offer__button--reject">
+                Rechazar
+              </button>
+            </form>
+          </div>
+        </article>
+      </div>
+
+      <div class="exchange-panel__block">
+        <span class="inventory-trade-panel__eyebrow">Enviadas</span>
+        <h3>Esperando respuesta</h3>
+
+        <div th:if="${propuestasEnviadas == null or propuestasEnviadas.empty}" class="exchange-empty">
+          No tenes propuestas enviadas pendientes.
+        </div>
+
+        <article
+          th:each="propuesta : ${propuestasEnviadas}"
+          class="exchange-proposal-card exchange-proposal-card--sent">
+          <strong th:text="${'Para: ' + propuesta.receptor.email}">Para: usuario@email.com</strong>
+          <p>
+            <span
+              th:text="${propuesta.figuritaOfrecida.tipo != null and propuesta.figuritaOfrecida.tipo.name() == 'ESCUDO' ? 'Escudo de ' + propuesta.figuritaOfrecida.pais.nombre : propuesta.figuritaOfrecida.nombreJugador}">
+              Figurita ofrecida
+            </span>
+            por
+            <span
+              th:text="${propuesta.figuritaSolicitada.tipo != null and propuesta.figuritaSolicitada.tipo.name() == 'ESCUDO' ? 'Escudo de ' + propuesta.figuritaSolicitada.pais.nombre : propuesta.figuritaSolicitada.nombreJugador}">
+              Figurita solicitada
+            </span>
+          </p>
+        </article>
+      </div>
     </section>
 
     <section class="exchange-panel exchange-panel--balanced mb-4">
@@ -163,7 +276,7 @@
                 type="submit"
                 class="profile-button exchange-offer__button"
                 th:disabled="${misFiguritas == null or misFiguritas.empty}">
-                Intercambiar
+                Enviar propuesta
               </button>
             </form>
           </article>

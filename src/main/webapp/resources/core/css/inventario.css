@@ -632,6 +632,12 @@
   gap: 1rem;
 }
 
+.exchange-requests {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem;
+}
+
 .exchange-panel--balanced {
   align-items: start;
 }
@@ -739,6 +745,84 @@
   padding: 0.65rem 1rem;
 }
 
+.exchange-offer__button--reject {
+  background: linear-gradient(135deg, #6b7280 0%, #374151 100%);
+}
+
+.exchange-proposal-card {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  padding: 1rem;
+  border: 1px solid rgba(15, 34, 66, 0.12);
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.exchange-proposal-card__summary {
+  display: grid;
+  gap: 0.15rem;
+  color: #0f2242;
+}
+
+.exchange-proposal-card__summary strong,
+.exchange-proposal-card--sent strong {
+  font-size: 0.98rem;
+  font-weight: 900;
+}
+
+.exchange-proposal-card__summary span,
+.exchange-proposal-card--sent p {
+  margin: 0;
+  color: #5d6d86;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.exchange-proposal-card__stickers {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.exchange-proposal-card__sticker {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  min-width: 0;
+  text-align: center;
+}
+
+.exchange-proposal-card__sticker p {
+  margin: 0;
+  max-width: 140px;
+  color: #0f2242;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.exchange-proposal-card__arrow {
+  padding: 0.35rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(15, 34, 66, 0.08);
+  color: #36506f;
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.exchange-proposal-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.exchange-proposal-card--sent {
+  background: rgba(255, 255, 255, 0.86);
+}
+
 .exchange-sticker-thumb {
   position: relative;
   flex: 0 0 58px;
@@ -814,7 +898,8 @@
 }
 
 @media (max-width: 768px) {
-  .exchange-panel {
+  .exchange-panel,
+  .exchange-requests {
     grid-template-columns: 1fr;
   }
 }

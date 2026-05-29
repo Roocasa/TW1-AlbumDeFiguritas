@@ -50,11 +50,19 @@ public class ControladorIntercambio {
       servicioIntercambio.obtenerFiguritasPropiasParaIntercambiar(usuario.getId())
     );
     mav.addObject("ofertas", servicioIntercambio.obtenerOfertasDeOtrosUsuarios(usuario.getId()));
+    mav.addObject(
+      "propuestasRecibidas",
+      servicioIntercambio.obtenerPropuestasRecibidas(usuario.getId())
+    );
+    mav.addObject(
+      "propuestasEnviadas",
+      servicioIntercambio.obtenerPropuestasEnviadas(usuario.getId())
+    );
     return mav;
   }
 
   @RequestMapping(path = "/intercambiar", method = RequestMethod.POST)
-  public ModelAndView intercambiar(
+  public ModelAndView enviarPropuesta(
     @RequestParam("miFiguritaId") Long miFiguritaId,
     @RequestParam("usuarioDestinoId") Long usuarioDestinoId,
     @RequestParam("figuritaDestinoId") Long figuritaDestinoId,
@@ -68,14 +76,59 @@ public class ControladorIntercambio {
     }
 
     try {
-      servicioIntercambio.intercambiarFiguritas(
+      servicioIntercambio.enviarPropuesta(
         usuario.getId(),
         miFiguritaId,
         usuarioDestinoId,
         figuritaDestinoId
       );
       actualizarUsuarioEnSesion(session, usuario.getId());
-      redirectAttributes.addFlashAttribute("mensajeExito", "Intercambio realizado con exito.");
+      redirectAttributes.addFlashAttribute("mensajeExito", "Propuesta enviada con exito.");
+    } catch (IntercambioFiguritasException e) {
+      redirectAttributes.addFlashAttribute("error", e.getMessage());
+    }
+
+    return new ModelAndView("redirect:/intercambios");
+  }
+
+  @RequestMapping(path = "/intercambios/propuestas/aceptar", method = RequestMethod.POST)
+  public ModelAndView aceptarPropuesta(
+    @RequestParam("idPropuesta") Long idPropuesta,
+    HttpSession session,
+    RedirectAttributes redirectAttributes
+  ) {
+    Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
+
+    if (usuario == null) {
+      return new ModelAndView(REDIRECT_LOGIN);
+    }
+
+    try {
+      servicioIntercambio.aceptarPropuesta(usuario.getId(), idPropuesta);
+      actualizarUsuarioEnSesion(session, usuario.getId());
+      redirectAttributes.addFlashAttribute("mensajeExito", "Intercambio aceptado y realizado.");
+    } catch (IntercambioFiguritasException e) {
+      redirectAttributes.addFlashAttribute("error", e.getMessage());
+    }
+
+    return new ModelAndView("redirect:/intercambios");
+  }
+
+  @RequestMapping(path = "/intercambios/propuestas/rechazar", method = RequestMethod.POST)
+  public ModelAndView rechazarPropuesta(
+    @RequestParam("idPropuesta") Long idPropuesta,
+    HttpSession session,
+    RedirectAttributes redirectAttributes
+  ) {
+    Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
+
+    if (usuario == null) {
+      return new ModelAndView(REDIRECT_LOGIN);
+    }
+
+    try {
+      servicioIntercambio.rechazarPropuesta(usuario.getId(), idPropuesta);
+      redirectAttributes.addFlashAttribute("mensajeExito", "Propuesta rechazada.");
     } catch (IntercambioFiguritasException e) {
       redirectAttributes.addFlashAttribute("error", e.getMessage());
     }
