@@ -7,6 +7,10 @@ import java.net.URL;
 
 public class VistaWeb {
 
+  protected static final String BASE_URL = System.getProperty(
+    "e2e.baseUrl",
+    "http://localhost:8080/spring"
+  );
   protected Page page;
 
   public VistaWeb(Page page) {
@@ -27,14 +31,34 @@ public class VistaWeb {
   }
 
   protected void escribirEnElElemento(String selectorCSS, String texto) {
-    this.obtenerElemento(selectorCSS).type(texto);
+    Locator elemento = this.obtenerElemento(selectorCSS);
+    elemento.fill(texto);
+    elemento.dispatchEvent("input");
+    elemento.dispatchEvent("change");
   }
 
   protected void seleccionarOpcionEnElemento(String selectorCSS, String valor) {
     this.obtenerElemento(selectorCSS).selectOption(valor);
   }
 
-  private Locator obtenerElemento(String selectorCSS) {
+  protected int contarElementos(String selectorCSS) {
+    return (int) this.obtenerElemento(selectorCSS).count();
+  }
+
+  protected boolean elElementoEsVisible(String selectorCSS) {
+    return this.obtenerElemento(selectorCSS).isVisible();
+  }
+
+  protected boolean elElementoContieneLaClase(String selectorCSS, String claseCSS) {
+    String clases = this.obtenerElemento(selectorCSS).getAttribute("class");
+    return clases != null && clases.contains(claseCSS);
+  }
+
+  protected String construirURL(String path) {
+    return BASE_URL + path;
+  }
+
+  protected Locator obtenerElemento(String selectorCSS) {
     return page.locator(selectorCSS);
   }
 }
