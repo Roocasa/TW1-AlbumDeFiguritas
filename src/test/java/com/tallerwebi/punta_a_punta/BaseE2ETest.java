@@ -15,30 +15,24 @@ import org.junit.jupiter.api.BeforeEach;
 
 public abstract class BaseE2ETest {
 
-  protected static Playwright playwright;
-  protected static Browser browser;
-
-  protected BrowserContext context;
-  protected Page page;
-  protected VistaLogin vistaLogin;
+ static Playwright playwright;
+  static Browser browser;
+  BrowserContext context;
+  VistaLogin vistaLogin;
+  Page page;
 
   @BeforeAll
   static void abrirNavegador() {
-    boolean headless = Boolean.parseBoolean(System.getProperty("e2e.headless", "true"));
-    double slowMo = Double.parseDouble(System.getProperty("e2e.slowMo", "0"));
-
     playwright = Playwright.create();
     browser =
       playwright
         .chromium()
-        .launch(new BrowserType.LaunchOptions().setHeadless(headless).setSlowMo(slowMo));
+        .launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(500));
   }
 
   @AfterAll
   static void cerrarNavegador() {
-    if (playwright != null) {
-      playwright.close();
-    }
+    playwright.close();
   }
 
   @BeforeEach
@@ -52,9 +46,7 @@ public abstract class BaseE2ETest {
 
   @AfterEach
   void cerrarContexto() {
-    if (context != null) {
-      context.close();
-    }
+    context.close();
   }
 
   protected void iniciarSesionComo(String email, String clave) {

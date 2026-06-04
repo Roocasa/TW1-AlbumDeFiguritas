@@ -4,53 +4,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.matchesPattern;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 
-import com.microsoft.playwright.*;
-import com.microsoft.playwright.BrowserType;
-import com.tallerwebi.punta_a_punta.vistas.VistaLogin;
 import com.tallerwebi.punta_a_punta.vistas.VistaNuevoUsuario;
 import java.net.MalformedURLException;
 import java.net.URL;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class VistaLoginE2E {
-
-  static Playwright playwright;
-  static Browser browser;
-  BrowserContext context;
-  VistaLogin vistaLogin;
-
-  @BeforeAll
-  static void abrirNavegador() {
-    playwright = Playwright.create();
-    browser = playwright.chromium().launch();
-    browser =
-      playwright
-        .chromium()
-        .launch(new BrowserType.LaunchOptions().setHeadless(false).setSlowMo(500));
-  }
-
-  @AfterAll
-  static void cerrarNavegador() {
-    playwright.close();
-  }
-
-  @BeforeEach
-  void crearContextoYPagina() {
-    ReiniciarDB.limpiarBaseDeDatos();
-
-    context = browser.newContext();
-    Page page = context.newPage();
-    vistaLogin = new VistaLogin(page);
-  }
-
-  @AfterEach
-  void cerrarContexto() {
-    context.close();
-  }
+public class VistaLoginE2E extends BaseE2ETest {
 
   @Test
   void deberiaDecirUNLAMEnElNavbar() throws MalformedURLException {

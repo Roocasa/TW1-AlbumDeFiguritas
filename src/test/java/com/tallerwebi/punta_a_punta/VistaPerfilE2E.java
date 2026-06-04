@@ -23,7 +23,7 @@ public class VistaPerfilE2E extends BaseE2ETest {
     URL urlActual = obtenerURLActual();
 
     assertThat(urlActual.getPath(), matchesPattern("^/spring/perfil(?:;jsessionid=[^/\\s]+)?$"));
-    assertThat("Mi perfil", equalToIgnoringCase(vistaPerfil.obtenerTitulo()));
+    assertThat(vistaPerfil.obtenerTitulo().trim(), equalToIgnoringCase("Mi perfil"));
     assertThat(
       ReiniciarDB.EMAIL_USUARIO_BASE,
       equalToIgnoringCase(vistaPerfil.obtenerEmailPrincipal())

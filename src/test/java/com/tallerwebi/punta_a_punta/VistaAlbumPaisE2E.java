@@ -34,11 +34,8 @@ public class VistaAlbumPaisE2E extends BaseE2ETest {
       urlActual.getPath(),
       matchesPattern("^/spring/album/pais/ARG(?:;jsessionid=[^/\\s]+)?$")
     );
-    assertThat("Argentina", equalToIgnoringCase(vistaAlbumPais.obtenerTituloDelPais()));
+    assertThat(vistaAlbumPais.obtenerTituloDelPais().trim(), equalToIgnoringCase("Argentina"));
     assertThat(vistaAlbumPais.laFiguritaEstaPegada(ID_FIGURITA_ARGENTINA), is(true));
-    assertThat(
-      "Pegada en el album",
-      equalToIgnoringCase(vistaAlbumPais.obtenerEstadoDeLaFigurita(ID_FIGURITA_ARGENTINA))
-    );
+    assertThat(vistaAlbumPais.obtenerEstadoDeLaFigurita(ID_FIGURITA_ARGENTINA).trim(), equalToIgnoringCase("Pegada en el album"));
   }
 }
