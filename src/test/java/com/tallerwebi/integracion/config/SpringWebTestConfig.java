@@ -1,5 +1,6 @@
 package com.tallerwebi.integracion.config;
 
+import java.nio.file.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -29,6 +30,7 @@ public class SpringWebTestConfig implements WebMvcConfigurer {
     registry.addResourceHandler("/css/**").addResourceLocations("/resources/core/css/");
     registry.addResourceHandler("/js/**").addResourceLocations("/resources/core/js/");
     registry.addResourceHandler("/img/**").addResourceLocations("/resources/core/img/");
+    registry.addResourceHandler("/uploads/**").addResourceLocations(obtenerRutaPublicaUploads());
     registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
   }
 
@@ -73,5 +75,14 @@ public class SpringWebTestConfig implements WebMvcConfigurer {
     ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
     viewResolver.setTemplateEngine(templateEngine());
     return viewResolver;
+  }
+
+  private String obtenerRutaPublicaUploads() {
+    String rutaUploads = Path
+      .of(System.getProperty("user.dir"), "uploads")
+      .toAbsolutePath()
+      .toUri()
+      .toString();
+    return rutaUploads.endsWith("/") ? rutaUploads : rutaUploads + "/";
   }
 }

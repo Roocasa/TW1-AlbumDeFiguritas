@@ -42,10 +42,24 @@
         <h1>Mi perfil</h1>
         <p>Gestiona tu cuenta, revisa tus estadisticas y sigue de cerca el progreso de tu album.</p>
       </div>
+    </section>
 
+    <section class="profile-summary">
       <div class="profile-card">
         <div class="profile-card__header">
-          <span class="profile-avatar" aria-hidden="true">Foto</span>
+          <div class="profile-avatar-shell">
+            <img
+              th:if="${usuario.fotoPerfil != null}"
+              class="profile-avatar-image"
+              th:src="@{${usuario.fotoPerfil}}"
+              src="/spring/uploads/perfiles/default.png"
+              alt="Foto de perfil" />
+            <span
+              th:if="${usuario.fotoPerfil == null}"
+              class="profile-avatar"
+              th:text="${#strings.toUpperCase(#strings.substring(usuario.email, 0, 1))}"
+              aria-hidden="true">U</span>
+          </div>
           <div>
             <span class="profile-card__label">Cuenta</span>
             <h2 th:text="${usuario.email}">usuario@unlam.edu.ar</h2>
@@ -60,14 +74,6 @@
           <article class="profile-stat">
             <span>Pais</span>
             <strong th:text="${usuario.pais != null ? usuario.pais : 'Sin definir'}">Argentina</strong>
-          </article>
-          <article class="profile-stat">
-            <span>Rol</span>
-            <strong th:text="${usuario.rol}">USUARIO</strong>
-          </article>
-          <article class="profile-stat">
-            <span>Estado</span>
-            <strong th:text="${usuario.activo} ? 'Activo' : 'Inactivo'">Activo</strong>
           </article>
           <article class="profile-stat">
             <span>Paquetes</span>
@@ -87,15 +93,101 @@
           </article>
         </div>
 
-        <div class="profile-note">
-          <strong>Regalo diario</strong>
-          <span>Cada nuevo dia recibis 2 paquetes comunes. Si no entras por varios dias, no se acumulan.</span>
-        </div>
-
         <div class="profile-card__footer">
           <a th:href="@{/home}" class="profile-button">Volver al inicio</a>
         </div>
       </div>
+    </section>
+
+    <section class="profile-settings">
+      <article class="profile-settings-card">
+        <div class="profile-settings-card__copy">
+          <span class="home-panel__tag">Foto de perfil</span>
+          <h2>Sube, cambia o elimina tu imagen</h2>
+          <p>Usa JPG, PNG, GIF o WEBP de hasta 2 MB para personalizar tu cuenta.</p>
+        </div>
+
+        <div th:if="${mensajeFoto != null}" class="profile-feedback profile-feedback--success" th:text="${mensajeFoto}"></div>
+        <div th:if="${errorFoto != null}" class="profile-feedback profile-feedback--error" th:text="${errorFoto}"></div>
+
+        <form class="profile-form" th:action="@{/perfil/foto}" method="POST" enctype="multipart/form-data">
+          <label class="profile-field">
+            <span>Imagen</span>
+            <input type="file" name="fotoPerfil" accept=".png,.jpg,.jpeg,.gif,.webp,image/*" required />
+          </label>
+
+          <div class="profile-form__actions">
+            <button class="profile-button" type="submit">Guardar foto</button>
+          </div>
+        </form>
+
+        <form
+          th:if="${usuario.fotoPerfil != null}"
+          class="profile-inline-form"
+          th:action="@{/perfil/foto/eliminar}"
+          method="POST">
+          <button class="profile-button profile-button--ghost" type="submit">Eliminar foto</button>
+        </form>
+      </article>
+
+      <article class="profile-settings-card">
+        <div class="profile-settings-card__copy">
+          <span class="home-panel__tag">Email</span>
+          <h2>Cambia el mail de tu cuenta</h2>
+          <p>Te pedimos tu contrasena actual para confirmar el cambio.</p>
+        </div>
+
+        <div th:if="${mensajeEmail != null}" class="profile-feedback profile-feedback--success" th:text="${mensajeEmail}"></div>
+        <div th:if="${errorEmail != null}" class="profile-feedback profile-feedback--error" th:text="${errorEmail}"></div>
+
+        <form class="profile-form" th:action="@{/perfil/email}" method="POST">
+          <label class="profile-field">
+            <span>Nuevo email</span>
+            <input type="email" name="nuevoEmail" placeholder="nuevo@correo.com" required />
+          </label>
+
+          <label class="profile-field">
+            <span>Contrasena actual</span>
+            <input type="password" name="passwordActual" placeholder="Tu contrasena actual" required />
+          </label>
+
+          <div class="profile-form__actions">
+            <button class="profile-button" type="submit">Actualizar email</button>
+          </div>
+        </form>
+      </article>
+
+      <article class="profile-settings-card">
+        <div class="profile-settings-card__copy">
+          <span class="home-panel__tag">Seguridad</span>
+          <h2>Actualiza tu contrasena</h2>
+          <p>Define una clave nueva y confírmala para proteger tu cuenta.</p>
+        </div>
+
+        <div th:if="${mensajePassword != null}" class="profile-feedback profile-feedback--success" th:text="${mensajePassword}"></div>
+        <div th:if="${errorPassword != null}" class="profile-feedback profile-feedback--error" th:text="${errorPassword}"></div>
+
+        <form class="profile-form" th:action="@{/perfil/password}" method="POST">
+          <label class="profile-field">
+            <span>Contrasena actual</span>
+            <input type="password" name="passwordActual" placeholder="Tu contrasena actual" required />
+          </label>
+
+          <label class="profile-field">
+            <span>Nueva contrasena</span>
+            <input type="password" name="nuevaPassword" placeholder="Minimo 6 caracteres" required />
+          </label>
+
+          <label class="profile-field">
+            <span>Confirmar nueva contrasena</span>
+            <input type="password" name="confirmacionPassword" placeholder="Repite la nueva contrasena" required />
+          </label>
+
+          <div class="profile-form__actions">
+            <button class="profile-button" type="submit">Actualizar contrasena</button>
+          </div>
+        </form>
+      </article>
     </section>
 
     <section class="profile-charts" th:if="${album != null}">

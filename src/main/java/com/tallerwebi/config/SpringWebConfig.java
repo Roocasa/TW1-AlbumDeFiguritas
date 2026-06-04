@@ -1,10 +1,12 @@
 package com.tallerwebi.config;
 
+import java.nio.file.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -29,6 +31,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
     registry.addResourceHandler("/css/**").addResourceLocations("/resources/core/css/");
     registry.addResourceHandler("/js/**").addResourceLocations("/resources/core/js/");
     registry.addResourceHandler("/img/**").addResourceLocations("/resources/core/img/");
+    registry.addResourceHandler("/uploads/**").addResourceLocations(obtenerRutaPublicaUploads());
     registry.addResourceHandler("/webjars/**").addResourceLocations("/webjars/");
   }
 
@@ -74,5 +77,22 @@ public class SpringWebConfig implements WebMvcConfigurer {
     ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
     viewResolver.setTemplateEngine(templateEngine());
     return viewResolver;
+  }
+
+  @Bean(name = "multipartResolver")
+  public CommonsMultipartResolver multipartResolver() {
+    CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
+    multipartResolver.setDefaultEncoding("UTF-8");
+    multipartResolver.setMaxUploadSize(2L * 1024L * 1024L);
+    return multipartResolver;
+  }
+
+  private String obtenerRutaPublicaUploads() {
+    String rutaUploads = Path
+      .of(System.getProperty("user.dir"), "uploads")
+      .toAbsolutePath()
+      .toUri()
+      .toString();
+    return rutaUploads.endsWith("/") ? rutaUploads : rutaUploads + "/";
   }
 }
