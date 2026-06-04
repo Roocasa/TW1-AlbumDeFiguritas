@@ -38,7 +38,7 @@ public class VistaAlbumE2E extends BaseE2ETest {
 
   private void entoncesDeberiaVerElAlbumVirtual() {
     VistaAlbum vistaAlbum = new VistaAlbum(page);
-    assertThat("Album virtual", equalToIgnoringCase(vistaAlbum.obtenerTitulo()));
-    assertThat("Grupo A", equalToIgnoringCase(vistaAlbum.obtenerTituloDelGrupoA()));
+    assertThat(vistaAlbum.obtenerTitulo().trim(), equalToIgnoringCase("Album virtual"));
+    assertThat(vistaAlbum.obtenerTituloDelGrupoA().trim(), equalToIgnoringCase("Grupo A"));
   }
 }

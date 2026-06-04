@@ -13,7 +13,7 @@ public class VistaInventario extends VistaWeb {
   }
 
   public void pegarPrimeraFiguritaDisponible() {
-    this.darClickEnElElemento(".js-pegar-figurita");
+    page.locator(".js-pegar-figurita").first().click();
   }
 
   public void canjearRepetidasPorPaquete() {
@@ -42,5 +42,9 @@ public class VistaInventario extends VistaWeb {
 
   public int obtenerCantidadDeFiguritasDelSobreAbierto() {
     return this.contarElementos(".pack-result-card");
+  }
+
+  public void guardarFiguritasEnElInventario() {
+    darClickEnElElemento(".modal.show .modal-footer a[href$='/inventario']");
   }
 }

@@ -15,7 +15,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 public abstract class BaseE2ETest {
 
- static Playwright playwright;
+  static Playwright playwright;
   static Browser browser;
   BrowserContext context;
   VistaLogin vistaLogin;

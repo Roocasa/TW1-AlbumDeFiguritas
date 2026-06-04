@@ -19,8 +19,9 @@ public class VistaFiguritaInventarioE2E extends BaseE2ETest {
     VistaInventario vistaInventario = new VistaInventario(page);
     vistaInventario.pegarPrimeraFiguritaDisponible();
 
-    assertThat(vistaInventario.obtenerMensajeExito().trim(), equalToIgnoringCase(
-      "Figurita pegada con exito.")
+    assertThat(
+      vistaInventario.obtenerMensajeExito().trim(),
+      equalToIgnoringCase("Figurita pegada con exito.")
     );
   }
 }

@@ -29,11 +29,8 @@ public class VistaWeb {
   protected void darClickEnElElemento(String selectorCSS) {
     Locator elemento = this.obtenerElemento(selectorCSS);
 
-    elemento.click(
-        new Locator.ClickOptions()
-            .setForce(true)
-    );
-}
+    elemento.click(new Locator.ClickOptions().setForce(true));
+  }
 
   protected void escribirEnElElemento(String selectorCSS, String texto) {
     Locator elemento = this.obtenerElemento(selectorCSS);
@@ -65,5 +62,9 @@ public class VistaWeb {
 
   protected Locator obtenerElemento(String selectorCSS) {
     return page.locator(selectorCSS);
+  }
+
+  protected boolean estaHabilitadoElElemento(String selectorCSS) {
+    return this.obtenerElemento(selectorCSS).isEnabled();
   }
 }

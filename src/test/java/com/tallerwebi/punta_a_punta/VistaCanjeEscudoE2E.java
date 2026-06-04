@@ -20,7 +20,10 @@ public class VistaCanjeEscudoE2E extends BaseE2ETest {
     VistaInventario vistaInventario = new VistaInventario(page);
     vistaInventario.canjearRepetidasPorEscudo();
 
-    assertThat(vistaInventario.obtenerTituloDelModalAbierto().trim(), equalToIgnoringCase("ESCUDO GANADO"));
+    assertThat(
+      vistaInventario.obtenerTituloDelModalAbierto().trim(),
+      equalToIgnoringCase("ESCUDO GANADO")
+    );
     assertThat(
       vistaInventario.obtenerTextoDelModalDeRecompensa().trim(),
       equalToIgnoringCase("Canjeaste tus repetidas y este fue el escudo que te toco.")

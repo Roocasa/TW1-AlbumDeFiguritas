@@ -36,6 +36,9 @@ public class VistaAlbumPaisE2E extends BaseE2ETest {
     );
     assertThat(vistaAlbumPais.obtenerTituloDelPais().trim(), equalToIgnoringCase("Argentina"));
     assertThat(vistaAlbumPais.laFiguritaEstaPegada(ID_FIGURITA_ARGENTINA), is(true));
-    assertThat(vistaAlbumPais.obtenerEstadoDeLaFigurita(ID_FIGURITA_ARGENTINA).trim(), equalToIgnoringCase("Pegada en el album"));
+    assertThat(
+      vistaAlbumPais.obtenerEstadoDeLaFigurita(ID_FIGURITA_ARGENTINA).trim(),
+      equalToIgnoringCase("Pegada en el album")
+    );
   }
 }

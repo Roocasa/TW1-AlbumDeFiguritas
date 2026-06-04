@@ -20,11 +20,17 @@ public class VistaCanjeSobreE2E extends BaseE2ETest {
     VistaInventario vistaInventario = new VistaInventario(page);
     vistaInventario.canjearRepetidasPorPaquete();
 
-    assertThat(vistaInventario.obtenerTituloDelModalAbierto().trim(), equalToIgnoringCase("SOBRE GANADO"));
+    assertThat(
+      vistaInventario.obtenerTituloDelModalAbierto().trim(),
+      equalToIgnoringCase("SOBRE GANADO")
+    );
 
     vistaInventario.abrirSobreGanado();
 
-    assertThat(vistaInventario.obtenerTituloDelModalAbierto().trim(), equalToIgnoringCase("SOBRE ABIERTO"));
+    assertThat(
+      vistaInventario.obtenerTituloDelModalAbierto().trim(),
+      equalToIgnoringCase("SOBRE ABIERTO")
+    );
     assertThat(vistaInventario.obtenerCantidadDeFiguritasDelSobreAbierto(), is(5));
   }
 }

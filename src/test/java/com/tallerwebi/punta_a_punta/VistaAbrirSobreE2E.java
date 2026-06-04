@@ -29,8 +29,8 @@ public class VistaAbrirSobreE2E extends BaseE2ETest {
       matchesPattern("^/spring/inventario(?:;jsessionid=[^/\\s]+)?$")
     );
     assertThat(
-      "SOBRE ABIERTO",
-      equalToIgnoringCase(vistaInventario.obtenerTituloDelModalAbierto())
+      vistaInventario.obtenerTituloDelModalAbierto().trim(),
+      equalToIgnoringCase("SOBRE ABIERTO")
     );
     assertThat(vistaInventario.obtenerCantidadDeFiguritasDelSobreAbierto(), is(5));
   }

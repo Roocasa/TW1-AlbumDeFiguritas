@@ -23,4 +23,8 @@ public class VistaHome extends VistaWeb {
   public void abrirPerfil() {
     this.darClickEnElElemento(".home-topbar__actions a[href$='/perfil']");
   }
+
+  public void volverAlHome() {
+    this.darClickEnElElemento(".home-topbar__logo");
+  }
 }
