@@ -5,7 +5,9 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
 
+import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import java.time.LocalDate;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class ServicioPerfilTest {
@@ -77,5 +79,107 @@ public class ServicioPerfilTest {
 
     assertThat(usuarioActualizado.getPaquetesDisponibles(), equalTo(3));
     verify(repositorioUsuario, never()).modificar(usuario);
+  }
+
+  @Test
+  public void deberiaActualizarElEmailSiLaContrasenaActualEsCorrecta() throws UsuarioExistente {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(4L);
+    usuario.setEmail("actual@test.com");
+    usuario.setPassword("123456");
+
+    when(repositorioUsuario.buscarPorId(4L)).thenReturn(usuario);
+    when(repositorioUsuario.buscar("nuevo@test.com")).thenReturn(null);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Usuario usuarioActualizado = servicioPerfil.actualizarEmail(4L, " NUEVO@test.com ", "123456");
+
+    assertThat(usuarioActualizado.getEmail(), equalTo("nuevo@test.com"));
+    verify(repositorioUsuario).modificar(usuario);
+  }
+
+  @Test
+  public void noDeberiaActualizarElEmailSiYaLoUsaOtraCuenta() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(4L);
+    usuario.setEmail("actual@test.com");
+    usuario.setPassword("123456");
+
+    Usuario usuarioExistente = new Usuario();
+    usuarioExistente.setId(8L);
+    usuarioExistente.setEmail("nuevo@test.com");
+
+    when(repositorioUsuario.buscarPorId(4L)).thenReturn(usuario);
+    when(repositorioUsuario.buscar("nuevo@test.com")).thenReturn(usuarioExistente);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Assertions.assertThrows(
+      UsuarioExistente.class,
+      () -> servicioPerfil.actualizarEmail(4L, "nuevo@test.com", "123456")
+    );
+    verify(repositorioUsuario, never()).modificar(usuario);
+  }
+
+  @Test
+  public void deberiaActualizarLaContrasenaSiLosDatosSonValidos() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(12L);
+    usuario.setPassword("anterior");
+
+    when(repositorioUsuario.buscarPorId(12L)).thenReturn(usuario);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Usuario usuarioActualizado = servicioPerfil.actualizarPassword(
+      12L,
+      "anterior",
+      "nueva123",
+      "nueva123"
+    );
+
+    assertThat(usuarioActualizado.getPassword(), equalTo("nueva123"));
+    verify(repositorioUsuario).modificar(usuario);
+  }
+
+  @Test
+  public void noDeberiaActualizarLaContrasenaSiLaActualEsIncorrecta() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(12L);
+    usuario.setPassword("anterior");
+
+    when(repositorioUsuario.buscarPorId(12L)).thenReturn(usuario);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Assertions.assertThrows(
+      SecurityException.class,
+      () -> servicioPerfil.actualizarPassword(12L, "incorrecta", "nueva123", "nueva123")
+    );
+    verify(repositorioUsuario, never()).modificar(usuario);
+  }
+
+  @Test
+  public void deberiaActualizarLaFotoDePerfil() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(16L);
+
+    when(repositorioUsuario.buscarPorId(16L)).thenReturn(usuario);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Usuario usuarioActualizado = servicioPerfil.actualizarFotoPerfil(
+      16L,
+      "/uploads/perfiles/usuario-16.png"
+    );
+
+    assertThat(usuarioActualizado.getFotoPerfil(), equalTo("/uploads/perfiles/usuario-16.png"));
+    verify(repositorioUsuario).modificar(usuario);
   }
 }

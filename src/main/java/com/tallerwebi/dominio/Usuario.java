@@ -20,6 +20,7 @@ public class Usuario {
   private int intercambiosRealizados = 0;
 
   private String email;
+  private String fotoPerfil;
   private String pais;
   private String password;
   private String rol;
@@ -68,6 +69,14 @@ public class Usuario {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getFotoPerfil() {
+    return fotoPerfil;
+  }
+
+  public void setFotoPerfil(String fotoPerfil) {
+    this.fotoPerfil = fotoPerfil;
   }
 
   public String getPais() {

@@ -1,6 +1,8 @@
 package com.tallerwebi.dominio;
 
+import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import java.time.LocalDate;
+import java.util.Locale;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
   private static final int PAQUETES_DIARIOS = 2;
   private static final int SOBRE_POR_ANUNCIO = 1;
+  private static final int MINIMO_CARACTERES_PASSWORD = 6;
   private RepositorioUsuario repositorioUsuario;
 
   @Autowired
@@ -20,7 +23,7 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
   @Override
   public Usuario buscarUsuarioPorEmail(String email) {
-    return repositorioUsuario.buscar(email);
+    return repositorioUsuario.buscar(normalizarEmail(email));
   }
 
   @Override
@@ -64,5 +67,105 @@ public class ServicioPerfilImpl implements ServicioPerfil {
     repositorioUsuario.modificar(usuario);
 
     return usuario;
+  }
+
+  @Override
+  public Usuario actualizarEmail(Long idUsuario, String nuevoEmail, String passwordActual)
+    throws UsuarioExistente {
+    Usuario usuario = obtenerUsuarioPorId(idUsuario);
+    validarPasswordActual(usuario, passwordActual);
+
+    String emailNormalizado = validarNuevoEmail(usuario, nuevoEmail);
+    asegurarQueElEmailEsteDisponible(usuario, emailNormalizado);
+
+    usuario.setEmail(emailNormalizado);
+    repositorioUsuario.modificar(usuario);
+    return usuario;
+  }
+
+  @Override
+  public Usuario actualizarPassword(
+    Long idUsuario,
+    String passwordActual,
+    String nuevaPassword,
+    String confirmacionPassword
+  ) {
+    Usuario usuario = obtenerUsuarioPorId(idUsuario);
+    validarPasswordActual(usuario, passwordActual);
+
+    if (nuevaPassword == null || nuevaPassword.length() < MINIMO_CARACTERES_PASSWORD) {
+      throw new IllegalArgumentException("La nueva contrasena debe tener al menos 6 caracteres.");
+    }
+
+    if (!nuevaPassword.equals(confirmacionPassword)) {
+      throw new IllegalArgumentException("La confirmacion de la nueva contrasena no coincide.");
+    }
+
+    if (nuevaPassword.equals(usuario.getPassword())) {
+      throw new IllegalArgumentException("La nueva contrasena debe ser distinta a la actual.");
+    }
+
+    usuario.setPassword(nuevaPassword);
+    repositorioUsuario.modificar(usuario);
+    return usuario;
+  }
+
+  @Override
+  public Usuario actualizarFotoPerfil(Long idUsuario, String rutaFotoPerfil) {
+    Usuario usuario = obtenerUsuarioPorId(idUsuario);
+    usuario.setFotoPerfil(rutaFotoPerfil);
+    repositorioUsuario.modificar(usuario);
+    return usuario;
+  }
+
+  @Override
+  public Usuario eliminarFotoPerfil(Long idUsuario) {
+    Usuario usuario = obtenerUsuarioPorId(idUsuario);
+    usuario.setFotoPerfil(null);
+    repositorioUsuario.modificar(usuario);
+    return usuario;
+  }
+
+  private Usuario obtenerUsuarioPorId(Long idUsuario) {
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+    if (usuario == null) {
+      throw new IllegalArgumentException("No encontramos tu usuario.");
+    }
+    return usuario;
+  }
+
+  private void validarPasswordActual(Usuario usuario, String passwordActual) {
+    if (passwordActual == null || !passwordActual.equals(usuario.getPassword())) {
+      throw new SecurityException("La contrasena actual no es correcta.");
+    }
+  }
+
+  private String validarNuevoEmail(Usuario usuario, String nuevoEmail) {
+    String emailNormalizado = normalizarEmail(nuevoEmail);
+    if (emailNormalizado == null || emailNormalizado.isEmpty()) {
+      throw new IllegalArgumentException("Ingresa un email valido.");
+    }
+
+    if (emailNormalizado.equals(usuario.getEmail())) {
+      throw new IllegalArgumentException("El nuevo email debe ser distinto al actual.");
+    }
+
+    return emailNormalizado;
+  }
+
+  private void asegurarQueElEmailEsteDisponible(Usuario usuario, String emailNormalizado)
+    throws UsuarioExistente {
+    Usuario usuarioConEseEmail = repositorioUsuario.buscar(emailNormalizado);
+    if (usuarioConEseEmail == null || usuarioConEseEmail.getId() == null) {
+      return;
+    }
+
+    if (!usuarioConEseEmail.getId().equals(usuario.getId())) {
+      throw new UsuarioExistente();
+    }
+  }
+
+  private String normalizarEmail(String email) {
+    return email == null ? null : email.trim().toLowerCase(Locale.ROOT);
   }
 }
