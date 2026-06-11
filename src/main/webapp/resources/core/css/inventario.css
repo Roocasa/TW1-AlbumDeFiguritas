@@ -697,12 +697,21 @@
   accent-color: #1f6fd1;
 }
 
-.exchange-radio-card span,
+.exchange-radio-card__info,
 .exchange-offer__info {
   display: grid;
   gap: 0.18rem;
   min-width: 0;
   flex: 1;
+}
+
+.exchange-radio-card .exchange-sticker-thumb,
+.exchange-offer__item .exchange-sticker-thumb,
+.exchange-proposal-card .exchange-sticker-thumb {
+  display: block;
+  flex: 0 0 58px;
+  min-width: 58px;
+  max-width: 58px;
 }
 
 .exchange-radio-card strong,
@@ -762,6 +771,7 @@
 .exchange-proposal-card__summary {
   display: grid;
   gap: 0.15rem;
+  justify-items: start;
   color: #0f2242;
 }
 
@@ -821,6 +831,34 @@
 
 .exchange-proposal-card--sent {
   background: rgba(255, 255, 255, 0.86);
+}
+
+.exchange-status {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-top: 0.2rem;
+  padding: 0.24rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.exchange-status--pendiente {
+  background: rgba(245, 158, 11, 0.18);
+  color: #92400e;
+}
+
+.exchange-status--aceptada {
+  background: rgba(34, 197, 94, 0.18);
+  color: #166534;
+}
+
+.exchange-status--rechazada {
+  background: rgba(239, 68, 68, 0.16);
+  color: #991b1b;
 }
 
 .exchange-sticker-thumb {

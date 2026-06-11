@@ -9,7 +9,7 @@ public interface RepositorioPropuestaIntercambio {
 
   PropuestaIntercambio buscarPorId(Long idPropuesta);
 
-  List<PropuestaIntercambio> buscarPendientesRecibidas(Long idUsuario);
+  List<PropuestaIntercambio> buscarRecibidas(Long idUsuario);
 
-  List<PropuestaIntercambio> buscarPendientesEnviadas(Long idUsuario);
+  List<PropuestaIntercambio> buscarEnviadas(Long idUsuario);
 }

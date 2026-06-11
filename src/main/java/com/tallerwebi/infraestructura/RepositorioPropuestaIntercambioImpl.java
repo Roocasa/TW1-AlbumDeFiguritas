@@ -1,6 +1,5 @@
 package com.tallerwebi.infraestructura;
 
-import com.tallerwebi.dominio.album.EstadoPropuestaIntercambio;
 import com.tallerwebi.dominio.album.PropuestaIntercambio;
 import com.tallerwebi.dominio.album.RepositorioPropuestaIntercambio;
 import java.util.List;
@@ -37,26 +36,24 @@ public class RepositorioPropuestaIntercambioImpl implements RepositorioPropuesta
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<PropuestaIntercambio> buscarPendientesRecibidas(Long idUsuario) {
+  public List<PropuestaIntercambio> buscarRecibidas(Long idUsuario) {
     return sessionFactory
       .getCurrentSession()
       .createCriteria(PropuestaIntercambio.class)
       .createAlias("receptor", "receptor")
       .add(Restrictions.eq("receptor.id", idUsuario))
-      .add(Restrictions.eq("estado", EstadoPropuestaIntercambio.PENDIENTE))
       .addOrder(Order.desc("id"))
       .list();
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public List<PropuestaIntercambio> buscarPendientesEnviadas(Long idUsuario) {
+  public List<PropuestaIntercambio> buscarEnviadas(Long idUsuario) {
     return sessionFactory
       .getCurrentSession()
       .createCriteria(PropuestaIntercambio.class)
       .createAlias("solicitante", "solicitante")
       .add(Restrictions.eq("solicitante.id", idUsuario))
-      .add(Restrictions.eq("estado", EstadoPropuestaIntercambio.PENDIENTE))
       .addOrder(Order.desc("id"))
       .list();
   }

@@ -58,12 +58,12 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
 
   @Override
   public List<PropuestaIntercambio> obtenerPropuestasRecibidas(Long idUsuario) {
-    return repositorioPropuestaIntercambio.buscarPendientesRecibidas(idUsuario);
+    return repositorioPropuestaIntercambio.buscarRecibidas(idUsuario);
   }
 
   @Override
   public List<PropuestaIntercambio> obtenerPropuestasEnviadas(Long idUsuario) {
-    return repositorioPropuestaIntercambio.buscarPendientesEnviadas(idUsuario);
+    return repositorioPropuestaIntercambio.buscarEnviadas(idUsuario);
   }
 
   @Override

@@ -56,10 +56,10 @@
     <section class="exchange-requests mb-4">
       <div class="exchange-panel__block">
         <span class="inventory-trade-panel__eyebrow">Recibidas</span>
-        <h3>Propuestas pendientes</h3>
+        <h3>Propuestas recibidas</h3>
 
         <div th:if="${propuestasRecibidas == null or propuestasRecibidas.empty}" class="exchange-empty">
-          No tenes propuestas recibidas pendientes.
+          No tenes propuestas recibidas.
         </div>
 
         <article
@@ -68,6 +68,9 @@
           <div class="exchange-proposal-card__summary">
             <strong th:text="${propuesta.solicitante.email}">usuario@email.com</strong>
             <span>Te ofrece</span>
+            <small th:if="${propuesta.estado.name() == 'PENDIENTE'}" class="exchange-status exchange-status--pendiente">Pendiente</small>
+            <small th:if="${propuesta.estado.name() == 'ACEPTADA'}" class="exchange-status exchange-status--aceptada">Aceptada</small>
+            <small th:if="${propuesta.estado.name() == 'RECHAZADA'}" class="exchange-status exchange-status--rechazada">Rechazada</small>
           </div>
 
           <div class="exchange-proposal-card__stickers">
@@ -124,7 +127,7 @@
             </div>
           </div>
 
-          <div class="exchange-proposal-card__actions">
+          <div th:if="${propuesta.pendiente}" class="exchange-proposal-card__actions">
             <form th:action="@{/intercambios/propuestas/aceptar}" method="post">
               <input type="hidden" name="idPropuesta" th:value="${propuesta.id}">
               <button type="submit" class="profile-button exchange-offer__button">Aceptar</button>
@@ -141,16 +144,21 @@
 
       <div class="exchange-panel__block">
         <span class="inventory-trade-panel__eyebrow">Enviadas</span>
-        <h3>Esperando respuesta</h3>
+        <h3>Propuestas enviadas</h3>
 
         <div th:if="${propuestasEnviadas == null or propuestasEnviadas.empty}" class="exchange-empty">
-          No tenes propuestas enviadas pendientes.
+          No tenes propuestas enviadas.
         </div>
 
         <article
           th:each="propuesta : ${propuestasEnviadas}"
           class="exchange-proposal-card exchange-proposal-card--sent">
-          <strong th:text="${'Para: ' + propuesta.receptor.email}">Para: usuario@email.com</strong>
+          <div class="exchange-proposal-card__summary">
+            <strong th:text="${'Para: ' + propuesta.receptor.email}">Para: usuario@email.com</strong>
+            <small th:if="${propuesta.estado.name() == 'PENDIENTE'}" class="exchange-status exchange-status--pendiente">Pendiente</small>
+            <small th:if="${propuesta.estado.name() == 'ACEPTADA'}" class="exchange-status exchange-status--aceptada">Aceptada</small>
+            <small th:if="${propuesta.estado.name() == 'RECHAZADA'}" class="exchange-status exchange-status--rechazada">Rechazada</small>
+          </div>
           <p>
             <span
               th:text="${propuesta.figuritaOfrecida.tipo != null and propuesta.figuritaOfrecida.tipo.name() == 'ESCUDO' ? 'Escudo de ' + propuesta.figuritaOfrecida.pais.nombre : propuesta.figuritaOfrecida.nombreJugador}">
@@ -202,7 +210,7 @@
                 Figurita
               </small>
             </span>
-            <span>
+            <span class="exchange-radio-card__info">
               <strong
                 th:text="${item.figurita.tipo != null and item.figurita.tipo.name() == 'ESCUDO' ? 'Escudo de ' + item.figurita.pais.nombre : item.figurita.nombreJugador}">
                 Figurita
