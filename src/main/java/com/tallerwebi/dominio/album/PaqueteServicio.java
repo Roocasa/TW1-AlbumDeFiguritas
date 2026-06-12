@@ -7,6 +7,8 @@ import java.util.List;
 public interface PaqueteServicio {
   public ResultadoApertura abrirPaquete(Long idUsuario) throws PaquetesInsuficientesException;
 
+  List<HistorialSobre> obtenerHistorialSobres(Long idUsuario);
+
   public void pegarFigurita(Long idUsuario, Long idFigurita);
 
   List<InventarioItemDTO> obtenerFiguritasDelInventario(Long idUsuario);

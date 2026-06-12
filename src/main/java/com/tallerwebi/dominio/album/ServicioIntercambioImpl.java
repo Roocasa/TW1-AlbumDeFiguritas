@@ -3,6 +3,7 @@ package com.tallerwebi.dominio.album;
 import com.tallerwebi.dominio.RepositorioUsuario;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.excepcion.IntercambioFiguritasException;
+import com.tallerwebi.dominio.notificacion.ServicioNotificacion;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -21,6 +22,7 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
   private final RepositorioPropuestaIntercambio repositorioPropuestaIntercambio;
   private final PaqueteServicio paqueteServicio;
   private final ServicioAlbum servicioAlbum;
+  private final ServicioNotificacion servicioNotificacion;
 
   @Autowired
   public ServicioIntercambioImpl(
@@ -28,13 +30,32 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
     RepositorioInventario repositorioInventario,
     RepositorioPropuestaIntercambio repositorioPropuestaIntercambio,
     PaqueteServicio paqueteServicio,
-    ServicioAlbum servicioAlbum
+    ServicioAlbum servicioAlbum,
+    ServicioNotificacion servicioNotificacion
   ) {
     this.repositorioUsuario = repositorioUsuario;
     this.repositorioInventario = repositorioInventario;
     this.repositorioPropuestaIntercambio = repositorioPropuestaIntercambio;
     this.paqueteServicio = paqueteServicio;
     this.servicioAlbum = servicioAlbum;
+    this.servicioNotificacion = servicioNotificacion;
+  }
+
+  public ServicioIntercambioImpl(
+    RepositorioUsuario repositorioUsuario,
+    RepositorioInventario repositorioInventario,
+    RepositorioPropuestaIntercambio repositorioPropuestaIntercambio,
+    PaqueteServicio paqueteServicio,
+    ServicioAlbum servicioAlbum
+  ) {
+    this(
+      repositorioUsuario,
+      repositorioInventario,
+      repositorioPropuestaIntercambio,
+      paqueteServicio,
+      servicioAlbum,
+      null
+    );
   }
 
   @Override
@@ -67,6 +88,19 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
   }
 
   @Override
+  public List<HistorialIntercambioDTO> obtenerHistorialIntercambios(Long idUsuario) {
+    List<HistorialIntercambioDTO> historial = new ArrayList<>();
+
+    for (PropuestaIntercambio propuesta : repositorioPropuestaIntercambio.buscarPorUsuario(
+      idUsuario
+    )) {
+      historial.add(crearHistorialIntercambio(idUsuario, propuesta));
+    }
+
+    return historial;
+  }
+
+  @Override
   public void enviarPropuesta(
     Long idUsuarioOrigen,
     Long idFiguritaOrigen,
@@ -94,14 +128,14 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
       );
     }
 
-    repositorioPropuestaIntercambio.guardar(
-      new PropuestaIntercambio(
-        relacionOrigen.getPropietario(),
-        relacionDestino.getPropietario(),
-        relacionOrigen.getFigurita(),
-        relacionDestino.getFigurita()
-      )
+    PropuestaIntercambio propuesta = new PropuestaIntercambio(
+      relacionOrigen.getPropietario(),
+      relacionDestino.getPropietario(),
+      relacionOrigen.getFigurita(),
+      relacionDestino.getFigurita()
     );
+    repositorioPropuestaIntercambio.guardar(propuesta);
+    avisarPropuestaRecibida(propuesta);
   }
 
   @Override
@@ -121,6 +155,7 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
 
     propuesta.aceptar();
     repositorioPropuestaIntercambio.modificar(propuesta);
+    avisarPropuestaRespondida(propuesta, true);
   }
 
   @Override
@@ -133,6 +168,7 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
 
     propuesta.rechazar();
     repositorioPropuestaIntercambio.modificar(propuesta);
+    avisarPropuestaRespondida(propuesta, false);
   }
 
   @Override
@@ -251,5 +287,45 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
     }
 
     return propuesta;
+  }
+
+  private HistorialIntercambioDTO crearHistorialIntercambio(
+    Long idUsuario,
+    PropuestaIntercambio propuesta
+  ) {
+    boolean esSolicitante = propuesta.getSolicitante().getId().equals(idUsuario);
+
+    Figurita entregada = esSolicitante
+      ? propuesta.getFiguritaOfrecida()
+      : propuesta.getFiguritaSolicitada();
+    Figurita recibida = esSolicitante
+      ? propuesta.getFiguritaSolicitada()
+      : propuesta.getFiguritaOfrecida();
+    String usuarioContraparte = esSolicitante
+      ? propuesta.getReceptor().getEmail()
+      : propuesta.getSolicitante().getEmail();
+
+    return new HistorialIntercambioDTO(
+      propuesta,
+      entregada,
+      recibida,
+      usuarioContraparte,
+      propuesta.getFechaMovimiento()
+    );
+  }
+
+  private void avisarPropuestaRecibida(PropuestaIntercambio propuesta) {
+    if (servicioNotificacion != null) {
+      servicioNotificacion.avisarPropuestaRecibida(
+        propuesta.getReceptor().getId(),
+        propuesta.getSolicitante().getEmail()
+      );
+    }
+  }
+
+  private void avisarPropuestaRespondida(PropuestaIntercambio propuesta, boolean aceptada) {
+    if (servicioNotificacion != null) {
+      servicioNotificacion.avisarPropuestaRespondida(propuesta.getSolicitante().getId(), aceptada);
+    }
   }
 }

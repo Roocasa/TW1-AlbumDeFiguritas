@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 @Repository("repositorioPropuestaIntercambio")
 public class RepositorioPropuestaIntercambioImpl implements RepositorioPropuestaIntercambio {
 
+  private static final String CAMPO_SOLICITANTE = "solicitante";
+  private static final String CAMPO_RECEPTOR = "receptor";
+
   private final SessionFactory sessionFactory;
 
   @Autowired
@@ -40,7 +43,7 @@ public class RepositorioPropuestaIntercambioImpl implements RepositorioPropuesta
     return sessionFactory
       .getCurrentSession()
       .createCriteria(PropuestaIntercambio.class)
-      .createAlias("receptor", "receptor")
+      .createAlias(CAMPO_RECEPTOR, CAMPO_RECEPTOR)
       .add(Restrictions.eq("receptor.id", idUsuario))
       .addOrder(Order.desc("id"))
       .list();
@@ -52,9 +55,27 @@ public class RepositorioPropuestaIntercambioImpl implements RepositorioPropuesta
     return sessionFactory
       .getCurrentSession()
       .createCriteria(PropuestaIntercambio.class)
-      .createAlias("solicitante", "solicitante")
+      .createAlias(CAMPO_SOLICITANTE, CAMPO_SOLICITANTE)
       .add(Restrictions.eq("solicitante.id", idUsuario))
       .addOrder(Order.desc("id"))
+      .list();
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
+  public List<PropuestaIntercambio> buscarPorUsuario(Long idUsuario) {
+    return sessionFactory
+      .getCurrentSession()
+      .createCriteria(PropuestaIntercambio.class)
+      .createAlias(CAMPO_SOLICITANTE, CAMPO_SOLICITANTE)
+      .createAlias(CAMPO_RECEPTOR, CAMPO_RECEPTOR)
+      .add(
+        Restrictions.or(
+          Restrictions.eq("solicitante.id", idUsuario),
+          Restrictions.eq("receptor.id", idUsuario)
+        )
+      )
+      .addOrder(Order.desc("fechaCreacion"))
       .list();
   }
 }

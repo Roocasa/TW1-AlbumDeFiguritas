@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <details th:fragment="campana" class="notification-menu">
+    <summary class="notification-bell" aria-label="Notificaciones">
+      <span class="notification-bell__icon">&#128276;</span>
+      <span
+        th:if="${notificacionesNoLeidas != null and notificacionesNoLeidas > 0}"
+        class="notification-bell__badge"
+        th:text="${notificacionesNoLeidas}">
+        1
+      </span>
+    </summary>
+
+    <div class="notification-dropdown">
+      <div class="notification-dropdown__header">
+        <strong>Notificaciones</strong>
+        <form
+          th:if="${notificacionesNoLeidas != null and notificacionesNoLeidas > 0}"
+          th:action="@{/notificaciones/marcar-leidas}"
+          method="post">
+          <button type="submit">Marcar leidas</button>
+        </form>
+      </div>
+
+      <div th:if="${notificacionesMenu == null or notificacionesMenu.empty}" class="notification-empty">
+        No tenes avisos nuevos.
+      </div>
+
+      <a
+        th:each="notificacion : ${notificacionesMenu}"
+        th:href="@{/notificaciones/abrir(id=${notificacion.id})}"
+        class="notification-item"
+        th:classappend="${notificacion.leida} ? ' notification-item--read' : ''">
+        <span class="notification-item__dot"></span>
+        <strong th:text="${notificacion.titulo}">Nueva propuesta</strong>
+        <small th:text="${#dates.format(notificacion.fechaCreacion, 'dd/MM/yyyy HH:mm')}">11/06/2026 20:00</small>
+        <p th:text="${notificacion.mensaje}">Tenes una nueva notificacion.</p>
+      </a>
+    </div>
+  </details>
+</body>
+</html>

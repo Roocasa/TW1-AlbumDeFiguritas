@@ -30,6 +30,7 @@
       <span class="home-topbar__title profile-topbar__title">Album 2026</span>
     </a>
     <nav class="profile-topbar__actions" aria-label="Navegacion principal">
+      <div th:replace="fragments/notificaciones :: campana"></div>
       <a th:href="@{/home}">Inicio</a>
       <a th:href="@{/perfil}">Perfil</a>
       <a th:href="@{/login}">Salir</a>

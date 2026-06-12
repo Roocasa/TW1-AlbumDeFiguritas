@@ -23,6 +23,7 @@ public class PaqueteServicioTest {
   RepositorioFigurita repositorioFiguritaFalso;
   RepositorioInventario repositorioInventarioFalso;
   RepositorioUsuario repositorioUsuarioFalso;
+  RepositorioHistorialSobre repositorioHistorialSobreFalso;
   ServicioAlbum servicioAlbumFalso;
   ResultadoApertura dtoResultado;
 
@@ -31,6 +32,7 @@ public class PaqueteServicioTest {
     repositorioFiguritaFalso = mock(RepositorioFigurita.class);
     repositorioInventarioFalso = mock(RepositorioInventario.class);
     repositorioUsuarioFalso = mock(RepositorioUsuario.class);
+    repositorioHistorialSobreFalso = mock(RepositorioHistorialSobre.class);
     servicioAlbumFalso = mock(ServicioAlbum.class);
 
     paqueteServicio =
@@ -38,6 +40,7 @@ public class PaqueteServicioTest {
         repositorioFiguritaFalso,
         repositorioInventarioFalso,
         repositorioUsuarioFalso,
+        repositorioHistorialSobreFalso,
         servicioAlbumFalso
       );
 
@@ -66,6 +69,7 @@ public class PaqueteServicioTest {
     assertThat(dtoResultado.getFiguritasNuevas(), contains(figuritas.toArray()));
     assertThat(usuarioMock.getPaquetesDisponibles(), is(0));
     verify(repositorioInventarioFalso, times(5)).guardar(any());
+    verify(repositorioHistorialSobreFalso).guardar(any(HistorialSobre.class));
   }
 
   @Test

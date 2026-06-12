@@ -12,6 +12,8 @@ public interface ServicioIntercambio {
 
   List<PropuestaIntercambio> obtenerPropuestasEnviadas(Long idUsuario);
 
+  List<HistorialIntercambioDTO> obtenerHistorialIntercambios(Long idUsuario);
+
   void enviarPropuesta(
     Long idUsuarioOrigen,
     Long idFiguritaOrigen,

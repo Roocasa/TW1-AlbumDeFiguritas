@@ -1,6 +1,7 @@
 package com.tallerwebi.dominio.album;
 
 import com.tallerwebi.dominio.Usuario;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class PropuestaIntercambio {
@@ -30,6 +33,12 @@ public class PropuestaIntercambio {
 
   @Enumerated(EnumType.STRING)
   private EstadoPropuestaIntercambio estado = EstadoPropuestaIntercambio.PENDIENTE;
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date fechaCreacion = new Date();
+
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date fechaRespuesta;
 
   public PropuestaIntercambio() {}
 
@@ -69,12 +78,26 @@ public class PropuestaIntercambio {
     return estado;
   }
 
+  public Date getFechaCreacion() {
+    return fechaCreacion;
+  }
+
+  public Date getFechaRespuesta() {
+    return fechaRespuesta;
+  }
+
+  public Date getFechaMovimiento() {
+    return fechaRespuesta != null ? fechaRespuesta : fechaCreacion;
+  }
+
   public void aceptar() {
     this.estado = EstadoPropuestaIntercambio.ACEPTADA;
+    this.fechaRespuesta = new Date();
   }
 
   public void rechazar() {
     this.estado = EstadoPropuestaIntercambio.RECHAZADA;
+    this.fechaRespuesta = new Date();
   }
 
   public boolean isPendiente() {

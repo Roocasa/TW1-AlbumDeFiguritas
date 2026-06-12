@@ -12,4 +12,6 @@ public interface RepositorioPropuestaIntercambio {
   List<PropuestaIntercambio> buscarRecibidas(Long idUsuario);
 
   List<PropuestaIntercambio> buscarEnviadas(Long idUsuario);
+
+  List<PropuestaIntercambio> buscarPorUsuario(Long idUsuario);
 }

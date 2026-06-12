@@ -47,7 +47,7 @@
   gap: 0.75rem;
 }
 
-.home-topbar__actions a {
+.home-topbar__actions > a {
   min-width: 92px;
   padding: 0.7rem 1rem;
   border-radius: 999px;
@@ -58,14 +58,18 @@
   text-decoration: none;
 }
 
-.home-topbar__actions a:hover,
-.home-topbar__actions a:focus {
+.home-topbar__actions > a:hover,
+.home-topbar__actions > a:focus {
   background: rgba(255, 255, 255, 0.18);
   color: #ffffff;
 }
 
+.home-topbar__actions .notification-bell {
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .home-layout {
-  width: min(1180px, calc(100% - 2rem));
+  width: min(1180px, calc(100% - 1.5rem));
   margin: 0 auto;
   padding: 2rem 0 1.5rem;
 }
@@ -77,9 +81,10 @@
 .home-grid {
   display: grid;
   grid-template-areas:
-    "album album"
-    "repe packs";
-  grid-template-columns: 1fr 1fr;
+    "sponsors album promo"
+    "repe album packs"
+    "dock dock dock";
+  grid-template-columns: minmax(112px, 0.9fr) minmax(190px, 1.22fr) minmax(112px, 0.9fr);
   gap: 1.25rem;
   align-items: stretch;
 }
@@ -89,8 +94,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 240px;
-  padding: 1.5rem;
+  min-height: 196px;
+  padding: 1.25rem;
   border: 1px solid rgba(255, 255, 255, 0.58);
   border-radius: 22px;
   background:
@@ -121,7 +126,7 @@
 .home-panel h2 {
   margin: 0;
   font-family: "Bebas Neue", "Space Grotesk", sans-serif;
-  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-size: clamp(1.85rem, 3vw, 2.8rem);
   line-height: 1.02;
   letter-spacing: 0.04em;
   color: #0f2242;
@@ -132,7 +137,7 @@
   margin: 0.85rem auto 0;
   max-width: 260px;
   color: #36506f;
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   line-height: 1.5;
 }
 
@@ -140,26 +145,31 @@
   display: grid;
   gap: 0.25rem;
   margin-top: 1rem;
-  padding: 0.85rem 1rem;
-  border-radius: 16px;
-  background: rgba(15, 34, 66, 0.08);
+  padding: 0.6rem 0.85rem;
+  border-radius: 12px;
+  background: rgba(15, 34, 66, 0.07);
+  width: min(100%, 190px);
+  justify-items: center;
+  overflow: hidden;
 }
 
 .home-panel__countdown span {
   color: #5d6d86;
-  font-size: 0.76rem;
+  font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.home-panel__countdown-time {
+.home-panel .home-panel__countdown-time {
   margin: 0;
   color: #0f2242;
   font-family: "Bebas Neue", "Space Grotesk", sans-serif;
-  font-size: clamp(2.2rem, 4vw, 3rem);
+  max-width: 100%;
+  font-size: clamp(1.45rem, 2.25vw, 1.9rem);
   line-height: 1;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .home-panel strong {
@@ -184,6 +194,13 @@
   box-shadow: 0 18px 36px rgba(16, 35, 63, 0.18);
 }
 
+.home-panel--sponsors {
+  grid-area: sponsors;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(239, 247, 255, 0.9)),
+    #ffffff;
+}
+
 .home-panel--repe {
   grid-area: repe;
   background:
@@ -195,6 +212,13 @@
   grid-area: packs;
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(240, 255, 247, 0.9)),
+    #ffffff;
+}
+
+.home-panel--promo {
+  grid-area: promo;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 246, 232, 0.9)),
     #ffffff;
 }
 
@@ -226,11 +250,12 @@
 }
 
 .home-dock {
+  grid-area: dock;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   gap: 0.85rem;
-  margin: 2rem auto 0;
+  margin: 0.25rem auto 0;
   padding: 0.9rem 1rem;
   width: fit-content;
   max-width: 100%;
@@ -265,7 +290,82 @@
   text-align: center;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 700px) {
+  .home-layout {
+    width: min(100%, calc(100% - 1rem));
+  }
+
+  .home-grid {
+    grid-template-columns: minmax(96px, 0.82fr) minmax(168px, 1.1fr) minmax(96px, 0.82fr);
+    gap: 0.75rem;
+  }
+
+  .home-panel {
+    min-height: 134px;
+    padding: 0.85rem;
+    border-radius: 10px;
+  }
+
+  .home-panel__tag {
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0.45rem;
+    font-size: 0.52rem;
+    letter-spacing: 0.06em;
+  }
+
+  .home-panel h2 {
+    font-size: clamp(1.45rem, 5.2vw, 2rem);
+    line-height: 0.98;
+  }
+
+  .home-panel p {
+    margin-top: 0.5rem;
+    max-width: 170px;
+    font-size: 0.62rem;
+    line-height: 1.35;
+  }
+
+  .home-panel__countdown {
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 8px;
+  }
+
+  .home-panel__countdown span {
+    font-size: 0.48rem;
+  }
+
+  .home-panel .home-panel__countdown-time {
+    font-size: clamp(1.25rem, 4.6vw, 1.75rem);
+  }
+
+  .home-panel--album {
+    min-height: 276px;
+    padding: 0.35rem;
+    border-radius: 12px;
+  }
+
+  .home-panel__album-image {
+    width: calc(100% + 0.7rem);
+    height: calc(100% + 0.7rem);
+    margin: -0.35rem;
+    border-radius: 10px;
+  }
+
+  .home-dock {
+    gap: 0.25rem;
+    margin-top: 0.25rem;
+    padding: 0.45rem 0.55rem;
+  }
+
+  .home-dock a {
+    min-width: 78px;
+    padding: 0.5rem 0.45rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 420px) {
   .home-topbar {
     flex-direction: column;
     justify-content: center;
@@ -294,8 +394,11 @@
   .home-grid {
     grid-template-areas:
       "album"
+      "sponsors"
+      "promo"
       "repe"
-      "packs";
+      "packs"
+      "dock";
     grid-template-columns: 1fr;
   }
 

@@ -1,6 +1,7 @@
 package com.tallerwebi.dominio;
 
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
+import com.tallerwebi.dominio.notificacion.ServicioNotificacion;
 import java.time.LocalDate;
 import java.util.Locale;
 import javax.transaction.Transactional;
@@ -15,10 +16,19 @@ public class ServicioPerfilImpl implements ServicioPerfil {
   private static final int SOBRE_POR_ANUNCIO = 1;
   private static final int MINIMO_CARACTERES_PASSWORD = 6;
   private RepositorioUsuario repositorioUsuario;
+  private ServicioNotificacion servicioNotificacion;
 
   @Autowired
-  public ServicioPerfilImpl(RepositorioUsuario repositorioUsuario) {
+  public ServicioPerfilImpl(
+    RepositorioUsuario repositorioUsuario,
+    ServicioNotificacion servicioNotificacion
+  ) {
     this.repositorioUsuario = repositorioUsuario;
+    this.servicioNotificacion = servicioNotificacion;
+  }
+
+  public ServicioPerfilImpl(RepositorioUsuario repositorioUsuario) {
+    this(repositorioUsuario, null);
   }
 
   @Override
@@ -47,6 +57,7 @@ public class ServicioPerfilImpl implements ServicioPerfil {
     usuario.sumarPaquetesComunes(PAQUETES_DIARIOS);
     usuario.setFechaUltimoRegaloDiario(hoy);
     repositorioUsuario.modificar(usuario);
+    avisarSobresDiariosDisponibles(usuario.getId());
 
     return usuario;
   }
@@ -167,5 +178,11 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
   private String normalizarEmail(String email) {
     return email == null ? null : email.trim().toLowerCase(Locale.ROOT);
+  }
+
+  private void avisarSobresDiariosDisponibles(Long idUsuario) {
+    if (servicioNotificacion != null) {
+      servicioNotificacion.avisarSobresDiariosDisponibles(idUsuario, PAQUETES_DIARIOS);
+    }
   }
 }

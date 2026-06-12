@@ -26,6 +26,7 @@ public class PaqueteServicioImpl implements PaqueteServicio {
   private final RepositorioFigurita repositorioFigurita;
   private final RepositorioInventario repositorioInventario;
   private final RepositorioUsuario repositorioUsuario;
+  private final RepositorioHistorialSobre repositorioHistorialSobre;
   private final ServicioAlbum servicioAlbum;
 
   @Autowired
@@ -33,11 +34,13 @@ public class PaqueteServicioImpl implements PaqueteServicio {
     RepositorioFigurita repositorioFigurita,
     RepositorioInventario repositorioInventario,
     RepositorioUsuario repositorioUsuario,
+    RepositorioHistorialSobre repositorioHistorialSobre,
     ServicioAlbum servicioAlbum
   ) {
     this.repositorioFigurita = repositorioFigurita;
     this.repositorioInventario = repositorioInventario;
     this.repositorioUsuario = repositorioUsuario;
+    this.repositorioHistorialSobre = repositorioHistorialSobre;
     this.servicioAlbum = servicioAlbum;
   }
 
@@ -55,6 +58,7 @@ public class PaqueteServicioImpl implements PaqueteServicio {
     List<Figurita> figuritasDelPaquete = repositorioFigurita.buscarFiguritasAleatorias(
       FIGURITAS_POR_PAQUETE
     );
+    HistorialSobre historialSobre = crearHistorialSobre(usuario, figuritasDelPaquete);
 
     for (Figurita figuritaObtenida : figuritasDelPaquete) {
       RelacionFiguritaUsuario nuevaRelacion = new RelacionFiguritaUsuario(
@@ -63,8 +67,14 @@ public class PaqueteServicioImpl implements PaqueteServicio {
       );
       repositorioInventario.guardar(nuevaRelacion);
     }
+    repositorioHistorialSobre.guardar(historialSobre);
 
     return new ResultadoApertura(figuritasDelPaquete, usuario);
+  }
+
+  @Override
+  public List<HistorialSobre> obtenerHistorialSobres(Long idUsuario) {
+    return repositorioHistorialSobre.buscarPorUsuario(idUsuario);
   }
 
   @Override
@@ -222,5 +232,30 @@ public class PaqueteServicioImpl implements PaqueteServicio {
 
     repetidasCanjeables.sort(Comparator.comparing(RelacionFiguritaUsuario::getId));
     return repetidasCanjeables;
+  }
+
+  private HistorialSobre crearHistorialSobre(Usuario usuario, List<Figurita> figuritasDelPaquete) {
+    HistorialSobre historialSobre = new HistorialSobre(usuario);
+    Set<Long> idsFiguritasYaObtenidas = obtenerIdsFiguritasYaObtenidas(usuario); // NOPMD
+
+    for (Figurita figurita : figuritasDelPaquete) {
+      boolean esRepetida = idsFiguritasYaObtenidas.contains(figurita.getId());
+      historialSobre.agregarDetalle(figurita, esRepetida);
+      idsFiguritasYaObtenidas.add(figurita.getId());
+    }
+
+    return historialSobre;
+  }
+
+  private Set<Long> obtenerIdsFiguritasYaObtenidas(Usuario usuario) {
+    Set<Long> idsFiguritas = new HashSet<>();
+
+    for (RelacionFiguritaUsuario relacion : repositorioInventario.buscarTodasLasFiguritasPorUsuario(
+      usuario
+    )) {
+      idsFiguritas.add(relacion.getFigurita().getId());
+    }
+
+    return idsFiguritas;
   }
 }

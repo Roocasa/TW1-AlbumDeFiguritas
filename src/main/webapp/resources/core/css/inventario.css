@@ -861,6 +861,172 @@
   color: #991b1b;
 }
 
+.history-panel {
+  display: grid;
+}
+
+.history-card {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.85rem;
+  padding: 1rem;
+  border: 1px solid rgba(15, 34, 66, 0.12);
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.history-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  color: #0f2242;
+}
+
+.history-card__header strong {
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.history-card__header span {
+  color: #5d6d86;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.history-sticker-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 1rem;
+  align-items: start;
+}
+
+.history-sticker {
+  display: grid;
+  justify-items: center;
+  min-width: 0;
+  padding: 0.65rem;
+  border: 1px solid rgba(15, 34, 66, 0.08);
+  border-radius: 14px;
+  background: linear-gradient(180deg, rgba(248, 251, 255, 0.95), rgba(233, 240, 249, 0.92));
+}
+
+.history-sticker-card.country-sticker {
+  width: 100%;
+  max-width: 142px;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  overflow: visible;
+  border-radius: 12px;
+  box-shadow: 0 10px 22px rgba(7, 17, 34, 0.12);
+}
+
+.history-sticker-card.country-sticker .country-sticker__image {
+  margin: 0.45rem;
+}
+
+.history-sticker-card.country-sticker .country-sticker__visual-card {
+  inset: 0.35rem;
+  border-radius: 10px;
+}
+
+.history-sticker-card.country-sticker .country-sticker__visual-flag {
+  top: 0.42rem;
+  right: 0.42rem;
+  width: 20px;
+  height: 14px;
+  border-width: 1px;
+}
+
+.history-sticker-card.country-sticker .country-sticker__visual-number {
+  top: 0.32rem;
+  left: 0.45rem;
+  font-size: 1.85rem;
+}
+
+.history-sticker-card.country-sticker .country-sticker__player-stage {
+  top: 1.45rem;
+  right: 0.42rem;
+  bottom: 2.35rem;
+  left: 0.42rem;
+}
+
+.history-sticker-card.country-sticker .country-sticker__visual-content {
+  right: 0.32rem;
+  bottom: 0.32rem;
+  left: 0.32rem;
+  padding: 0.38rem 0.3rem;
+  border-radius: 8px;
+}
+
+.history-sticker-card.country-sticker .country-sticker__visual-content strong {
+  font-size: 0.52rem;
+  line-height: 1.12;
+}
+
+.history-sticker-card.country-sticker .country-sticker__visual-content span {
+  font-size: 0.42rem;
+}
+
+.history-badge {
+  position: absolute;
+  top: -0.42rem;
+  left: 50%;
+  z-index: 8;
+  width: max-content;
+  padding: 0.22rem 0.52rem;
+  border-radius: 999px;
+  border: 1.5px solid #ffffff;
+  font-size: 0.58rem;
+  font-style: normal;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  transform: translateX(-50%);
+  text-transform: uppercase;
+  box-shadow: 0 8px 14px rgba(7, 17, 34, 0.16);
+}
+
+.history-badge--new {
+  background: linear-gradient(135deg, #2fca72 0%, #16834f 100%);
+  color: #ffffff;
+}
+
+.history-badge--repeat {
+  background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+  color: #ffffff;
+}
+
+.history-trade-detail {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.history-trade-detail div {
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.85rem;
+  border-radius: 16px;
+  background: rgba(15, 34, 66, 0.06);
+}
+
+.history-trade-detail span {
+  color: #5d6d86;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.history-trade-detail strong {
+  color: #0f2242;
+  font-size: 0.96rem;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
 .exchange-sticker-thumb {
   position: relative;
   flex: 0 0 58px;
@@ -938,6 +1104,14 @@
 @media (max-width: 768px) {
   .exchange-panel,
   .exchange-requests {
+    grid-template-columns: 1fr;
+  }
+
+  .history-sticker-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .history-trade-detail {
     grid-template-columns: 1fr;
   }
 }
@@ -1171,6 +1345,10 @@
 
 @media (max-width: 576px) {
   .country-sticker-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .history-sticker-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
