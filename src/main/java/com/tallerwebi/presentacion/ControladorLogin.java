@@ -101,6 +101,7 @@ public class ControladorLogin {
   public ModelAndView irAHome() {
     ModelAndView mav = new ModelAndView("home");
     mav.addObject("proximoPaqueteDiarioEpochMs", calcularProximoPaqueteDiarioEpochMs());
+    mav.addObject("costoSobreMonedas", obtenerCostoSobreEnMonedas());
     return mav;
   }
 
@@ -124,6 +125,7 @@ public class ControladorLogin {
 
     ModelAndView mav = new ModelAndView("home");
     mav.addObject("proximoPaqueteDiarioEpochMs", calcularProximoPaqueteDiarioEpochMs());
+    mav.addObject("costoSobreMonedas", obtenerCostoSobreEnMonedas());
     return mav;
   }
 
@@ -139,5 +141,9 @@ public class ControladorLogin {
       .atStartOfDay(ZoneId.systemDefault())
       .toInstant()
       .toEpochMilli();
+  }
+
+  private int obtenerCostoSobreEnMonedas() {
+    return servicioPerfil != null ? servicioPerfil.obtenerCostoSobreEnMonedas() : 50;
   }
 }

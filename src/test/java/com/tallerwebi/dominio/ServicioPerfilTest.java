@@ -43,8 +43,46 @@ public class ServicioPerfilTest {
 
     assertThat(usuarioActualizado.getPaquetesDisponibles(), equalTo(5));
     assertThat(usuarioSegundaVez.getPaquetesDisponibles(), equalTo(5));
+    assertThat(usuarioActualizado.getMonedas(), equalTo(20));
     assertThat(usuario.getFechaUltimoRegaloDiario(), equalTo(LocalDate.now()));
     verify(repositorioUsuario, times(1)).modificar(usuario);
+  }
+
+  @Test
+  public void deberiaComprarUnSobreConMonedas() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(11L);
+    usuario.setMonedas(60);
+    usuario.setPaquetesDisponibles(0);
+
+    when(repositorioUsuario.buscarPorId(11L)).thenReturn(usuario);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Usuario usuarioActualizado = servicioPerfil.comprarSobreConMonedas(11L);
+
+    assertThat(usuarioActualizado.getMonedas(), equalTo(10));
+    assertThat(usuarioActualizado.getPaquetesDisponibles(), equalTo(1));
+    verify(repositorioUsuario, times(1)).modificar(usuario);
+  }
+
+  @Test
+  public void noDeberiaComprarUnSobreSiNoTieneMonedasSuficientes() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(12L);
+    usuario.setMonedas(10);
+
+    when(repositorioUsuario.buscarPorId(12L)).thenReturn(usuario);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Assertions.assertThrows(
+      IllegalArgumentException.class,
+      () -> servicioPerfil.comprarSobreConMonedas(12L)
+    );
+    verify(repositorioUsuario, never()).modificar(usuario);
   }
 
   @Test

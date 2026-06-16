@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 public class ServicioPerfilImpl implements ServicioPerfil {
 
   private static final int PAQUETES_DIARIOS = 2;
+  private static final int MONEDAS_DIARIAS = 20;
+  private static final int COSTO_SOBRE_MONEDAS = 50;
   private static final int SOBRE_POR_ANUNCIO = 1;
   private static final int MINIMO_CARACTERES_PASSWORD = 6;
   private RepositorioUsuario repositorioUsuario;
@@ -55,11 +57,36 @@ public class ServicioPerfilImpl implements ServicioPerfil {
     }
 
     usuario.sumarPaquetesComunes(PAQUETES_DIARIOS);
+    usuario.sumarMonedas(MONEDAS_DIARIAS);
     usuario.setFechaUltimoRegaloDiario(hoy);
     repositorioUsuario.modificar(usuario);
     avisarSobresDiariosDisponibles(usuario.getId());
 
     return usuario;
+  }
+
+  @Override
+  public Usuario comprarSobreConMonedas(Long idUsuario) {
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+
+    if (usuario == null) {
+      return null;
+    }
+
+    if (usuario.getMonedas() < COSTO_SOBRE_MONEDAS) {
+      throw new IllegalArgumentException("No tenes suficientes monedas para comprar un sobre.");
+    }
+
+    usuario.gastarMonedas(COSTO_SOBRE_MONEDAS);
+    usuario.sumarPaquetesComunes(1);
+    repositorioUsuario.modificar(usuario);
+
+    return usuario;
+  }
+
+  @Override
+  public int obtenerCostoSobreEnMonedas() {
+    return COSTO_SOBRE_MONEDAS;
   }
 
   @Override

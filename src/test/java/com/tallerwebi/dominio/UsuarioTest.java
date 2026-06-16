@@ -20,6 +20,7 @@ public class UsuarioTest {
     usuario.setRol("USER");
     usuario.setActivo(false);
     usuario.setIntercambiosRealizados(4);
+    usuario.setMonedas(70);
     usuario.setFechaUltimoRegaloDiario(LocalDate.of(2026, 5, 25));
 
     assertThat(usuario.getId(), equalTo(10L));
@@ -29,6 +30,7 @@ public class UsuarioTest {
     assertThat(usuario.getRol(), equalTo("USER"));
     assertThat(usuario.getActivo(), is(false));
     assertThat(usuario.getIntercambiosRealizados(), equalTo(4));
+    assertThat(usuario.getMonedas(), equalTo(70));
     assertThat(usuario.getFechaUltimoRegaloDiario(), equalTo(LocalDate.of(2026, 5, 25)));
   }
 
@@ -49,5 +51,15 @@ public class UsuarioTest {
     usuario.sumarIntercambioRealizado();
 
     assertThat(usuario.getIntercambiosRealizados(), equalTo(2));
+  }
+
+  @Test
+  public void sumarYGastarMonedasDeberiaActualizarElSaldo() {
+    Usuario usuario = new Usuario();
+
+    usuario.sumarMonedas(80);
+    usuario.gastarMonedas(30);
+
+    assertThat(usuario.getMonedas(), equalTo(50));
   }
 }

@@ -22,6 +22,7 @@ public class PaqueteServicioImpl implements PaqueteServicio {
   private static final int FIGURITAS_POR_PAQUETE = 5;
   private static final int REPETIDAS_POR_PAQUETE = 5;
   private static final int REPETIDAS_POR_ESCUDO = 3;
+  private static final int MONEDAS_POR_PAIS_COMPLETADO = 100;
 
   private final RepositorioFigurita repositorioFigurita;
   private final RepositorioInventario repositorioInventario;
@@ -92,9 +93,11 @@ public class PaqueteServicioImpl implements PaqueteServicio {
       throw new RuntimeException("Esta figurita ya esta pegada en tu album.");
     }
 
+    boolean paisCompletoAntesDePegar = estaCompletoElPaisDelAlbum(idUsuario, relacion);
     relacion.setEstaPegadaEnElAlbum(true);
     repositorioInventario.modificar(relacion);
     servicioAlbum.actualizarEstadisticas(idUsuario);
+    otorgarMonedasSiCompletoPais(idUsuario, relacion, paisCompletoAntesDePegar);
   }
 
   @Override
@@ -232,6 +235,54 @@ public class PaqueteServicioImpl implements PaqueteServicio {
 
     repetidasCanjeables.sort(Comparator.comparing(RelacionFiguritaUsuario::getId));
     return repetidasCanjeables;
+  }
+
+  private void otorgarMonedasSiCompletoPais(
+    Long idUsuario,
+    RelacionFiguritaUsuario relacion,
+    boolean paisCompletoAntesDePegar
+  ) {
+    if (paisCompletoAntesDePegar || !estaCompletoElPaisDelAlbum(idUsuario, relacion)) {
+      return;
+    }
+
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+    usuario.sumarMonedas(MONEDAS_POR_PAIS_COMPLETADO);
+    repositorioUsuario.modificar(usuario);
+  }
+
+  private boolean estaCompletoElPaisDelAlbum(Long idUsuario, RelacionFiguritaUsuario relacion) {
+    if (relacion.getFigurita().getPais() == null) {
+      return false;
+    }
+
+    String codigoPais = relacion.getFigurita().getPais().getCodigo();
+    if (codigoPais == null) {
+      return false;
+    }
+
+    List<Figurita> figuritasDelPais = repositorioFigurita.buscarPorPaisCodigoOrdenadas(codigoPais);
+    if (figuritasDelPais.isEmpty()) {
+      return false;
+    }
+
+    Set<Long> idsPegadasDelPais = obtenerIdsPegadasDelPais(idUsuario, codigoPais);
+    return idsPegadasDelPais.size() >= figuritasDelPais.size();
+  }
+
+  private Set<Long> obtenerIdsPegadasDelPais(Long idUsuario, String codigoPais) {
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+    Set<Long> idsPegadasDelPais = new HashSet<>();
+
+    for (RelacionFiguritaUsuario relacionPegada : repositorioInventario.buscarFiguritasPegadasPorUsuario(
+      usuario
+    )) {
+      if (codigoPais.equals(relacionPegada.getFigurita().getPais().getCodigo())) {
+        idsPegadasDelPais.add(relacionPegada.getFigurita().getId());
+      }
+    }
+
+    return idsPegadasDelPais;
   }
 
   private HistorialSobre crearHistorialSobre(Usuario usuario, List<Figurita> figuritasDelPaquete) {

@@ -18,6 +18,7 @@ public class Usuario {
   private int paquetes = 0;
   private int paquetesPremium = 0;
   private int intercambiosRealizados = 0;
+  private int monedas = 0;
 
   private String email;
   private String fotoPerfil;
@@ -45,6 +46,14 @@ public class Usuario {
 
   public void sumarIntercambioRealizado() {
     this.intercambiosRealizados++;
+  }
+
+  public void sumarMonedas(int cantidad) {
+    this.monedas += cantidad;
+  }
+
+  public void gastarMonedas(int cantidad) {
+    this.monedas -= cantidad;
   }
 
   public Long getId() {
@@ -125,6 +134,14 @@ public class Usuario {
 
   public void setIntercambiosRealizados(int intercambiosRealizados) {
     this.intercambiosRealizados = intercambiosRealizados;
+  }
+
+  public int getMonedas() {
+    return monedas;
+  }
+
+  public void setMonedas(int monedas) {
+    this.monedas = monedas;
   }
 
   public LocalDate getFechaUltimoRegaloDiario() {

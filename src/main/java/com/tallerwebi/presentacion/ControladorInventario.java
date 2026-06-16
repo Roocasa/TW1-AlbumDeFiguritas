@@ -25,6 +25,8 @@ public class ControladorInventario {
 
   private static final String ATRIBUTO_USUARIO = "USUARIO";
   private static final String REDIRECT_LOGIN = "redirect:/login";
+  private static final String REDIRECT_INVENTARIO = "redirect:/inventario";
+  private static final String REDIRECT_TIENDA = "redirect:/tienda";
   private static final String FLASH_ERROR = "error";
 
   private final PaqueteServicio paqueteServicio;
@@ -84,6 +86,10 @@ public class ControladorInventario {
     );
     mav.addObject("canjePaqueteCosto", paqueteServicio.obtenerCostoCanjePaquete());
     mav.addObject("canjeEscudoCosto", paqueteServicio.obtenerCostoCanjeEscudo());
+    mav.addObject(
+      "costoSobreMonedas",
+      servicioPerfil != null ? servicioPerfil.obtenerCostoSobreEnMonedas() : 50
+    );
     return mav;
   }
 
@@ -109,7 +115,26 @@ public class ControladorInventario {
       ra.addFlashAttribute(FLASH_ERROR, e.getMessage());
     }
 
-    return new ModelAndView("redirect:/inventario");
+    return new ModelAndView(REDIRECT_INVENTARIO);
+  }
+
+  @RequestMapping(path = "/comprar-sobre-con-monedas", method = RequestMethod.GET)
+  public ModelAndView comprarSobreConMonedas(HttpSession session, RedirectAttributes ra) {
+    Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
+
+    if (usuario == null) {
+      return new ModelAndView(REDIRECT_LOGIN);
+    }
+
+    try {
+      Usuario usuarioActualizado = servicioPerfil.comprarSobreConMonedas(usuario.getId());
+      session.setAttribute(ATRIBUTO_USUARIO, usuarioActualizado);
+      ra.addFlashAttribute("mensajeSobre", "Compraste 1 sobre comun con monedas.");
+    } catch (IllegalArgumentException e) {
+      ra.addFlashAttribute(FLASH_ERROR, e.getMessage());
+    }
+
+    return new ModelAndView(REDIRECT_TIENDA);
   }
 
   @RequestMapping(path = "/pegar-figurita", method = RequestMethod.GET)
@@ -132,7 +157,7 @@ public class ControladorInventario {
       ra.addFlashAttribute(FLASH_ERROR, "No se pudo pegar la figurita.");
     }
 
-    return new ModelAndView("redirect:/inventario");
+    return new ModelAndView(REDIRECT_INVENTARIO);
   }
 
   @RequestMapping(path = "/recompensa-anuncio", method = RequestMethod.GET)
@@ -160,7 +185,7 @@ public class ControladorInventario {
       ra.addFlashAttribute("mensajeSobre", "Todavia tenes sobres disponibles.");
     }
 
-    return new ModelAndView("redirect:/inventario");
+    return new ModelAndView(REDIRECT_INVENTARIO);
   }
 
   @RequestMapping(path = "/canjear-repetidas/paquete", method = RequestMethod.GET)

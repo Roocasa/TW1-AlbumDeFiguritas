@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Tienda | Album 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+  <link rel="stylesheet" th:href="@{/css/inventario.css}" />
+</head>
+
+<body class="home-shell">
+  <header class="home-topbar profile-topbar">
+    <a class="home-topbar__brand profile-topbar__brand" th:href="@{/home}">
+      <img
+        class="home-topbar__logo"
+        th:src="@{/img/mundial_2026.png}"
+        src="/img/mundial_2026.png"
+        alt="Logo Mundial 2026" />
+      <span class="home-topbar__title profile-topbar__title">Album 2026</span>
+    </a>
+    <nav class="profile-topbar__actions" aria-label="Navegacion principal">
+      <div th:replace="fragments/notificaciones :: campana"></div>
+      <span class="coin-pill" aria-label="Monedas disponibles">
+        <span class="coin-pill__icon" aria-hidden="true"></span>
+        <span th:text="${session.USUARIO != null ? session.USUARIO.monedas : 0}">0</span>
+      </span>
+      <a th:href="@{/home}">Inicio</a>
+      <a th:href="@{/perfil}">Perfil</a>
+      <a th:href="@{/login}">Salir</a>
+    </nav>
+  </header>
+
+  <main class="home-layout inventory-layout shop-layout">
+    <div class="container mb-4">
+      <div th:if="${mensajeSobre}" class="alert alert-success text-center shadow-sm mb-3" th:text="${mensajeSobre}">
+        Compraste 1 sobre comun con monedas.
+      </div>
+      <div th:if="${error}" class="alert alert-danger text-center shadow-sm mb-3" th:text="${error}">
+        Ocurrio un error.
+      </div>
+    </div>
+
+    <section class="inventory-heading text-center text-white mb-4">
+      <h2 class="mb-2" style="font-family: 'Bebas Neue'; letter-spacing: 2px;">
+        Tienda
+      </h2>
+      <p class="mb-0">
+        Ganas monedas por entrar diariamente o completar paises. Usalas para comprar sobres.
+      </p>
+    </section>
+
+    <section class="home-grid sobres-contenedor shop-pack-contenedor mb-4" aria-labelledby="titulo-sobre-comun">
+      <div class="home-panel sobres shop-pack">
+        <img src="/spring/img/sobres/SOBRE_REGULAR.png" alt="Sobre comun">
+        <div class="shop-price-badge">
+          <span class="coin-pill__icon" aria-hidden="true"></span>
+          <strong th:text="${costoSobreMonedas}">50</strong>
+        </div>
+        <div class="sobre-contenido shop-pack__content">
+          <h2 id="titulo-sobre-comun">Sobre comun</h2>
+          <a th:href="@{/comprar-sobre-con-monedas}" class="btn">Comprar</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="inventory-empty-packs shop-help-panel">
+      <div class="alert alert-warning text-center shadow-sm inventory-empty-packs__alert">
+        <h2 class="mb-2">Sistema de monedas</h2>
+        <p class="mb-0">El saldo esta en la barra superior. Podes ganar monedas entrando diariamente o completando paises. Cada compra suma 1 sobre a tu inventario.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="home-footer">Proyecto taller web 1</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

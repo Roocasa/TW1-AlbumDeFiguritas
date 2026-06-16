@@ -21,13 +21,13 @@ public class ReiniciarDB {
     "TRUNCATE TABLE Album;" +
     "TRUNCATE TABLE Usuario;" +
     "INSERT INTO Usuario " +
-    "(email, password, paquetes, paquetesPremium, intercambiosRealizados, activo, rol, pais, fecha_ultimo_regalo_diario) " +
+    "(email, password, paquetes, paquetesPremium, intercambiosRealizados, monedas, activo, rol, pais, fecha_ultimo_regalo_diario) " +
     "VALUES " +
-    "('test@unlam.edu.ar', '123456789', 3, 0, 0, true, 'USER', 'Argentina', CURDATE())," +
-    "('eze@test.com', '123456789', 3, 0, 0, true, 'USER', 'Argentina', CURDATE())," +
-    "('albumcompleto@test.com', '123456789', 0, 0, 0, true, 'USER', 'Argentina', CURDATE())," +
-    "('e2e-pegado@test.com', '123456789', 0, 0, 0, true, 'USER', 'Argentina', CURDATE())," +
-    "('e2e-canje@test.com', '123456789', 0, 0, 0, true, 'USER', 'Argentina', CURDATE());" +
+    "('test@unlam.edu.ar', '123456789', 3, 0, 0, 100, true, 'USER', 'Argentina', CURDATE())," +
+    "('eze@test.com', '123456789', 3, 0, 0, 100, true, 'USER', 'Argentina', CURDATE())," +
+    "('albumcompleto@test.com', '123456789', 0, 0, 0, 0, true, 'USER', 'Argentina', CURDATE())," +
+    "('e2e-pegado@test.com', '123456789', 0, 0, 0, 0, true, 'USER', 'Argentina', CURDATE())," +
+    "('e2e-canje@test.com', '123456789', 0, 0, 0, 0, true, 'USER', 'Argentina', CURDATE());" +
     "INSERT INTO RelacionFiguritaUsuario (usuario_id, figurita_id, estaPegadaEnElAlbum) " +
     "SELECT usuario.id, figurita.id, true " +
     "FROM Usuario usuario " +

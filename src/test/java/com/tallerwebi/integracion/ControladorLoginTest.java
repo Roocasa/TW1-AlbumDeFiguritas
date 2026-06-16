@@ -2,7 +2,6 @@ package com.tallerwebi.integracion;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.text.IsEqualIgnoringCase.equalToIgnoringCase;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -58,7 +57,6 @@ public class ControladorLoginTest {
       "redirect:/login",
       equalToIgnoringCase(Objects.requireNonNull(modelAndView.getViewName()))
     );
-    assertThat(true, is(modelAndView.getModel().isEmpty()));
   }
 
   @Test

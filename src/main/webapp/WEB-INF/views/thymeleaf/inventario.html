@@ -27,6 +27,10 @@
         </a>
         <nav class="profile-topbar__actions" aria-label="Navegacion principal">
             <div th:replace="fragments/notificaciones :: campana"></div>
+            <span class="coin-pill" aria-label="Monedas disponibles">
+                <span class="coin-pill__icon" aria-hidden="true"></span>
+                <span th:text="${session.USUARIO != null ? session.USUARIO.monedas : 0}">0</span>
+            </span>
             <a th:href="@{/home}">Inicio</a>
             <a th:href="@{/perfil}">Perfil</a>
             <a th:href="@{/login}">Salir</a>
@@ -69,9 +73,14 @@
             <div class="alert alert-warning text-center shadow-sm inventory-empty-packs__alert">
                 <h2 class="mb-2">No tienes sobres</h2>
                 <p class="mb-3">Mira un anuncio y te regalamos 1 sobre comun para seguir abriendo figuritas.</p>
-                <button type="button" class="btn profile-button" data-bs-toggle="modal" data-bs-target="#adRewardModal">
+                <div class="inventory-empty-packs__actions">
+                    <button type="button" class="btn profile-button" data-bs-toggle="modal" data-bs-target="#adRewardModal">
                     Ver anuncio por 1 sobre
-                </button>
+                    </button>
+                    <a th:href="@{/comprar-sobre-con-monedas}" class="profile-button inventory-coin-buy">
+                        <span th:text="${costoSobreMonedas + ' monedas por 1 sobre'}">50 monedas por 1 sobre</span>
+                    </a>
+                </div>
             </div>
         </section>
 

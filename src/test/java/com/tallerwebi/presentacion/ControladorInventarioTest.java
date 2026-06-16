@@ -147,4 +147,27 @@ public class ControladorInventarioTest {
     verify(paqueteServicioMock, times(1)).pegarFigurita(1L, 576L);
     verify(redirectAttributesMock, times(1)).addFlashAttribute("albumCompletado", true);
   }
+
+  @Test
+  public void cuandoCompraUnSobreConMonedasEntoncesActualizaLaSesion() {
+    Usuario usuarioMock = new Usuario();
+    usuarioMock.setId(1L);
+    Usuario usuarioActualizado = new Usuario();
+    usuarioActualizado.setId(1L);
+    usuarioActualizado.setMonedas(10);
+    usuarioActualizado.setPaquetesDisponibles(1);
+
+    when(sessionMock.getAttribute("USUARIO")).thenReturn(usuarioMock);
+    when(servicioPerfilMock.comprarSobreConMonedas(1L)).thenReturn(usuarioActualizado);
+
+    ModelAndView modelAndView = controladorInventario.comprarSobreConMonedas(
+      sessionMock,
+      redirectAttributesMock
+    );
+
+    assertThat(modelAndView.getViewName(), is(equalTo("redirect:/tienda")));
+    verify(sessionMock).setAttribute("USUARIO", usuarioActualizado);
+    verify(redirectAttributesMock)
+      .addFlashAttribute("mensajeSobre", "Compraste 1 sobre comun con monedas.");
+  }
 }

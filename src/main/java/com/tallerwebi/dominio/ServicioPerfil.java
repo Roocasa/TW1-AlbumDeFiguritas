@@ -7,6 +7,8 @@ public interface ServicioPerfil {
   Usuario buscarUsuarioPorId(Long id);
   Usuario otorgarPaquetesDiariosSiCorresponde(Long idUsuario);
   Usuario otorgarSobrePorAnuncio(Long idUsuario);
+  Usuario comprarSobreConMonedas(Long idUsuario);
+  int obtenerCostoSobreEnMonedas();
   Usuario actualizarEmail(Long idUsuario, String nuevoEmail, String passwordActual)
     throws UsuarioExistente;
   Usuario actualizarPassword(
