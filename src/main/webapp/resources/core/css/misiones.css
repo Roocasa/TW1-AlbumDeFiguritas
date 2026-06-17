@@ -1,0 +1,152 @@
+.missions-layout {
+  padding-top: 2rem;
+}
+
+.missions-heading {
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.missions-heading span {
+  display: inline-flex;
+  margin-bottom: 0.4rem;
+  color: #ffd466;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.missions-heading h1 {
+  margin: 0;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 7vw, 5.5rem);
+}
+
+.missions-heading p {
+  margin: 0.35rem auto 0;
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1.05rem;
+}
+
+.missions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.mission-card {
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.15rem;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 22px 48px rgba(7, 18, 36, 0.24);
+}
+
+.mission-card--ready {
+  border-color: rgba(255, 212, 102, 0.9);
+  box-shadow:
+    0 22px 48px rgba(7, 18, 36, 0.24),
+    inset 0 0 0 2px rgba(255, 212, 102, 0.4);
+}
+
+.mission-card--claimed {
+  background: rgba(241, 245, 249, 0.96);
+}
+
+.mission-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.mission-card__eyebrow {
+  color: #1f6fd1;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.mission-card__header h2 {
+  margin: 0.2rem 0 0;
+  color: #10233f;
+  font-size: 1.28rem;
+  font-weight: 800;
+}
+
+.mission-card__reward {
+  flex: 0 0 auto;
+  max-width: 112px;
+  padding: 0.38rem 0.58rem;
+  border-radius: 8px;
+  background: #10233f;
+  color: #ffd466;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.mission-card__description {
+  min-height: 48px;
+  margin: 0;
+  color: #405a78;
+  line-height: 1.45;
+}
+
+.mission-progress {
+  margin-top: auto;
+}
+
+.mission-progress__bar {
+  height: 0.72rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dce6f2;
+}
+
+.mission-progress__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1f6fd1 0%, #ffd466 100%);
+}
+
+.mission-progress__text {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.45rem;
+  color: #516783;
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.mission-card__action {
+  width: 100%;
+  border: 0;
+}
+
+.mission-card__locked {
+  min-height: 52px;
+  width: 100%;
+  border: 1px solid #c8d4e3;
+  border-radius: 8px;
+  background: #edf2f7;
+  color: #61728a;
+  font-weight: 800;
+}
+
+@media (max-width: 576px) {
+  .mission-card__header {
+    flex-direction: column;
+  }
+
+  .mission-card__reward {
+    max-width: none;
+  }
+}

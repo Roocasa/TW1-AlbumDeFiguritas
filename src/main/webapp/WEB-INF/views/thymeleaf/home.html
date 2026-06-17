@@ -44,7 +44,7 @@
     </div>
 
     <section class="home-grid">
-      <a class="home-panel home-panel--sponsors" href="#desafios">
+      <a class="home-panel home-panel--sponsors" th:href="@{/misiones}">
         <span class="home-panel__tag">Desafios</span>
         <h2>Desafios</h2>
         <p>Completa objetivos y desbloquea recompensas para tu album.</p>
@@ -82,7 +82,7 @@
 
       <nav class="home-dock" aria-label="Accesos secundarios">
         <a th:href="@{/historial}">Historial</a>
-        <a href="#logros">Logros</a>
+        <a th:href="@{/misiones}">Logros</a>
         <a th:href="@{/intercambios}">Zona Swap</a>
         <a th:href="@{/tienda}">Tienda</a>
       </nav>

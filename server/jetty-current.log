@@ -1,0 +1,588 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] -------------------< com.tallerwebi:tallerwebi-base >-------------------
+[INFO] Building spring web mvc 1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ war ]---------------------------------
+[WARNING] The artifact mysql:mysql-connector-java:jar:8.0.33 has been relocated to com.mysql:mysql-connector-j:jar:8.0.33: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ tallerwebi-base ---
+[INFO] Deleting C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target
+[INFO] 
+[INFO] >>> jetty:9.4.45.v20220203:run (default-cli) > test-compile @ tallerwebi-base >>>
+[INFO] 
+[INFO] --- checkstyle:3.2.1:check (validate) @ tallerwebi-base ---
+[INFO] Comenzando auditoría...
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\config\DatabaseInitializationConfig.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\config\HibernateConfig.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\config\SpringWebConfig.java:18:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Album.java:4:25: Usar la importación con '.*' debería evitarse - javax.persistence.*. [AvoidStarImport]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Album.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\AlbumSlotDTO.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\AlbumSlotDTO.java:3:14: Abreviatura en nombre 'AlbumSlotDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\EstadoPropuestaIntercambio.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Figurita.java:4:25: Usar la importación con '.*' debería evitarse - javax.persistence.*. [AvoidStarImport]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Figurita.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\HistorialIntercambioDTO.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\HistorialIntercambioDTO.java:5:14: Abreviatura en nombre 'HistorialIntercambioDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\HistorialSobre.java:18:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\HistorialSobreDetalle.java:9:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\InventarioItemDTO.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\InventarioItemDTO.java:3:14: Abreviatura en nombre 'InventarioItemDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\OfertaIntercambioDTO.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\OfertaIntercambioDTO.java:6:14: Abreviatura en nombre 'OfertaIntercambioDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Pais.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\PaqueteServicio.java:7:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\PaqueteServicioImpl.java:18:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\PropuestaIntercambio.java:15:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RelacionFiguritaUsuario.java:4:25: Usar la importación con '.*' debería evitarse - javax.persistence.*. [AvoidStarImport]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RelacionFiguritaUsuario.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioAlbum.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioFigurita.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioHistorialSobre.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioInventario.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioPais.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioPropuestaIntercambio.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ResultadoApertura.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioAlbum.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioAlbumImpl.java:15:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioIntercambio.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioIntercambioImpl.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioPais.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioPaisImpl.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\TipoFigurita.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\excepcion\CanjeFiguritasException.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\excepcion\IntercambioFiguritasException.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\excepcion\PaquetesInsuficientesException.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\excepcion\UsuarioExistente.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\MisionDefinicion.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\MisionEstadoDTO.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\MisionEstadoDTO.java:3:14: Abreviatura en nombre 'MisionEstadoDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\MisionUsuario.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\RepositorioMisionUsuario.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\ServicioMision.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\ServicioMisionImpl.java:19:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\TipoRecompensaMision.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\Notificacion.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\RepositorioNotificacion.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\ServicioNotificacion.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\ServicioNotificacionImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\RepositorioUsuario.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioFotoPerfil.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioLogin.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioLoginImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioPerfil.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioPerfilImpl.java:11:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\TextoCorregido.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\Usuario.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\Usuario.java:119:42: 'paquetes' oculta un campo. [HiddenField]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\Usuario.java:127:49: 'paquetesPremium' oculta un campo. [HiddenField]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioAlbumImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioFiguritaImpl.java:11:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioHistorialSobreImpl.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioInventarioImpl.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioMisionUsuarioImpl.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioNotificacionImpl.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioPaisImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioPropuestaIntercambioImpl.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioUsuarioImpl.java:11:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\ServicioFotoPerfilImpl.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\MyServletInitializer.java:8:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorAlbum.java:25:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorHistorial.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorIntercambio.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorInventario.java:23:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorLogin.java:19:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorMision.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorNotificacion.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorPerfil.java:24:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorPerfil.java:65:3: El tamaño del método actualizarFotoPerfil es 51 líneas (máximas permitidas 50). [MethodLength]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorTienda.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\DatosLogin.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\NotificacionModelAdvice.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+Auditoría concluida.
+[INFO] You have 0 Checkstyle violations.
+[INFO] 
+[INFO] --- checkstyle:3.2.1:checkstyle (validate) @ tallerwebi-base ---
+[WARNING]  Parameter 'outputDirectory' is read-only, must not be used in configuration
+[INFO] Rendering content with org.apache.maven.skins:maven-default-skin:jar:1.3 skin.
+[INFO] Comenzando auditoría...
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\config\DatabaseInitializationConfig.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\config\HibernateConfig.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\config\SpringWebConfig.java:18:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Album.java:4:25: Usar la importación con '.*' debería evitarse - javax.persistence.*. [AvoidStarImport]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Album.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\AlbumSlotDTO.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\AlbumSlotDTO.java:3:14: Abreviatura en nombre 'AlbumSlotDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\EstadoPropuestaIntercambio.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Figurita.java:4:25: Usar la importación con '.*' debería evitarse - javax.persistence.*. [AvoidStarImport]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Figurita.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\HistorialIntercambioDTO.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\HistorialIntercambioDTO.java:5:14: Abreviatura en nombre 'HistorialIntercambioDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\HistorialSobre.java:18:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\HistorialSobreDetalle.java:9:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\InventarioItemDTO.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\InventarioItemDTO.java:3:14: Abreviatura en nombre 'InventarioItemDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\OfertaIntercambioDTO.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\OfertaIntercambioDTO.java:6:14: Abreviatura en nombre 'OfertaIntercambioDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\Pais.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\PaqueteServicio.java:7:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\PaqueteServicioImpl.java:18:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\PropuestaIntercambio.java:15:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RelacionFiguritaUsuario.java:4:25: Usar la importación con '.*' debería evitarse - javax.persistence.*. [AvoidStarImport]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RelacionFiguritaUsuario.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioAlbum.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioFigurita.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioHistorialSobre.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioInventario.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioPais.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\RepositorioPropuestaIntercambio.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ResultadoApertura.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioAlbum.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioAlbumImpl.java:15:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioIntercambio.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioIntercambioImpl.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioPais.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\ServicioPaisImpl.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\album\TipoFigurita.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\excepcion\CanjeFiguritasException.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\excepcion\IntercambioFiguritasException.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\excepcion\PaquetesInsuficientesException.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\excepcion\UsuarioExistente.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\MisionDefinicion.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\MisionEstadoDTO.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\MisionEstadoDTO.java:3:14: Abreviatura en nombre 'MisionEstadoDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\MisionUsuario.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\RepositorioMisionUsuario.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\ServicioMision.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\ServicioMisionImpl.java:19:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\mision\TipoRecompensaMision.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\Notificacion.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\RepositorioNotificacion.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\ServicioNotificacion.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\ServicioNotificacionImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\RepositorioUsuario.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioFotoPerfil.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioLogin.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioLoginImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioPerfil.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioPerfilImpl.java:11:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\TextoCorregido.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\Usuario.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\Usuario.java:119:42: 'paquetes' oculta un campo. [HiddenField]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\Usuario.java:127:49: 'paquetesPremium' oculta un campo. [HiddenField]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioAlbumImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioFiguritaImpl.java:11:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioHistorialSobreImpl.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioInventarioImpl.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioMisionUsuarioImpl.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioNotificacionImpl.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioPaisImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioPropuestaIntercambioImpl.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\RepositorioUsuarioImpl.java:11:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\infraestructura\ServicioFotoPerfilImpl.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\MyServletInitializer.java:8:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorAlbum.java:25:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorHistorial.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorIntercambio.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorInventario.java:23:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorLogin.java:19:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorMision.java:16:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorNotificacion.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorPerfil.java:24:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorPerfil.java:65:3: El tamaño del método actualizarFotoPerfil es 51 líneas (máximas permitidas 50). [MethodLength]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorTienda.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\DatosLogin.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\NotificacionModelAdvice.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
+Auditoría concluida.
+[INFO] 
+[INFO] --- pmd:3.21.0:pmd (pmd-all) @ tallerwebi-base ---
+[WARNING]  Parameter 'outputDirectory' is read-only, must not be used in configuration
+[INFO] PMD version: 6.55.0
+[WARNING] Use Rule name category/java/errorprone.xml/DoNotTerminateVM instead of the deprecated Rule name C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\pmd\rulesets\errorprone.xml/DoNotCallSystemExit. PMD 7.0.0 will remove support for this deprecated Rule name usage.
+[WARNING] Use Rule name category/java/errorprone.xml/InvalidLogMessageFormat instead of the deprecated Rule name C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\pmd\rulesets\errorprone.xml/InvalidSlf4jMessageFormat. PMD 7.0.0 will remove support for this deprecated Rule name usage.
+[WARNING] Use Rule name category/java/errorprone.xml/DoNotTerminateVM instead of the deprecated Rule name C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\pmd\rulesets\errorprone.xml/DoNotCallSystemExit. PMD 7.0.0 will remove support for this deprecated Rule name usage.
+[WARNING] Use Rule name category/java/errorprone.xml/InvalidLogMessageFormat instead of the deprecated Rule name C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\pmd\rulesets\errorprone.xml/InvalidSlf4jMessageFormat. PMD 7.0.0 will remove support for this deprecated Rule name usage.
+[INFO] Rendering content with org.apache.maven.skins:maven-default-skin:jar:1.3 skin.
+[INFO] 
+[INFO] >>> pmd:3.21.0:check (pmd-all) > :pmd @ tallerwebi-base >>>
+[INFO] 
+[INFO] --- pmd:3.21.0:pmd (pmd) @ tallerwebi-base ---
+[INFO] PMD version: 6.55.0
+[WARNING] Use Rule name category/java/errorprone.xml/DoNotTerminateVM instead of the deprecated Rule name C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\pmd\rulesets\errorprone.xml/DoNotCallSystemExit. PMD 7.0.0 will remove support for this deprecated Rule name usage.
+[WARNING] Use Rule name category/java/errorprone.xml/InvalidLogMessageFormat instead of the deprecated Rule name C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\pmd\rulesets\errorprone.xml/InvalidSlf4jMessageFormat. PMD 7.0.0 will remove support for this deprecated Rule name usage.
+[WARNING] Use Rule name category/java/errorprone.xml/DoNotTerminateVM instead of the deprecated Rule name C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\pmd\rulesets\errorprone.xml/DoNotCallSystemExit. PMD 7.0.0 will remove support for this deprecated Rule name usage.
+[WARNING] Use Rule name category/java/errorprone.xml/InvalidLogMessageFormat instead of the deprecated Rule name C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\pmd\rulesets\errorprone.xml/InvalidSlf4jMessageFormat. PMD 7.0.0 will remove support for this deprecated Rule name usage.
+[INFO] Rendering content with org.apache.maven.skins:maven-default-skin:jar:1.3 skin.
+[INFO] 
+[INFO] <<< pmd:3.21.0:check (pmd-all) < :pmd @ tallerwebi-base <<<
+[INFO] 
+[INFO] 
+[INFO] --- pmd:3.21.0:check (pmd-all) @ tallerwebi-base ---
+[INFO] PMD version: 6.55.0
+[INFO] 
+[INFO] 
+[INFO] --- pmd:3.21.0:cpd (cpd-all) @ tallerwebi-base ---
+[WARNING]  Parameter 'outputDirectory' is read-only, must not be used in configuration
+[INFO] PMD version: 6.55.0
+[INFO] Rendering content with org.apache.maven.skins:maven-default-skin:jar:1.3 skin.
+[INFO] 
+[INFO] >>> pmd:3.21.0:cpd-check (cpd-all) > :cpd @ tallerwebi-base >>>
+[INFO] 
+[INFO] --- pmd:3.21.0:cpd (cpd) @ tallerwebi-base ---
+[INFO] PMD version: 6.55.0
+[INFO] Rendering content with org.apache.maven.skins:maven-default-skin:jar:1.3 skin.
+[INFO] 
+[INFO] <<< pmd:3.21.0:cpd-check (cpd-all) < :cpd @ tallerwebi-base <<<
+[INFO] 
+[INFO] 
+[INFO] --- pmd:3.21.0:cpd-check (cpd-all) @ tallerwebi-base ---
+[INFO] PMD version: 6.55.0
+[INFO] 
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (default) @ tallerwebi-base ---
+[INFO] argLine set to -javaagent:C:\\Users\\diaz-\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\diaz-\\Desktop\\TW1-AlbumDeFiguritas\\.calidad-de-codigo\\jacoco\\jacoco.exec
+[INFO] 
+[INFO] --- prettier:0.22:write (format-code) @ tallerwebi-base ---
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ tallerwebi-base ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.10.1:compile (default-compile) @ tallerwebi-base ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 79 source files to C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\classes
+[INFO] /C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/java/com/tallerwebi/infraestructura/RepositorioAlbumImpl.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/java/com/tallerwebi/infraestructura/RepositorioAlbumImpl.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ tallerwebi-base ---
+[INFO] skip non existing resourceDirectory C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.10.1:testCompile (default-testCompile) @ tallerwebi-base ---
+[INFO] Changes detected - recompiling the module!
+[INFO] Compiling 42 source files to C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\test-classes
+[INFO] /C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/test/java/com/tallerwebi/punta_a_punta/BaseE2ETest.java: Some input files use or override a deprecated API.
+[INFO] /C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/test/java/com/tallerwebi/punta_a_punta/BaseE2ETest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] <<< jetty:9.4.45.v20220203:run (default-cli) < test-compile @ tallerwebi-base <<<
+[INFO] 
+[INFO] 
+[INFO] --- jetty:9.4.45.v20220203:run (default-cli) @ tallerwebi-base ---
+[INFO] Logging initialized @24588ms to org.eclipse.jetty.util.log.Slf4jLog
+[INFO] webAppSourceDirectory not set. Trying src\main\webapp
+[INFO] Reload Mechanic: automatic
+[INFO] nonBlocking:false
+[INFO] Classes = C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\classes
+[INFO] Configuring Jetty for project: spring web mvc
+[INFO] Context path = /spring
+[INFO] Tmp directory = C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\tmp
+[INFO] Web defaults = org/eclipse/jetty/webapp/webdefault.xml
+[INFO] Web overrides =  none
+[INFO] web.xml file = null
+[INFO] Webapp directory = C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\webapp
+[INFO] jetty-9.4.45.v20220203; built: 2022-02-03T09:14:34.105Z; git: 4a0c91c0be53805e3fcffdcdcc9587d5301863db; jvm 21.0.11+9-LTS-211
+[INFO] Scanning elapsed time=598ms
+[INFO] 1 Spring WebApplicationInitializers detected on classpath
+[INFO] DefaultSessionIdManager workerName=node0
+[INFO] No SessionScavenger set, using defaults
+[INFO] node0 Scavenging every 600000ms
+[INFO] Initializing Spring DispatcherServlet 'dispatcher'
+Hibernate: 
+    
+    alter table Album 
+       drop 
+       foreign key FK58lyenft7xfjtdg8ejs8l4jj1
+Hibernate: 
+    
+    alter table Figurita 
+       drop 
+       foreign key FKhf8tq02e3vbs6ytwgr0ypp9w9
+Hibernate: 
+    
+    alter table HistorialSobre 
+       drop 
+       foreign key FKax77rgmbx92jtryf5i4s1hidw
+Hibernate: 
+    
+    alter table HistorialSobreDetalle 
+       drop 
+       foreign key FKck2ad7fq03abpb6bciq7xoqgk
+Hibernate: 
+    
+    alter table HistorialSobreDetalle 
+       drop 
+       foreign key FKfq5vauhgob8yihe81s74qymw
+Hibernate: 
+    
+    alter table mision_usuario 
+       drop 
+       foreign key FKdm4q76gdp2g77i921gpf5il9l
+Hibernate: 
+    
+    alter table Notificacion 
+       drop 
+       foreign key FKlnl6e737bw18asa9pnevwp7ss
+Hibernate: 
+    
+    alter table PropuestaIntercambio 
+       drop 
+       foreign key FKdoyxnp94evqc5qk2klkf3cw6o
+Hibernate: 
+    
+    alter table PropuestaIntercambio 
+       drop 
+       foreign key FKjk7yodfatlb95m9xax0errmej
+Hibernate: 
+    
+    alter table PropuestaIntercambio 
+       drop 
+       foreign key FKaygkj3hcyqrn0b8g9prplflq3
+Hibernate: 
+    
+    alter table PropuestaIntercambio 
+       drop 
+       foreign key FK3f5pf0c0dmvvvsp8c6wrod184
+Hibernate: 
+    
+    alter table RelacionFiguritaUsuario 
+       drop 
+       foreign key FKlmttxc4of4yro78ghpwnxleyi
+Hibernate: 
+    
+    alter table RelacionFiguritaUsuario 
+       drop 
+       foreign key FKo4xs1w84klhr2db7wu9is4ejt
+Hibernate: 
+    
+    drop table if exists Album
+Hibernate: 
+    
+    drop table if exists Figurita
+Hibernate: 
+    
+    drop table if exists HistorialSobre
+Hibernate: 
+    
+    drop table if exists HistorialSobreDetalle
+Hibernate: 
+    
+    drop table if exists mision_usuario
+Hibernate: 
+    
+    drop table if exists Notificacion
+Hibernate: 
+    
+    drop table if exists Pais
+Hibernate: 
+    
+    drop table if exists PropuestaIntercambio
+Hibernate: 
+    
+    drop table if exists RelacionFiguritaUsuario
+Hibernate: 
+    
+    drop table if exists Usuario
+Hibernate: 
+    
+    create table Album (
+       id bigint not null auto_increment,
+        figuritas_faltantes integer,
+        figuritas_pegadas integer,
+        figuritas_repetidas integer,
+        total_figuritas integer,
+        usuario_id bigint not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table Figurita (
+       id bigint not null auto_increment,
+        club varchar(255),
+        imagen_url varchar(255),
+        nombre_jugador varchar(255),
+        numero_dentro_del_pais integer,
+        tipo varchar(255),
+        pais_id bigint,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table HistorialSobre (
+       id bigint not null auto_increment,
+        fechaApertura datetime(6),
+        usuario_id bigint,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table HistorialSobreDetalle (
+       id bigint not null auto_increment,
+        repetida bit not null,
+        figurita_id bigint,
+        historialSobre_id bigint,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table mision_usuario (
+       id bigint not null auto_increment,
+        codigoMision varchar(255),
+        fechaCanje datetime(6),
+        usuario_id bigint,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table Notificacion (
+       id bigint not null auto_increment,
+        destino varchar(255),
+        fechaCreacion datetime(6),
+        leida bit not null,
+        mensaje varchar(255),
+        titulo varchar(255),
+        usuario_id bigint,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table Pais (
+       id bigint not null auto_increment,
+        codigo varchar(3) not null,
+        codigo_bandera varchar(255),
+        grupo_album varchar(1) not null,
+        nombre varchar(255) not null,
+        orden_album integer not null,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table PropuestaIntercambio (
+       id bigint not null auto_increment,
+        estado varchar(255),
+        fechaCreacion datetime(6),
+        fechaRespuesta datetime(6),
+        figuritaOfrecida_id bigint,
+        figuritaSolicitada_id bigint,
+        receptor_id bigint,
+        solicitante_id bigint,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table RelacionFiguritaUsuario (
+       id bigint not null auto_increment,
+        estaPegadaEnElAlbum BOOLEAN DEFAULT false,
+        figurita_id bigint,
+        usuario_id bigint,
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table Usuario (
+       id bigint not null auto_increment,
+        activo bit,
+        email varchar(255),
+        fecha_ultimo_regalo_diario date,
+        fotoPerfil varchar(255),
+        intercambiosRealizados integer not null,
+        monedas integer not null,
+        pais varchar(255),
+        paquetes integer not null,
+        paquetesPremium integer not null,
+        password varchar(255),
+        rol varchar(255),
+        primary key (id)
+    ) engine=InnoDB
+Hibernate: 
+    
+    alter table Album 
+       add constraint UK_3jn0cb1rvej93099vfqosa1u5 unique (usuario_id)
+Hibernate: 
+    
+    alter table mision_usuario 
+       add constraint UKnqucst9l5yd5s0h1f0spix2u9 unique (usuario_id, codigoMision)
+Hibernate: 
+    
+    alter table Pais 
+       add constraint UK_e728otw6j4mj9q4cq2po3vhnu unique (codigo)
+Hibernate: 
+    
+    alter table Album 
+       add constraint FK58lyenft7xfjtdg8ejs8l4jj1 
+       foreign key (usuario_id) 
+       references Usuario (id)
+Hibernate: 
+    
+    alter table Figurita 
+       add constraint FKhf8tq02e3vbs6ytwgr0ypp9w9 
+       foreign key (pais_id) 
+       references Pais (id)
+Hibernate: 
+    
+    alter table HistorialSobre 
+       add constraint FKax77rgmbx92jtryf5i4s1hidw 
+       foreign key (usuario_id) 
+       references Usuario (id)
+Hibernate: 
+    
+    alter table HistorialSobreDetalle 
+       add constraint FKck2ad7fq03abpb6bciq7xoqgk 
+       foreign key (figurita_id) 
+       references Figurita (id)
+Hibernate: 
+    
+    alter table HistorialSobreDetalle 
+       add constraint FKfq5vauhgob8yihe81s74qymw 
+       foreign key (historialSobre_id) 
+       references HistorialSobre (id)
+Hibernate: 
+    
+    alter table mision_usuario 
+       add constraint FKdm4q76gdp2g77i921gpf5il9l 
+       foreign key (usuario_id) 
+       references Usuario (id)
+Hibernate: 
+    
+    alter table Notificacion 
+       add constraint FKlnl6e737bw18asa9pnevwp7ss 
+       foreign key (usuario_id) 
+       references Usuario (id)
+Hibernate: 
+    
+    alter table PropuestaIntercambio 
+       add constraint FKdoyxnp94evqc5qk2klkf3cw6o 
+       foreign key (figuritaOfrecida_id) 
+       references Figurita (id)
+Hibernate: 
+    
+    alter table PropuestaIntercambio 
+       add constraint FKjk7yodfatlb95m9xax0errmej 
+       foreign key (figuritaSolicitada_id) 
+       references Figurita (id)
+Hibernate: 
+    
+    alter table PropuestaIntercambio 
+       add constraint FKaygkj3hcyqrn0b8g9prplflq3 
+       foreign key (receptor_id) 
+       references Usuario (id)
+Hibernate: 
+    
+    alter table PropuestaIntercambio 
+       add constraint FK3f5pf0c0dmvvvsp8c6wrod184 
+       foreign key (solicitante_id) 
+       references Usuario (id)
+Hibernate: 
+    
+    alter table RelacionFiguritaUsuario 
+       add constraint FKlmttxc4of4yro78ghpwnxleyi 
+       foreign key (figurita_id) 
+       references Figurita (id)
+Hibernate: 
+    
+    alter table RelacionFiguritaUsuario 
+       add constraint FKo4xs1w84klhr2db7wu9is4ejt 
+       foreign key (usuario_id) 
+       references Usuario (id)
+[INFO] Started o.e.j.m.p.JettyWebAppContext@665db699{/spring,file:///C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/webapp/,AVAILABLE}{file:///C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/webapp/}
+[INFO] Started ServerConnector@26243f4{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+[INFO] Started @32315ms
+[INFO] Started Jetty Server
