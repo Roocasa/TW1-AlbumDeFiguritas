@@ -67,6 +67,11 @@
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\RepositorioNotificacion.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\ServicioNotificacion.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\ServicioNotificacionImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\RankingColeccionistaDTO.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\RankingColeccionistaDTO.java:6:14: Abreviatura en nombre 'RankingColeccionistaDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\RankingColeccionistaDTO.java:40:40: 'album' oculta un campo. [HiddenField]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\ServicioRanking.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\ServicioRankingImpl.java:14:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\RepositorioUsuario.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioFotoPerfil.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioLogin.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
@@ -97,6 +102,7 @@
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorNotificacion.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorPerfil.java:24:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorPerfil.java:65:3: El tamaño del método actualizarFotoPerfil es 51 líneas (máximas permitidas 50). [MethodLength]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorRanking.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorTienda.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\DatosLogin.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\NotificacionModelAdvice.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
@@ -161,6 +167,11 @@ Auditoría concluida.
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\RepositorioNotificacion.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\ServicioNotificacion.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\notificacion\ServicioNotificacionImpl.java:10:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\RankingColeccionistaDTO.java:6:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\RankingColeccionistaDTO.java:6:14: Abreviatura en nombre 'RankingColeccionistaDTO' debe contener no más de '2' mayúsculas. [AbbreviationAsWordInName]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\RankingColeccionistaDTO.java:40:40: 'album' oculta un campo. [HiddenField]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\ServicioRanking.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ranking\ServicioRankingImpl.java:14:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\RepositorioUsuario.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioFotoPerfil.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\dominio\ServicioLogin.java:5:1: Falta el comentario Javadoc. [MissingJavadocType]
@@ -191,6 +202,7 @@ Auditoría concluida.
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorNotificacion.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorPerfil.java:24:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorPerfil.java:65:3: El tamaño del método actualizarFotoPerfil es 51 líneas (máximas permitidas 50). [MethodLength]
+[WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorRanking.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\ControladorTienda.java:12:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\DatosLogin.java:3:1: Falta el comentario Javadoc. [MissingJavadocType]
 [WARN] C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\java\com\tallerwebi\presentacion\NotificacionModelAdvice.java:13:1: Falta el comentario Javadoc. [MissingJavadocType]
@@ -250,7 +262,7 @@ Auditoría concluida.
 [INFO] 
 [INFO] --- compiler:3.10.1:compile (default-compile) @ tallerwebi-base ---
 [INFO] Changes detected - recompiling the module!
-[INFO] Compiling 79 source files to C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\classes
+[INFO] Compiling 83 source files to C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\target\classes
 [INFO] /C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/java/com/tallerwebi/infraestructura/RepositorioAlbumImpl.java: Some input files use or override a deprecated API.
 [INFO] /C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/java/com/tallerwebi/infraestructura/RepositorioAlbumImpl.java: Recompile with -Xlint:deprecation for details.
 [INFO] 
@@ -267,7 +279,7 @@ Auditoría concluida.
 [INFO] 
 [INFO] 
 [INFO] --- jetty:9.4.45.v20220203:run (default-cli) @ tallerwebi-base ---
-[INFO] Logging initialized @24588ms to org.eclipse.jetty.util.log.Slf4jLog
+[INFO] Logging initialized @24147ms to org.eclipse.jetty.util.log.Slf4jLog
 [INFO] webAppSourceDirectory not set. Trying src\main\webapp
 [INFO] Reload Mechanic: automatic
 [INFO] nonBlocking:false
@@ -280,11 +292,11 @@ Auditoría concluida.
 [INFO] web.xml file = null
 [INFO] Webapp directory = C:\Users\diaz-\Desktop\TW1-AlbumDeFiguritas\src\main\webapp
 [INFO] jetty-9.4.45.v20220203; built: 2022-02-03T09:14:34.105Z; git: 4a0c91c0be53805e3fcffdcdcc9587d5301863db; jvm 21.0.11+9-LTS-211
-[INFO] Scanning elapsed time=598ms
+[INFO] Scanning elapsed time=631ms
 [INFO] 1 Spring WebApplicationInitializers detected on classpath
 [INFO] DefaultSessionIdManager workerName=node0
 [INFO] No SessionScavenger set, using defaults
-[INFO] node0 Scavenging every 600000ms
+[INFO] node0 Scavenging every 660000ms
 [INFO] Initializing Spring DispatcherServlet 'dispatcher'
 Hibernate: 
     
@@ -582,7 +594,951 @@ Hibernate:
        add constraint FKo4xs1w84klhr2db7wu9is4ejt 
        foreign key (usuario_id) 
        references Usuario (id)
-[INFO] Started o.e.j.m.p.JettyWebAppContext@665db699{/spring,file:///C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/webapp/,AVAILABLE}{file:///C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/webapp/}
-[INFO] Started ServerConnector@26243f4{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
-[INFO] Started @32315ms
+[INFO] Started o.e.j.m.p.JettyWebAppContext@3cc9a67c{/spring,file:///C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/webapp/,AVAILABLE}{file:///C:/Users/diaz-/Desktop/TW1-AlbumDeFiguritas/src/main/webapp/}
+[INFO] Started ServerConnector@512995dc{HTTP/1.1, (http/1.1)}{0.0.0.0:8080}
+[INFO] Started @30148ms
 [INFO] Started Jetty Server
+Hibernate: 
+    select
+        this_.id as id1_9_0_,
+        this_.activo as activo2_9_0_,
+        this_.email as email3_9_0_,
+        this_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        this_.fotoPerfil as fotoperf5_9_0_,
+        this_.intercambiosRealizados as intercam6_9_0_,
+        this_.monedas as monedas7_9_0_,
+        this_.pais as pais8_9_0_,
+        this_.paquetes as paquetes9_9_0_,
+        this_.paquetesPremium as paquete10_9_0_,
+        this_.password as passwor11_9_0_,
+        this_.rol as rol12_9_0_ 
+    from
+        Usuario this_ 
+    where
+        this_.email=? 
+        and this_.password=?
+Hibernate: 
+    select
+        usuario0_.id as id1_9_0_,
+        usuario0_.activo as activo2_9_0_,
+        usuario0_.email as email3_9_0_,
+        usuario0_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        usuario0_.fotoPerfil as fotoperf5_9_0_,
+        usuario0_.intercambiosRealizados as intercam6_9_0_,
+        usuario0_.monedas as monedas7_9_0_,
+        usuario0_.pais as pais8_9_0_,
+        usuario0_.paquetes as paquetes9_9_0_,
+        usuario0_.paquetesPremium as paquete10_9_0_,
+        usuario0_.password as passwor11_9_0_,
+        usuario0_.rol as rol12_9_0_ 
+    from
+        Usuario usuario0_ 
+    where
+        usuario0_.id=?
+Hibernate: 
+    insert 
+    into
+        Notificacion
+        (destino, fechaCreacion, leida, mensaje, titulo, usuario_id) 
+    values
+        (?, ?, ?, ?, ?, ?)
+Hibernate: 
+    update
+        Usuario 
+    set
+        activo=?,
+        email=?,
+        fecha_ultimo_regalo_diario=?,
+        fotoPerfil=?,
+        intercambiosRealizados=?,
+        monedas=?,
+        pais=?,
+        paquetes=?,
+        paquetesPremium=?,
+        password=?,
+        rol=? 
+    where
+        id=?
+Hibernate: 
+    select
+        count(*) as y0_ 
+    from
+        Notificacion this_ 
+    inner join
+        Usuario usuario1_ 
+            on this_.usuario_id=usuario1_.id 
+    where
+        usuario1_.id=? 
+        and this_.leida=?
+Hibernate: 
+    select
+        this_.id as id1_5_1_,
+        this_.destino as destino2_5_1_,
+        this_.fechaCreacion as fechacre3_5_1_,
+        this_.leida as leida4_5_1_,
+        this_.mensaje as mensaje5_5_1_,
+        this_.titulo as titulo6_5_1_,
+        this_.usuario_id as usuario_7_5_1_,
+        usuario1_.id as id1_9_0_,
+        usuario1_.activo as activo2_9_0_,
+        usuario1_.email as email3_9_0_,
+        usuario1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        usuario1_.fotoPerfil as fotoperf5_9_0_,
+        usuario1_.intercambiosRealizados as intercam6_9_0_,
+        usuario1_.monedas as monedas7_9_0_,
+        usuario1_.pais as pais8_9_0_,
+        usuario1_.paquetes as paquetes9_9_0_,
+        usuario1_.paquetesPremium as paquete10_9_0_,
+        usuario1_.password as passwor11_9_0_,
+        usuario1_.rol as rol12_9_0_ 
+    from
+        Notificacion this_ 
+    inner join
+        Usuario usuario1_ 
+            on this_.usuario_id=usuario1_.id 
+    where
+        usuario1_.id=? 
+    order by
+        this_.fechaCreacion desc limit ?
+Hibernate: 
+    select
+        usuario0_.id as id1_9_0_,
+        usuario0_.activo as activo2_9_0_,
+        usuario0_.email as email3_9_0_,
+        usuario0_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        usuario0_.fotoPerfil as fotoperf5_9_0_,
+        usuario0_.intercambiosRealizados as intercam6_9_0_,
+        usuario0_.monedas as monedas7_9_0_,
+        usuario0_.pais as pais8_9_0_,
+        usuario0_.paquetes as paquetes9_9_0_,
+        usuario0_.paquetesPremium as paquete10_9_0_,
+        usuario0_.password as passwor11_9_0_,
+        usuario0_.rol as rol12_9_0_ 
+    from
+        Usuario usuario0_ 
+    where
+        usuario0_.id=?
+Hibernate: 
+    select
+        count(*) as y0_ 
+    from
+        Notificacion this_ 
+    inner join
+        Usuario usuario1_ 
+            on this_.usuario_id=usuario1_.id 
+    where
+        usuario1_.id=? 
+        and this_.leida=?
+Hibernate: 
+    select
+        this_.id as id1_5_1_,
+        this_.destino as destino2_5_1_,
+        this_.fechaCreacion as fechacre3_5_1_,
+        this_.leida as leida4_5_1_,
+        this_.mensaje as mensaje5_5_1_,
+        this_.titulo as titulo6_5_1_,
+        this_.usuario_id as usuario_7_5_1_,
+        usuario1_.id as id1_9_0_,
+        usuario1_.activo as activo2_9_0_,
+        usuario1_.email as email3_9_0_,
+        usuario1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        usuario1_.fotoPerfil as fotoperf5_9_0_,
+        usuario1_.intercambiosRealizados as intercam6_9_0_,
+        usuario1_.monedas as monedas7_9_0_,
+        usuario1_.pais as pais8_9_0_,
+        usuario1_.paquetes as paquetes9_9_0_,
+        usuario1_.paquetesPremium as paquete10_9_0_,
+        usuario1_.password as passwor11_9_0_,
+        usuario1_.rol as rol12_9_0_ 
+    from
+        Notificacion this_ 
+    inner join
+        Usuario usuario1_ 
+            on this_.usuario_id=usuario1_.id 
+    where
+        usuario1_.id=? 
+    order by
+        this_.fechaCreacion desc limit ?
+Hibernate: 
+    select
+        this_.id as id1_9_0_,
+        this_.activo as activo2_9_0_,
+        this_.email as email3_9_0_,
+        this_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        this_.fotoPerfil as fotoperf5_9_0_,
+        this_.intercambiosRealizados as intercam6_9_0_,
+        this_.monedas as monedas7_9_0_,
+        this_.pais as pais8_9_0_,
+        this_.paquetes as paquetes9_9_0_,
+        this_.paquetesPremium as paquete10_9_0_,
+        this_.password as passwor11_9_0_,
+        this_.rol as rol12_9_0_ 
+    from
+        Usuario this_
+Hibernate: 
+    select
+        this_.id as id1_0_1_,
+        this_.figuritas_faltantes as figurita2_0_1_,
+        this_.figuritas_pegadas as figurita3_0_1_,
+        this_.figuritas_repetidas as figurita4_0_1_,
+        this_.total_figuritas as total_fi5_0_1_,
+        this_.usuario_id as usuario_6_0_1_,
+        u1_.id as id1_9_0_,
+        u1_.activo as activo2_9_0_,
+        u1_.email as email3_9_0_,
+        u1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        u1_.fotoPerfil as fotoperf5_9_0_,
+        u1_.intercambiosRealizados as intercam6_9_0_,
+        u1_.monedas as monedas7_9_0_,
+        u1_.pais as pais8_9_0_,
+        u1_.paquetes as paquetes9_9_0_,
+        u1_.paquetesPremium as paquete10_9_0_,
+        u1_.password as passwor11_9_0_,
+        u1_.rol as rol12_9_0_ 
+    from
+        Album this_ 
+    inner join
+        Usuario u1_ 
+            on this_.usuario_id=u1_.id 
+    where
+        u1_.id=?
+Hibernate: 
+    insert 
+    into
+        Album
+        (figuritas_faltantes, figuritas_pegadas, figuritas_repetidas, total_figuritas, usuario_id) 
+    values
+        (?, ?, ?, ?, ?)
+Hibernate: 
+    select
+        count(figurita0_.id) as col_0_0_ 
+    from
+        Figurita figurita0_
+Hibernate: 
+    select
+        this_.id as id1_8_3_,
+        this_.estaPegadaEnElAlbum as estapega2_8_3_,
+        this_.figurita_id as figurita3_8_3_,
+        this_.usuario_id as usuario_4_8_3_,
+        figurita2_.id as id1_1_0_,
+        figurita2_.club as club2_1_0_,
+        figurita2_.imagen_url as imagen_u3_1_0_,
+        figurita2_.nombre_jugador as nombre_j4_1_0_,
+        figurita2_.numero_dentro_del_pais as numero_d5_1_0_,
+        figurita2_.pais_id as pais_id7_1_0_,
+        figurita2_.tipo as tipo6_1_0_,
+        pais3_.id as id1_6_1_,
+        pais3_.codigo as codigo2_6_1_,
+        pais3_.codigo_bandera as codigo_b3_6_1_,
+        pais3_.grupo_album as grupo_al4_6_1_,
+        pais3_.nombre as nombre5_6_1_,
+        pais3_.orden_album as orden_al6_6_1_,
+        usuario4_.id as id1_9_2_,
+        usuario4_.activo as activo2_9_2_,
+        usuario4_.email as email3_9_2_,
+        usuario4_.fecha_ultimo_regalo_diario as fecha_ul4_9_2_,
+        usuario4_.fotoPerfil as fotoperf5_9_2_,
+        usuario4_.intercambiosRealizados as intercam6_9_2_,
+        usuario4_.monedas as monedas7_9_2_,
+        usuario4_.pais as pais8_9_2_,
+        usuario4_.paquetes as paquetes9_9_2_,
+        usuario4_.paquetesPremium as paquete10_9_2_,
+        usuario4_.password as passwor11_9_2_,
+        usuario4_.rol as rol12_9_2_ 
+    from
+        RelacionFiguritaUsuario this_ 
+    left outer join
+        Figurita figurita2_ 
+            on this_.figurita_id=figurita2_.id 
+    left outer join
+        Pais pais3_ 
+            on figurita2_.pais_id=pais3_.id 
+    left outer join
+        Usuario usuario4_ 
+            on this_.usuario_id=usuario4_.id 
+    where
+        this_.usuario_id=? 
+        and this_.estaPegadaEnElAlbum=?
+Hibernate: 
+    select
+        this_.id as id1_8_3_,
+        this_.estaPegadaEnElAlbum as estapega2_8_3_,
+        this_.figurita_id as figurita3_8_3_,
+        this_.usuario_id as usuario_4_8_3_,
+        figurita2_.id as id1_1_0_,
+        figurita2_.club as club2_1_0_,
+        figurita2_.imagen_url as imagen_u3_1_0_,
+        figurita2_.nombre_jugador as nombre_j4_1_0_,
+        figurita2_.numero_dentro_del_pais as numero_d5_1_0_,
+        figurita2_.pais_id as pais_id7_1_0_,
+        figurita2_.tipo as tipo6_1_0_,
+        pais3_.id as id1_6_1_,
+        pais3_.codigo as codigo2_6_1_,
+        pais3_.codigo_bandera as codigo_b3_6_1_,
+        pais3_.grupo_album as grupo_al4_6_1_,
+        pais3_.nombre as nombre5_6_1_,
+        pais3_.orden_album as orden_al6_6_1_,
+        usuario4_.id as id1_9_2_,
+        usuario4_.activo as activo2_9_2_,
+        usuario4_.email as email3_9_2_,
+        usuario4_.fecha_ultimo_regalo_diario as fecha_ul4_9_2_,
+        usuario4_.fotoPerfil as fotoperf5_9_2_,
+        usuario4_.intercambiosRealizados as intercam6_9_2_,
+        usuario4_.monedas as monedas7_9_2_,
+        usuario4_.pais as pais8_9_2_,
+        usuario4_.paquetes as paquetes9_9_2_,
+        usuario4_.paquetesPremium as paquete10_9_2_,
+        usuario4_.password as passwor11_9_2_,
+        usuario4_.rol as rol12_9_2_ 
+    from
+        RelacionFiguritaUsuario this_ 
+    left outer join
+        Figurita figurita2_ 
+            on this_.figurita_id=figurita2_.id 
+    left outer join
+        Pais pais3_ 
+            on figurita2_.pais_id=pais3_.id 
+    left outer join
+        Usuario usuario4_ 
+            on this_.usuario_id=usuario4_.id 
+    where
+        this_.usuario_id=? 
+        and this_.estaPegadaEnElAlbum=?
+Hibernate: 
+    update
+        Album 
+    set
+        figuritas_faltantes=?,
+        figuritas_pegadas=?,
+        figuritas_repetidas=?,
+        total_figuritas=?,
+        usuario_id=? 
+    where
+        id=?
+Hibernate: 
+    select
+        this_.id as id1_0_1_,
+        this_.figuritas_faltantes as figurita2_0_1_,
+        this_.figuritas_pegadas as figurita3_0_1_,
+        this_.figuritas_repetidas as figurita4_0_1_,
+        this_.total_figuritas as total_fi5_0_1_,
+        this_.usuario_id as usuario_6_0_1_,
+        u1_.id as id1_9_0_,
+        u1_.activo as activo2_9_0_,
+        u1_.email as email3_9_0_,
+        u1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        u1_.fotoPerfil as fotoperf5_9_0_,
+        u1_.intercambiosRealizados as intercam6_9_0_,
+        u1_.monedas as monedas7_9_0_,
+        u1_.pais as pais8_9_0_,
+        u1_.paquetes as paquetes9_9_0_,
+        u1_.paquetesPremium as paquete10_9_0_,
+        u1_.password as passwor11_9_0_,
+        u1_.rol as rol12_9_0_ 
+    from
+        Album this_ 
+    inner join
+        Usuario u1_ 
+            on this_.usuario_id=u1_.id 
+    where
+        u1_.id=?
+Hibernate: 
+    select
+        this_.id as id1_0_1_,
+        this_.figuritas_faltantes as figurita2_0_1_,
+        this_.figuritas_pegadas as figurita3_0_1_,
+        this_.figuritas_repetidas as figurita4_0_1_,
+        this_.total_figuritas as total_fi5_0_1_,
+        this_.usuario_id as usuario_6_0_1_,
+        u1_.id as id1_9_0_,
+        u1_.activo as activo2_9_0_,
+        u1_.email as email3_9_0_,
+        u1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        u1_.fotoPerfil as fotoperf5_9_0_,
+        u1_.intercambiosRealizados as intercam6_9_0_,
+        u1_.monedas as monedas7_9_0_,
+        u1_.pais as pais8_9_0_,
+        u1_.paquetes as paquetes9_9_0_,
+        u1_.paquetesPremium as paquete10_9_0_,
+        u1_.password as passwor11_9_0_,
+        u1_.rol as rol12_9_0_ 
+    from
+        Album this_ 
+    inner join
+        Usuario u1_ 
+            on this_.usuario_id=u1_.id 
+    where
+        u1_.id=?
+Hibernate: 
+    select
+        count(figurita0_.id) as col_0_0_ 
+    from
+        Figurita figurita0_
+Hibernate: 
+    select
+        this_.id as id1_8_3_,
+        this_.estaPegadaEnElAlbum as estapega2_8_3_,
+        this_.figurita_id as figurita3_8_3_,
+        this_.usuario_id as usuario_4_8_3_,
+        figurita2_.id as id1_1_0_,
+        figurita2_.club as club2_1_0_,
+        figurita2_.imagen_url as imagen_u3_1_0_,
+        figurita2_.nombre_jugador as nombre_j4_1_0_,
+        figurita2_.numero_dentro_del_pais as numero_d5_1_0_,
+        figurita2_.pais_id as pais_id7_1_0_,
+        figurita2_.tipo as tipo6_1_0_,
+        pais3_.id as id1_6_1_,
+        pais3_.codigo as codigo2_6_1_,
+        pais3_.codigo_bandera as codigo_b3_6_1_,
+        pais3_.grupo_album as grupo_al4_6_1_,
+        pais3_.nombre as nombre5_6_1_,
+        pais3_.orden_album as orden_al6_6_1_,
+        usuario4_.id as id1_9_2_,
+        usuario4_.activo as activo2_9_2_,
+        usuario4_.email as email3_9_2_,
+        usuario4_.fecha_ultimo_regalo_diario as fecha_ul4_9_2_,
+        usuario4_.fotoPerfil as fotoperf5_9_2_,
+        usuario4_.intercambiosRealizados as intercam6_9_2_,
+        usuario4_.monedas as monedas7_9_2_,
+        usuario4_.pais as pais8_9_2_,
+        usuario4_.paquetes as paquetes9_9_2_,
+        usuario4_.paquetesPremium as paquete10_9_2_,
+        usuario4_.password as passwor11_9_2_,
+        usuario4_.rol as rol12_9_2_ 
+    from
+        RelacionFiguritaUsuario this_ 
+    left outer join
+        Figurita figurita2_ 
+            on this_.figurita_id=figurita2_.id 
+    left outer join
+        Pais pais3_ 
+            on figurita2_.pais_id=pais3_.id 
+    left outer join
+        Usuario usuario4_ 
+            on this_.usuario_id=usuario4_.id 
+    where
+        this_.usuario_id=? 
+        and this_.estaPegadaEnElAlbum=?
+Hibernate: 
+    select
+        this_.id as id1_8_3_,
+        this_.estaPegadaEnElAlbum as estapega2_8_3_,
+        this_.figurita_id as figurita3_8_3_,
+        this_.usuario_id as usuario_4_8_3_,
+        figurita2_.id as id1_1_0_,
+        figurita2_.club as club2_1_0_,
+        figurita2_.imagen_url as imagen_u3_1_0_,
+        figurita2_.nombre_jugador as nombre_j4_1_0_,
+        figurita2_.numero_dentro_del_pais as numero_d5_1_0_,
+        figurita2_.pais_id as pais_id7_1_0_,
+        figurita2_.tipo as tipo6_1_0_,
+        pais3_.id as id1_6_1_,
+        pais3_.codigo as codigo2_6_1_,
+        pais3_.codigo_bandera as codigo_b3_6_1_,
+        pais3_.grupo_album as grupo_al4_6_1_,
+        pais3_.nombre as nombre5_6_1_,
+        pais3_.orden_album as orden_al6_6_1_,
+        usuario4_.id as id1_9_2_,
+        usuario4_.activo as activo2_9_2_,
+        usuario4_.email as email3_9_2_,
+        usuario4_.fecha_ultimo_regalo_diario as fecha_ul4_9_2_,
+        usuario4_.fotoPerfil as fotoperf5_9_2_,
+        usuario4_.intercambiosRealizados as intercam6_9_2_,
+        usuario4_.monedas as monedas7_9_2_,
+        usuario4_.pais as pais8_9_2_,
+        usuario4_.paquetes as paquetes9_9_2_,
+        usuario4_.paquetesPremium as paquete10_9_2_,
+        usuario4_.password as passwor11_9_2_,
+        usuario4_.rol as rol12_9_2_ 
+    from
+        RelacionFiguritaUsuario this_ 
+    left outer join
+        Figurita figurita2_ 
+            on this_.figurita_id=figurita2_.id 
+    left outer join
+        Pais pais3_ 
+            on figurita2_.pais_id=pais3_.id 
+    left outer join
+        Usuario usuario4_ 
+            on this_.usuario_id=usuario4_.id 
+    where
+        this_.usuario_id=? 
+        and this_.estaPegadaEnElAlbum=?
+Hibernate: 
+    select
+        this_.id as id1_0_1_,
+        this_.figuritas_faltantes as figurita2_0_1_,
+        this_.figuritas_pegadas as figurita3_0_1_,
+        this_.figuritas_repetidas as figurita4_0_1_,
+        this_.total_figuritas as total_fi5_0_1_,
+        this_.usuario_id as usuario_6_0_1_,
+        u1_.id as id1_9_0_,
+        u1_.activo as activo2_9_0_,
+        u1_.email as email3_9_0_,
+        u1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        u1_.fotoPerfil as fotoperf5_9_0_,
+        u1_.intercambiosRealizados as intercam6_9_0_,
+        u1_.monedas as monedas7_9_0_,
+        u1_.pais as pais8_9_0_,
+        u1_.paquetes as paquetes9_9_0_,
+        u1_.paquetesPremium as paquete10_9_0_,
+        u1_.password as passwor11_9_0_,
+        u1_.rol as rol12_9_0_ 
+    from
+        Album this_ 
+    inner join
+        Usuario u1_ 
+            on this_.usuario_id=u1_.id 
+    where
+        u1_.id=?
+Hibernate: 
+    select
+        this_.id as id1_9_0_,
+        this_.activo as activo2_9_0_,
+        this_.email as email3_9_0_,
+        this_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        this_.fotoPerfil as fotoperf5_9_0_,
+        this_.intercambiosRealizados as intercam6_9_0_,
+        this_.monedas as monedas7_9_0_,
+        this_.pais as pais8_9_0_,
+        this_.paquetes as paquetes9_9_0_,
+        this_.paquetesPremium as paquete10_9_0_,
+        this_.password as passwor11_9_0_,
+        this_.rol as rol12_9_0_ 
+    from
+        Usuario this_ 
+    where
+        this_.email=? 
+        and this_.password=?
+Hibernate: 
+    select
+        usuario0_.id as id1_9_0_,
+        usuario0_.activo as activo2_9_0_,
+        usuario0_.email as email3_9_0_,
+        usuario0_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        usuario0_.fotoPerfil as fotoperf5_9_0_,
+        usuario0_.intercambiosRealizados as intercam6_9_0_,
+        usuario0_.monedas as monedas7_9_0_,
+        usuario0_.pais as pais8_9_0_,
+        usuario0_.paquetes as paquetes9_9_0_,
+        usuario0_.paquetesPremium as paquete10_9_0_,
+        usuario0_.password as passwor11_9_0_,
+        usuario0_.rol as rol12_9_0_ 
+    from
+        Usuario usuario0_ 
+    where
+        usuario0_.id=?
+Hibernate: 
+    select
+        count(*) as y0_ 
+    from
+        Notificacion this_ 
+    inner join
+        Usuario usuario1_ 
+            on this_.usuario_id=usuario1_.id 
+    where
+        usuario1_.id=? 
+        and this_.leida=?
+Hibernate: 
+    select
+        this_.id as id1_5_1_,
+        this_.destino as destino2_5_1_,
+        this_.fechaCreacion as fechacre3_5_1_,
+        this_.leida as leida4_5_1_,
+        this_.mensaje as mensaje5_5_1_,
+        this_.titulo as titulo6_5_1_,
+        this_.usuario_id as usuario_7_5_1_,
+        usuario1_.id as id1_9_0_,
+        usuario1_.activo as activo2_9_0_,
+        usuario1_.email as email3_9_0_,
+        usuario1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        usuario1_.fotoPerfil as fotoperf5_9_0_,
+        usuario1_.intercambiosRealizados as intercam6_9_0_,
+        usuario1_.monedas as monedas7_9_0_,
+        usuario1_.pais as pais8_9_0_,
+        usuario1_.paquetes as paquetes9_9_0_,
+        usuario1_.paquetesPremium as paquete10_9_0_,
+        usuario1_.password as passwor11_9_0_,
+        usuario1_.rol as rol12_9_0_ 
+    from
+        Notificacion this_ 
+    inner join
+        Usuario usuario1_ 
+            on this_.usuario_id=usuario1_.id 
+    where
+        usuario1_.id=? 
+    order by
+        this_.fechaCreacion desc limit ?
+Hibernate: 
+    select
+        usuario0_.id as id1_9_0_,
+        usuario0_.activo as activo2_9_0_,
+        usuario0_.email as email3_9_0_,
+        usuario0_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        usuario0_.fotoPerfil as fotoperf5_9_0_,
+        usuario0_.intercambiosRealizados as intercam6_9_0_,
+        usuario0_.monedas as monedas7_9_0_,
+        usuario0_.pais as pais8_9_0_,
+        usuario0_.paquetes as paquetes9_9_0_,
+        usuario0_.paquetesPremium as paquete10_9_0_,
+        usuario0_.password as passwor11_9_0_,
+        usuario0_.rol as rol12_9_0_ 
+    from
+        Usuario usuario0_ 
+    where
+        usuario0_.id=?
+Hibernate: 
+    select
+        count(*) as y0_ 
+    from
+        Notificacion this_ 
+    inner join
+        Usuario usuario1_ 
+            on this_.usuario_id=usuario1_.id 
+    where
+        usuario1_.id=? 
+        and this_.leida=?
+Hibernate: 
+    select
+        this_.id as id1_5_1_,
+        this_.destino as destino2_5_1_,
+        this_.fechaCreacion as fechacre3_5_1_,
+        this_.leida as leida4_5_1_,
+        this_.mensaje as mensaje5_5_1_,
+        this_.titulo as titulo6_5_1_,
+        this_.usuario_id as usuario_7_5_1_,
+        usuario1_.id as id1_9_0_,
+        usuario1_.activo as activo2_9_0_,
+        usuario1_.email as email3_9_0_,
+        usuario1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        usuario1_.fotoPerfil as fotoperf5_9_0_,
+        usuario1_.intercambiosRealizados as intercam6_9_0_,
+        usuario1_.monedas as monedas7_9_0_,
+        usuario1_.pais as pais8_9_0_,
+        usuario1_.paquetes as paquetes9_9_0_,
+        usuario1_.paquetesPremium as paquete10_9_0_,
+        usuario1_.password as passwor11_9_0_,
+        usuario1_.rol as rol12_9_0_ 
+    from
+        Notificacion this_ 
+    inner join
+        Usuario usuario1_ 
+            on this_.usuario_id=usuario1_.id 
+    where
+        usuario1_.id=? 
+    order by
+        this_.fechaCreacion desc limit ?
+Hibernate: 
+    select
+        this_.id as id1_9_0_,
+        this_.activo as activo2_9_0_,
+        this_.email as email3_9_0_,
+        this_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        this_.fotoPerfil as fotoperf5_9_0_,
+        this_.intercambiosRealizados as intercam6_9_0_,
+        this_.monedas as monedas7_9_0_,
+        this_.pais as pais8_9_0_,
+        this_.paquetes as paquetes9_9_0_,
+        this_.paquetesPremium as paquete10_9_0_,
+        this_.password as passwor11_9_0_,
+        this_.rol as rol12_9_0_ 
+    from
+        Usuario this_
+Hibernate: 
+    select
+        this_.id as id1_0_1_,
+        this_.figuritas_faltantes as figurita2_0_1_,
+        this_.figuritas_pegadas as figurita3_0_1_,
+        this_.figuritas_repetidas as figurita4_0_1_,
+        this_.total_figuritas as total_fi5_0_1_,
+        this_.usuario_id as usuario_6_0_1_,
+        u1_.id as id1_9_0_,
+        u1_.activo as activo2_9_0_,
+        u1_.email as email3_9_0_,
+        u1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        u1_.fotoPerfil as fotoperf5_9_0_,
+        u1_.intercambiosRealizados as intercam6_9_0_,
+        u1_.monedas as monedas7_9_0_,
+        u1_.pais as pais8_9_0_,
+        u1_.paquetes as paquetes9_9_0_,
+        u1_.paquetesPremium as paquete10_9_0_,
+        u1_.password as passwor11_9_0_,
+        u1_.rol as rol12_9_0_ 
+    from
+        Album this_ 
+    inner join
+        Usuario u1_ 
+            on this_.usuario_id=u1_.id 
+    where
+        u1_.id=?
+Hibernate: 
+    select
+        count(figurita0_.id) as col_0_0_ 
+    from
+        Figurita figurita0_
+Hibernate: 
+    select
+        this_.id as id1_8_3_,
+        this_.estaPegadaEnElAlbum as estapega2_8_3_,
+        this_.figurita_id as figurita3_8_3_,
+        this_.usuario_id as usuario_4_8_3_,
+        figurita2_.id as id1_1_0_,
+        figurita2_.club as club2_1_0_,
+        figurita2_.imagen_url as imagen_u3_1_0_,
+        figurita2_.nombre_jugador as nombre_j4_1_0_,
+        figurita2_.numero_dentro_del_pais as numero_d5_1_0_,
+        figurita2_.pais_id as pais_id7_1_0_,
+        figurita2_.tipo as tipo6_1_0_,
+        pais3_.id as id1_6_1_,
+        pais3_.codigo as codigo2_6_1_,
+        pais3_.codigo_bandera as codigo_b3_6_1_,
+        pais3_.grupo_album as grupo_al4_6_1_,
+        pais3_.nombre as nombre5_6_1_,
+        pais3_.orden_album as orden_al6_6_1_,
+        usuario4_.id as id1_9_2_,
+        usuario4_.activo as activo2_9_2_,
+        usuario4_.email as email3_9_2_,
+        usuario4_.fecha_ultimo_regalo_diario as fecha_ul4_9_2_,
+        usuario4_.fotoPerfil as fotoperf5_9_2_,
+        usuario4_.intercambiosRealizados as intercam6_9_2_,
+        usuario4_.monedas as monedas7_9_2_,
+        usuario4_.pais as pais8_9_2_,
+        usuario4_.paquetes as paquetes9_9_2_,
+        usuario4_.paquetesPremium as paquete10_9_2_,
+        usuario4_.password as passwor11_9_2_,
+        usuario4_.rol as rol12_9_2_ 
+    from
+        RelacionFiguritaUsuario this_ 
+    left outer join
+        Figurita figurita2_ 
+            on this_.figurita_id=figurita2_.id 
+    left outer join
+        Pais pais3_ 
+            on figurita2_.pais_id=pais3_.id 
+    left outer join
+        Usuario usuario4_ 
+            on this_.usuario_id=usuario4_.id 
+    where
+        this_.usuario_id=? 
+        and this_.estaPegadaEnElAlbum=?
+Hibernate: 
+    select
+        this_.id as id1_8_3_,
+        this_.estaPegadaEnElAlbum as estapega2_8_3_,
+        this_.figurita_id as figurita3_8_3_,
+        this_.usuario_id as usuario_4_8_3_,
+        figurita2_.id as id1_1_0_,
+        figurita2_.club as club2_1_0_,
+        figurita2_.imagen_url as imagen_u3_1_0_,
+        figurita2_.nombre_jugador as nombre_j4_1_0_,
+        figurita2_.numero_dentro_del_pais as numero_d5_1_0_,
+        figurita2_.pais_id as pais_id7_1_0_,
+        figurita2_.tipo as tipo6_1_0_,
+        pais3_.id as id1_6_1_,
+        pais3_.codigo as codigo2_6_1_,
+        pais3_.codigo_bandera as codigo_b3_6_1_,
+        pais3_.grupo_album as grupo_al4_6_1_,
+        pais3_.nombre as nombre5_6_1_,
+        pais3_.orden_album as orden_al6_6_1_,
+        usuario4_.id as id1_9_2_,
+        usuario4_.activo as activo2_9_2_,
+        usuario4_.email as email3_9_2_,
+        usuario4_.fecha_ultimo_regalo_diario as fecha_ul4_9_2_,
+        usuario4_.fotoPerfil as fotoperf5_9_2_,
+        usuario4_.intercambiosRealizados as intercam6_9_2_,
+        usuario4_.monedas as monedas7_9_2_,
+        usuario4_.pais as pais8_9_2_,
+        usuario4_.paquetes as paquetes9_9_2_,
+        usuario4_.paquetesPremium as paquete10_9_2_,
+        usuario4_.password as passwor11_9_2_,
+        usuario4_.rol as rol12_9_2_ 
+    from
+        RelacionFiguritaUsuario this_ 
+    left outer join
+        Figurita figurita2_ 
+            on this_.figurita_id=figurita2_.id 
+    left outer join
+        Pais pais3_ 
+            on figurita2_.pais_id=pais3_.id 
+    left outer join
+        Usuario usuario4_ 
+            on this_.usuario_id=usuario4_.id 
+    where
+        this_.usuario_id=? 
+        and this_.estaPegadaEnElAlbum=?
+Hibernate: 
+    select
+        this_.id as id1_0_1_,
+        this_.figuritas_faltantes as figurita2_0_1_,
+        this_.figuritas_pegadas as figurita3_0_1_,
+        this_.figuritas_repetidas as figurita4_0_1_,
+        this_.total_figuritas as total_fi5_0_1_,
+        this_.usuario_id as usuario_6_0_1_,
+        u1_.id as id1_9_0_,
+        u1_.activo as activo2_9_0_,
+        u1_.email as email3_9_0_,
+        u1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        u1_.fotoPerfil as fotoperf5_9_0_,
+        u1_.intercambiosRealizados as intercam6_9_0_,
+        u1_.monedas as monedas7_9_0_,
+        u1_.pais as pais8_9_0_,
+        u1_.paquetes as paquetes9_9_0_,
+        u1_.paquetesPremium as paquete10_9_0_,
+        u1_.password as passwor11_9_0_,
+        u1_.rol as rol12_9_0_ 
+    from
+        Album this_ 
+    inner join
+        Usuario u1_ 
+            on this_.usuario_id=u1_.id 
+    where
+        u1_.id=?
+Hibernate: 
+    select
+        this_.id as id1_0_1_,
+        this_.figuritas_faltantes as figurita2_0_1_,
+        this_.figuritas_pegadas as figurita3_0_1_,
+        this_.figuritas_repetidas as figurita4_0_1_,
+        this_.total_figuritas as total_fi5_0_1_,
+        this_.usuario_id as usuario_6_0_1_,
+        u1_.id as id1_9_0_,
+        u1_.activo as activo2_9_0_,
+        u1_.email as email3_9_0_,
+        u1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        u1_.fotoPerfil as fotoperf5_9_0_,
+        u1_.intercambiosRealizados as intercam6_9_0_,
+        u1_.monedas as monedas7_9_0_,
+        u1_.pais as pais8_9_0_,
+        u1_.paquetes as paquetes9_9_0_,
+        u1_.paquetesPremium as paquete10_9_0_,
+        u1_.password as passwor11_9_0_,
+        u1_.rol as rol12_9_0_ 
+    from
+        Album this_ 
+    inner join
+        Usuario u1_ 
+            on this_.usuario_id=u1_.id 
+    where
+        u1_.id=?
+Hibernate: 
+    select
+        count(figurita0_.id) as col_0_0_ 
+    from
+        Figurita figurita0_
+Hibernate: 
+    select
+        this_.id as id1_8_3_,
+        this_.estaPegadaEnElAlbum as estapega2_8_3_,
+        this_.figurita_id as figurita3_8_3_,
+        this_.usuario_id as usuario_4_8_3_,
+        figurita2_.id as id1_1_0_,
+        figurita2_.club as club2_1_0_,
+        figurita2_.imagen_url as imagen_u3_1_0_,
+        figurita2_.nombre_jugador as nombre_j4_1_0_,
+        figurita2_.numero_dentro_del_pais as numero_d5_1_0_,
+        figurita2_.pais_id as pais_id7_1_0_,
+        figurita2_.tipo as tipo6_1_0_,
+        pais3_.id as id1_6_1_,
+        pais3_.codigo as codigo2_6_1_,
+        pais3_.codigo_bandera as codigo_b3_6_1_,
+        pais3_.grupo_album as grupo_al4_6_1_,
+        pais3_.nombre as nombre5_6_1_,
+        pais3_.orden_album as orden_al6_6_1_,
+        usuario4_.id as id1_9_2_,
+        usuario4_.activo as activo2_9_2_,
+        usuario4_.email as email3_9_2_,
+        usuario4_.fecha_ultimo_regalo_diario as fecha_ul4_9_2_,
+        usuario4_.fotoPerfil as fotoperf5_9_2_,
+        usuario4_.intercambiosRealizados as intercam6_9_2_,
+        usuario4_.monedas as monedas7_9_2_,
+        usuario4_.pais as pais8_9_2_,
+        usuario4_.paquetes as paquetes9_9_2_,
+        usuario4_.paquetesPremium as paquete10_9_2_,
+        usuario4_.password as passwor11_9_2_,
+        usuario4_.rol as rol12_9_2_ 
+    from
+        RelacionFiguritaUsuario this_ 
+    left outer join
+        Figurita figurita2_ 
+            on this_.figurita_id=figurita2_.id 
+    left outer join
+        Pais pais3_ 
+            on figurita2_.pais_id=pais3_.id 
+    left outer join
+        Usuario usuario4_ 
+            on this_.usuario_id=usuario4_.id 
+    where
+        this_.usuario_id=? 
+        and this_.estaPegadaEnElAlbum=?
+Hibernate: 
+    select
+        this_.id as id1_8_3_,
+        this_.estaPegadaEnElAlbum as estapega2_8_3_,
+        this_.figurita_id as figurita3_8_3_,
+        this_.usuario_id as usuario_4_8_3_,
+        figurita2_.id as id1_1_0_,
+        figurita2_.club as club2_1_0_,
+        figurita2_.imagen_url as imagen_u3_1_0_,
+        figurita2_.nombre_jugador as nombre_j4_1_0_,
+        figurita2_.numero_dentro_del_pais as numero_d5_1_0_,
+        figurita2_.pais_id as pais_id7_1_0_,
+        figurita2_.tipo as tipo6_1_0_,
+        pais3_.id as id1_6_1_,
+        pais3_.codigo as codigo2_6_1_,
+        pais3_.codigo_bandera as codigo_b3_6_1_,
+        pais3_.grupo_album as grupo_al4_6_1_,
+        pais3_.nombre as nombre5_6_1_,
+        pais3_.orden_album as orden_al6_6_1_,
+        usuario4_.id as id1_9_2_,
+        usuario4_.activo as activo2_9_2_,
+        usuario4_.email as email3_9_2_,
+        usuario4_.fecha_ultimo_regalo_diario as fecha_ul4_9_2_,
+        usuario4_.fotoPerfil as fotoperf5_9_2_,
+        usuario4_.intercambiosRealizados as intercam6_9_2_,
+        usuario4_.monedas as monedas7_9_2_,
+        usuario4_.pais as pais8_9_2_,
+        usuario4_.paquetes as paquetes9_9_2_,
+        usuario4_.paquetesPremium as paquete10_9_2_,
+        usuario4_.password as passwor11_9_2_,
+        usuario4_.rol as rol12_9_2_ 
+    from
+        RelacionFiguritaUsuario this_ 
+    left outer join
+        Figurita figurita2_ 
+            on this_.figurita_id=figurita2_.id 
+    left outer join
+        Pais pais3_ 
+            on figurita2_.pais_id=pais3_.id 
+    left outer join
+        Usuario usuario4_ 
+            on this_.usuario_id=usuario4_.id 
+    where
+        this_.usuario_id=? 
+        and this_.estaPegadaEnElAlbum=?
+Hibernate: 
+    select
+        this_.id as id1_0_1_,
+        this_.figuritas_faltantes as figurita2_0_1_,
+        this_.figuritas_pegadas as figurita3_0_1_,
+        this_.figuritas_repetidas as figurita4_0_1_,
+        this_.total_figuritas as total_fi5_0_1_,
+        this_.usuario_id as usuario_6_0_1_,
+        u1_.id as id1_9_0_,
+        u1_.activo as activo2_9_0_,
+        u1_.email as email3_9_0_,
+        u1_.fecha_ultimo_regalo_diario as fecha_ul4_9_0_,
+        u1_.fotoPerfil as fotoperf5_9_0_,
+        u1_.intercambiosRealizados as intercam6_9_0_,
+        u1_.monedas as monedas7_9_0_,
+        u1_.pais as pais8_9_0_,
+        u1_.paquetes as paquetes9_9_0_,
+        u1_.paquetesPremium as paquete10_9_0_,
+        u1_.password as passwor11_9_0_,
+        u1_.rol as rol12_9_0_ 
+    from
+        Album this_ 
+    inner join
+        Usuario u1_ 
+            on this_.usuario_id=u1_.id 
+    where
+        u1_.id=?

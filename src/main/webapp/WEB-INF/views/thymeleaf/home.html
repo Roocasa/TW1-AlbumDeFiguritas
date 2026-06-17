@@ -74,15 +74,16 @@
           alt="Tapa del album 2026" />
       </a>
 
-      <a class="home-panel home-panel--promo" href="#">
-        <span class="home-panel__tag">Beneficio</span>
-        <h2>Codigos Promo</h2>
-        <p>Canjea puntos, especiales y recompensas exclusivas.</p>
+      <a class="home-panel home-panel--promo" th:href="@{/ranking}">
+        <span class="home-panel__tag">Ranking</span>
+        <h2>Coleccionistas</h2>
+        <p>Mira quien lidera el album por progreso, pegadas e intercambios.</p>
       </a>
 
       <nav class="home-dock" aria-label="Accesos secundarios">
         <a th:href="@{/historial}">Historial</a>
         <a th:href="@{/misiones}">Logros</a>
+        <a th:href="@{/ranking}">Ranking</a>
         <a th:href="@{/intercambios}">Zona Swap</a>
         <a th:href="@{/tienda}">Tienda</a>
       </nav>

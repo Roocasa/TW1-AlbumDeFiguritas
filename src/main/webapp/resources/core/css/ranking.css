@@ -1,0 +1,157 @@
+.ranking-layout {
+  padding-top: 2rem;
+}
+
+.ranking-heading {
+  max-width: 820px;
+  margin: 0 auto 2rem;
+  color: #ffffff;
+  text-align: center;
+}
+
+.ranking-heading span {
+  display: inline-flex;
+  margin-bottom: 0.35rem;
+  color: #ffd466;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ranking-heading h1 {
+  margin: 0;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 7vw, 5.4rem);
+}
+
+.ranking-heading p {
+  max-width: 680px;
+  margin: 0.35rem auto 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1.05rem;
+}
+
+.ranking-table-wrap {
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 24px 54px rgba(7, 18, 36, 0.28);
+}
+
+.ranking-table {
+  width: 100%;
+  min-width: 860px;
+  border-collapse: collapse;
+}
+
+.ranking-table th,
+.ranking-table td {
+  padding: 1rem;
+  border-bottom: 1px solid rgba(16, 35, 63, 0.1);
+  color: #10233f;
+  vertical-align: middle;
+}
+
+.ranking-table th {
+  background: #10233f;
+  color: #ffffff;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ranking-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.ranking-table__row--podium td {
+  background: #fff8df;
+}
+
+.ranking-position {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 54px;
+  min-height: 38px;
+  border-radius: 8px;
+  background: #1f6fd1;
+  color: #ffffff;
+}
+
+.ranking-table__row--podium .ranking-position {
+  background: #10233f;
+  color: #ffd466;
+}
+
+.ranking-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ranking-user img,
+.ranking-user__avatar {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  border-radius: 999px;
+  object-fit: cover;
+}
+
+.ranking-user__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #dce6f2;
+  color: #10233f;
+  font-weight: 800;
+}
+
+.ranking-user strong,
+.ranking-user small {
+  display: block;
+}
+
+.ranking-user small {
+  color: #62738b;
+}
+
+.ranking-progress {
+  display: grid;
+  grid-template-columns: minmax(120px, 1fr) 44px;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.ranking-progress__bar {
+  height: 0.72rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #dce6f2;
+}
+
+.ranking-progress__bar span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1f6fd1 0%, #ffd466 100%);
+}
+
+.ranking-progress strong {
+  color: #10233f;
+  text-align: right;
+}
+
+.ranking-empty {
+  padding: 1.5rem;
+  color: #516783;
+  text-align: center;
+}
+
+@media (max-width: 576px) {
+  .ranking-table th,
+  .ranking-table td {
+    padding: 0.85rem;
+  }
+}

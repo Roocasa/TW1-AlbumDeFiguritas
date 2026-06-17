@@ -55,6 +55,12 @@ public class RepositorioUsuarioImpl implements RepositorioUsuario {
 
   @Override
   @SuppressWarnings("unchecked")
+  public List<Usuario> buscarTodos() {
+    return sessionFactory.getCurrentSession().createCriteria(Usuario.class).list();
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
   public List<Usuario> buscarTodosExcepto(Long idUsuario) {
     return sessionFactory
       .getCurrentSession()

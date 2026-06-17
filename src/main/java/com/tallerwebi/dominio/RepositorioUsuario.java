@@ -6,5 +6,6 @@ public interface RepositorioUsuario {
   Usuario buscar(String email);
   void modificar(Usuario usuario);
   Usuario buscarPorId(Long id);
+  java.util.List<Usuario> buscarTodos();
   java.util.List<Usuario> buscarTodosExcepto(Long idUsuario);
 }
