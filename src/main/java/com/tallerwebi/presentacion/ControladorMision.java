@@ -3,7 +3,10 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.mision.MisionDefinicion;
+import com.tallerwebi.dominio.mision.MisionEstadoDTO;
 import com.tallerwebi.dominio.mision.ServicioMision;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,6 +44,28 @@ public class ControladorMision {
 
     ModelAndView mav = new ModelAndView("misiones");
     mav.addObject("misiones", servicioMision.obtenerMisiones(usuario.getId()));
+    return mav;
+  }
+
+  @RequestMapping(path = "/logros", method = RequestMethod.GET)
+  public ModelAndView irALogros(HttpSession session) {
+    Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
+
+    if (usuario == null) {
+      return new ModelAndView(REDIRECT_LOGIN);
+    }
+
+    actualizarUsuarioEnSesion(session, usuario.getId());
+
+    List<MisionEstadoDTO> logrosCompletados = new ArrayList<>();
+    for (MisionEstadoDTO estado : servicioMision.obtenerMisiones(usuario.getId())) {
+      if (estado.isCompletada()) {
+        logrosCompletados.add(estado);
+      }
+    }
+
+    ModelAndView mav = new ModelAndView("logros");
+    mav.addObject("logros", logrosCompletados);
     return mav;
   }
 

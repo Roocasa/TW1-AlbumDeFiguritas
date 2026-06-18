@@ -54,10 +54,10 @@ public class MisionDefinicion {
       return cantidadRecompensa + " monedas";
     }
 
-    if (tipoRecompensa == TipoRecompensaMision.SOBRE_PREMIUM) {
-      return cantidadRecompensa + " sobre premium";
+    if (tipoRecompensa == TipoRecompensaMision.SOBRE_COMUN) {
+      return cantidadRecompensa + " sobre comun";
     }
 
-    return cantidadRecompensa + " sobre comun";
+    return cantidadRecompensa + " paquete";
   }
 }

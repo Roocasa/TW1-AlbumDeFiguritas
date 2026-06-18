@@ -133,8 +133,8 @@ public class ServicioMisionImpl implements ServicioMision {
         "Medio album",
         "Pega la mitad de las figuritas del album.",
         calcularMitadDelAlbum(),
-        TipoRecompensaMision.SOBRE_PREMIUM,
-        1
+        TipoRecompensaMision.SOBRE_COMUN,
+        2
       )
     );
   }
@@ -204,8 +204,8 @@ public class ServicioMisionImpl implements ServicioMision {
       return;
     }
 
-    if (mision.getTipoRecompensa() == TipoRecompensaMision.SOBRE_PREMIUM) {
-      usuario.sumarPaquetesPremium(mision.getCantidadRecompensa());
+    if (mision.getTipoRecompensa() == TipoRecompensaMision.SOBRE_COMUN) {
+      usuario.sumarPaquetesComunes(mision.getCantidadRecompensa());
       return;
     }
 

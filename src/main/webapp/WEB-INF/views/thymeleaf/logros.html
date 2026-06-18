@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Mis logros | Taller Web I</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+  <link rel="stylesheet" th:href="@{/css/misiones.css}" />
+</head>
+
+<body class="home-shell">
+  <header class="home-topbar profile-topbar">
+    <a class="home-topbar__brand profile-topbar__brand" th:href="@{/home}">
+      <img class="home-topbar__logo" th:src="@{/img/mundial_2026.png}" src="/img/mundial_2026.png"
+        alt="Logo Mundial 2026" />
+      <span class="home-topbar__title profile-topbar__title">Album 2026</span>
+    </a>
+    <nav class="profile-topbar__actions" aria-label="Navegacion principal">
+      <div th:replace="fragments/notificaciones :: campana"></div>
+      <span class="coin-pill" aria-label="Monedas disponibles">
+        <span class="coin-pill__icon" aria-hidden="true"></span>
+        <span th:text="${session.USUARIO != null ? session.USUARIO.monedas : 0}">0</span>
+      </span>
+      <a th:href="@{/home}">Inicio</a>
+      <a th:href="@{/misiones}">Misiones</a>
+      <a th:href="@{/login}">Salir</a>
+    </nav>
+  </header>
+
+  <main class="home-layout missions-layout achievements-layout">
+    <div class="container">
+      <section class="missions-heading achievements-heading">
+        <span>Logros</span>
+        <h1>Mis logros completados</h1>
+        <p>Estos son los objetivos de misiones que ya terminaste en tu album.</p>
+      </section>
+
+      <section th:if="${#lists.isEmpty(logros)}" class="achievements-empty">
+        <h2>Todavia no completaste logros</h2>
+        <p>Cuando termines una mision, va a aparecer aca como parte de tu recorrido.</p>
+        <a class="profile-button" th:href="@{/misiones}">Ver misiones</a>
+      </section>
+
+      <section th:if="${!#lists.isEmpty(logros)}" class="achievements-grid" aria-label="Listado de logros completados">
+        <article th:each="estado : ${logros}" class="achievement-card">
+          <div class="achievement-card__badge" aria-hidden="true">&#10003;</div>
+
+          <div class="achievement-card__content">
+            <span class="achievement-card__eyebrow"
+              th:text="${estado.canjeada} ? 'Recompensa canjeada' : 'Completado'">
+              Completado
+            </span>
+            <h2 th:text="${estado.mision.titulo}">Primer sobre</h2>
+            <p th:text="${estado.mision.descripcion}">Abri tu primer sobre del album.</p>
+          </div>
+
+          <div class="achievement-card__footer">
+            <span th:text="${estado.progreso + ' / ' + estado.objetivo}">1 / 1</span>
+            <strong th:text="${estado.mision.textoRecompensa}">25 monedas</strong>
+          </div>
+
+          <a th:if="${estado.disponibleParaCanjear}" class="achievement-card__claim" th:href="@{/misiones}">
+            Canjear en misiones
+          </a>
+        </article>
+      </section>
+    </div>
+  </main>
+
+  <footer class="home-footer">Proyecto taller web 1</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -31,6 +31,7 @@
         <span th:text="${session.USUARIO != null ? session.USUARIO.monedas : 0}">0</span>
       </span>
       <a th:href="@{/home}">Inicio</a>
+      <a th:href="@{/logros}">Logros</a>
       <a th:href="@{/inventario}">Inventario</a>
       <a th:href="@{/login}">Salir</a>
     </nav>
@@ -46,8 +47,8 @@
       </div>
 
       <section class="missions-heading">
-        <span>Misiones</span>
-        <h1>Logros y recompensas</h1>
+        <span>Desafios</span>
+        <h1>Misiones Diarias</h1>
         <p>Completa objetivos del album y canjea premios para seguir juntando figuritas.</p>
       </section>
 
