@@ -2,8 +2,12 @@ package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.album.InventarioItemDTO;
+import com.tallerwebi.dominio.album.OfertaIntercambioDTO;
 import com.tallerwebi.dominio.album.ServicioIntercambio;
 import com.tallerwebi.dominio.excepcion.IntercambioFiguritasException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,10 @@ public class ControladorIntercambio {
 
   private static final String ATRIBUTO_USUARIO = "USUARIO";
   private static final String REDIRECT_LOGIN = "redirect:/login";
+  private static final String REDIRECT_INTERCAMBIOS = "redirect:/intercambios";
+  private static final String ATRIBUTO_MENSAJE_EXITO = "mensajeExito";
+  private static final String ATRIBUTO_ERROR = "error";
+  private static final int FIGURITAS_POR_PAGINA = 3;
 
   private final ServicioIntercambio servicioIntercambio;
   private final ServicioPerfil servicioPerfil;
@@ -32,7 +40,11 @@ public class ControladorIntercambio {
   }
 
   @RequestMapping(path = "/intercambios", method = RequestMethod.GET)
-  public ModelAndView verIntercambios(HttpSession session) {
+  public ModelAndView verIntercambios(
+    @RequestParam(value = "paginaMisFiguritas", defaultValue = "1") Integer paginaMisFiguritas,
+    @RequestParam(value = "paginaOfertas", defaultValue = "1") Integer paginaOfertas,
+    HttpSession session
+  ) {
     Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
 
     if (usuario == null) {
@@ -45,11 +57,22 @@ public class ControladorIntercambio {
     }
 
     ModelAndView mav = new ModelAndView("intercambios");
-    mav.addObject(
-      "misFiguritas",
-      servicioIntercambio.obtenerFiguritasPropiasParaIntercambiar(usuario.getId())
+    List<OfertaIntercambioDTO> ofertas = servicioIntercambio.obtenerOfertasDeOtrosUsuarios(
+      usuario.getId()
     );
-    mav.addObject("ofertas", servicioIntercambio.obtenerOfertasDeOtrosUsuarios(usuario.getId()));
+    List<InventarioItemDTO> misFiguritas =
+      servicioIntercambio.obtenerFiguritasPropiasParaIntercambiar(usuario.getId());
+    int totalPaginasMisFiguritas = obtenerTotalPaginas(misFiguritas.size());
+    int paginaActualMisFiguritas = normalizarPagina(paginaMisFiguritas, totalPaginasMisFiguritas);
+    int totalPaginasOfertas = obtenerTotalPaginasOfertas(ofertas);
+    int paginaActualOfertas = normalizarPagina(paginaOfertas, totalPaginasOfertas);
+
+    mav.addObject("misFiguritas", paginarLista(misFiguritas, paginaActualMisFiguritas));
+    mav.addObject("paginaMisFiguritas", paginaActualMisFiguritas);
+    mav.addObject("totalPaginasMisFiguritas", totalPaginasMisFiguritas);
+    mav.addObject("ofertas", paginarOfertas(ofertas, paginaActualOfertas));
+    mav.addObject("paginaOfertas", paginaActualOfertas);
+    mav.addObject("totalPaginasOfertas", totalPaginasOfertas);
     mav.addObject(
       "propuestasRecibidas",
       servicioIntercambio.obtenerPropuestasRecibidas(usuario.getId())
@@ -83,12 +106,12 @@ public class ControladorIntercambio {
         figuritaDestinoId
       );
       actualizarUsuarioEnSesion(session, usuario.getId());
-      redirectAttributes.addFlashAttribute("mensajeExito", "Propuesta enviada con exito.");
+      redirectAttributes.addFlashAttribute(ATRIBUTO_MENSAJE_EXITO, "Propuesta enviada con exito.");
     } catch (IntercambioFiguritasException e) {
-      redirectAttributes.addFlashAttribute("error", e.getMessage());
+      redirectAttributes.addFlashAttribute(ATRIBUTO_ERROR, e.getMessage());
     }
 
-    return new ModelAndView("redirect:/intercambios");
+    return new ModelAndView(REDIRECT_INTERCAMBIOS);
   }
 
   @RequestMapping(path = "/intercambios/propuestas/aceptar", method = RequestMethod.POST)
@@ -106,12 +129,15 @@ public class ControladorIntercambio {
     try {
       servicioIntercambio.aceptarPropuesta(usuario.getId(), idPropuesta);
       actualizarUsuarioEnSesion(session, usuario.getId());
-      redirectAttributes.addFlashAttribute("mensajeExito", "Intercambio aceptado y realizado.");
+      redirectAttributes.addFlashAttribute(
+        ATRIBUTO_MENSAJE_EXITO,
+        "Intercambio aceptado y realizado."
+      );
     } catch (IntercambioFiguritasException e) {
-      redirectAttributes.addFlashAttribute("error", e.getMessage());
+      redirectAttributes.addFlashAttribute(ATRIBUTO_ERROR, e.getMessage());
     }
 
-    return new ModelAndView("redirect:/intercambios");
+    return new ModelAndView(REDIRECT_INTERCAMBIOS);
   }
 
   @RequestMapping(path = "/intercambios/propuestas/rechazar", method = RequestMethod.POST)
@@ -128,12 +154,90 @@ public class ControladorIntercambio {
 
     try {
       servicioIntercambio.rechazarPropuesta(usuario.getId(), idPropuesta);
-      redirectAttributes.addFlashAttribute("mensajeExito", "Propuesta rechazada.");
+      redirectAttributes.addFlashAttribute(ATRIBUTO_MENSAJE_EXITO, "Propuesta rechazada.");
     } catch (IntercambioFiguritasException e) {
-      redirectAttributes.addFlashAttribute("error", e.getMessage());
+      redirectAttributes.addFlashAttribute(ATRIBUTO_ERROR, e.getMessage());
     }
 
-    return new ModelAndView("redirect:/intercambios");
+    return new ModelAndView(REDIRECT_INTERCAMBIOS);
+  }
+
+  @RequestMapping(path = "/intercambios/propuestas/cancelar", method = RequestMethod.POST)
+  public ModelAndView cancelarPropuesta(
+    @RequestParam("idPropuesta") Long idPropuesta,
+    HttpSession session,
+    RedirectAttributes redirectAttributes
+  ) {
+    Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
+
+    if (usuario == null) {
+      return new ModelAndView(REDIRECT_LOGIN);
+    }
+
+    try {
+      servicioIntercambio.cancelarPropuesta(usuario.getId(), idPropuesta);
+      redirectAttributes.addFlashAttribute(ATRIBUTO_MENSAJE_EXITO, "Propuesta cancelada.");
+    } catch (IntercambioFiguritasException e) {
+      redirectAttributes.addFlashAttribute(ATRIBUTO_ERROR, e.getMessage());
+    }
+
+    return new ModelAndView(REDIRECT_INTERCAMBIOS);
+  }
+
+  private int obtenerTotalPaginasOfertas(List<OfertaIntercambioDTO> ofertas) {
+    int cantidadFiguritas = 0;
+    for (OfertaIntercambioDTO oferta : ofertas) {
+      cantidadFiguritas += oferta.getFiguritasRepetidas().size();
+    }
+
+    return obtenerTotalPaginas(cantidadFiguritas);
+  }
+
+  private int obtenerTotalPaginas(int cantidadFiguritas) {
+    return Math.max(1, (int) Math.ceil((double) cantidadFiguritas / FIGURITAS_POR_PAGINA));
+  }
+
+  private int normalizarPagina(Integer pagina, int totalPaginas) {
+    if (pagina == null || pagina < 1) {
+      return 1;
+    }
+
+    return Math.min(pagina, totalPaginas);
+  }
+
+  private List<InventarioItemDTO> paginarLista(List<InventarioItemDTO> figuritas, int pagina) {
+    int indiceInicio = (pagina - 1) * FIGURITAS_POR_PAGINA;
+    int indiceFin = Math.min(indiceInicio + FIGURITAS_POR_PAGINA, figuritas.size());
+
+    return new ArrayList<>(figuritas.subList(indiceInicio, indiceFin));
+  }
+
+  @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+  private List<OfertaIntercambioDTO> paginarOfertas(
+    List<OfertaIntercambioDTO> ofertas,
+    int pagina
+  ) {
+    int indiceInicio = (pagina - 1) * FIGURITAS_POR_PAGINA;
+    int indiceFin = indiceInicio + FIGURITAS_POR_PAGINA;
+    int indiceActual = 0;
+    List<OfertaIntercambioDTO> ofertasPaginadas = new ArrayList<>();
+
+    for (OfertaIntercambioDTO oferta : ofertas) {
+      List<InventarioItemDTO> figuritasPaginadas = new ArrayList<>();
+
+      for (InventarioItemDTO figurita : oferta.getFiguritasRepetidas()) {
+        if (indiceActual >= indiceInicio && indiceActual < indiceFin) {
+          figuritasPaginadas.add(figurita);
+        }
+        indiceActual++;
+      }
+
+      if (!figuritasPaginadas.isEmpty()) {
+        ofertasPaginadas.add(new OfertaIntercambioDTO(oferta.getUsuario(), figuritasPaginadas));
+      }
+    }
+
+    return ofertasPaginadas;
   }
 
   private void actualizarUsuarioEnSesion(HttpSession session, Long idUsuario) {

@@ -100,6 +100,11 @@ public class PropuestaIntercambio {
     this.fechaRespuesta = new Date();
   }
 
+  public void cancelar() {
+    this.estado = EstadoPropuestaIntercambio.CANCELADA;
+    this.fechaRespuesta = new Date();
+  }
+
   public boolean isPendiente() {
     return EstadoPropuestaIntercambio.PENDIENTE.equals(estado);
   }

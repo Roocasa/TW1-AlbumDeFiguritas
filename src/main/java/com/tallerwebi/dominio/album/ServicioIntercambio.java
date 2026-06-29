@@ -27,6 +27,9 @@ public interface ServicioIntercambio {
   void rechazarPropuesta(Long idUsuarioReceptor, Long idPropuesta)
     throws IntercambioFiguritasException;
 
+  void cancelarPropuesta(Long idUsuarioSolicitante, Long idPropuesta)
+    throws IntercambioFiguritasException;
+
   void intercambiarFiguritas(
     Long idUsuarioOrigen,
     Long idFiguritaOrigen,

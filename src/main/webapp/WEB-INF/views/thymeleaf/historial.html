@@ -133,6 +133,7 @@
             <small th:if="${item.propuesta.estado.name() == 'PENDIENTE'}" class="exchange-status exchange-status--pendiente">Pendiente</small>
             <small th:if="${item.propuesta.estado.name() == 'ACEPTADA'}" class="exchange-status exchange-status--aceptada">Aceptada</small>
             <small th:if="${item.propuesta.estado.name() == 'RECHAZADA'}" class="exchange-status exchange-status--rechazada">Rechazada</small>
+            <small th:if="${item.propuesta.estado.name() == 'CANCELADA'}" class="exchange-status exchange-status--rechazada">Cancelada</small>
           </div>
 
           <div class="history-trade-detail">

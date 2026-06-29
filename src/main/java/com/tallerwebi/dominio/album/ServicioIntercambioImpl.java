@@ -64,11 +64,16 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
   }
 
   @Override
+  @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
   public List<OfertaIntercambioDTO> obtenerOfertasDeOtrosUsuarios(Long idUsuario) {
     List<OfertaIntercambioDTO> ofertas = new ArrayList<>();
+    Set<Long> idsFiguritasPegadas = obtenerIdsFiguritasPegadas(idUsuario);
 
     for (Usuario usuario : repositorioUsuario.buscarTodosExcepto(idUsuario)) {
-      List<InventarioItemDTO> repetidas = obtenerRepetidas(usuario.getId());
+      List<InventarioItemDTO> repetidas = obtenerRepetidasQueLeFaltanAlUsuario(
+        usuario.getId(),
+        idsFiguritasPegadas
+      );
       if (!repetidas.isEmpty()) {
         ofertas.add(new OfertaIntercambioDTO(usuario, repetidas));
       }
@@ -172,6 +177,18 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
   }
 
   @Override
+  public void cancelarPropuesta(Long idUsuarioSolicitante, Long idPropuesta)
+    throws IntercambioFiguritasException {
+    PropuestaIntercambio propuesta = obtenerPropuestaPendienteParaSolicitante(
+      idUsuarioSolicitante,
+      idPropuesta
+    );
+
+    propuesta.cancelar();
+    repositorioPropuestaIntercambio.modificar(propuesta);
+  }
+
+  @Override
   public void intercambiarFiguritas(
     Long idUsuarioOrigen,
     Long idFiguritaOrigen,
@@ -246,6 +263,53 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
     return repetidas;
   }
 
+  private Set<Long> obtenerIdsFiguritasPegadas(Long idUsuario) {
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+    Set<Long> idsPegadas = new HashSet<>();
+
+    for (RelacionFiguritaUsuario relacion : repositorioInventario.buscarFiguritasPegadasPorUsuario(
+      usuario
+    )) {
+      idsPegadas.add(relacion.getFigurita().getId());
+    }
+
+    return idsPegadas;
+  }
+
+  private List<InventarioItemDTO> obtenerRepetidasQueLeFaltanAlUsuario(
+    Long idUsuarioOfertante,
+    Set<Long> idsFiguritasPegadas
+  ) {
+    List<InventarioItemDTO> candidatas = new ArrayList<>();
+
+    for (InventarioItemDTO item : obtenerRepetidas(idUsuarioOfertante)) {
+      if (!idsFiguritasPegadas.contains(item.getFigurita().getId())) {
+        candidatas.add(item);
+      }
+    }
+
+    return obtenerFiguritasConMayorCantidadRepetida(candidatas);
+  }
+
+  @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+  private List<InventarioItemDTO> obtenerFiguritasConMayorCantidadRepetida(
+    List<InventarioItemDTO> candidatas
+  ) {
+    int mayorCantidad = 0;
+    for (InventarioItemDTO item : candidatas) {
+      mayorCantidad = Math.max(mayorCantidad, item.getCantidadRepetidas());
+    }
+
+    List<InventarioItemDTO> resultado = new ArrayList<>();
+    for (InventarioItemDTO item : candidatas) {
+      if (item.getCantidadRepetidas() == mayorCantidad) {
+        resultado.add(item);
+      }
+    }
+
+    return resultado;
+  }
+
   private RelacionFiguritaUsuario buscarRelacionRepetida(Long idUsuario, Long idFigurita) {
     Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
     List<RelacionFiguritaUsuario> noPegadas =
@@ -284,6 +348,23 @@ public class ServicioIntercambioImpl implements ServicioIntercambio {
 
     if (!propuesta.getReceptor().getId().equals(idUsuarioReceptor)) {
       throw new IntercambioFiguritasException("No podes responder una propuesta de otro usuario.");
+    }
+
+    return propuesta;
+  }
+
+  private PropuestaIntercambio obtenerPropuestaPendienteParaSolicitante(
+    Long idUsuarioSolicitante,
+    Long idPropuesta
+  ) throws IntercambioFiguritasException {
+    PropuestaIntercambio propuesta = repositorioPropuestaIntercambio.buscarPorId(idPropuesta);
+
+    if (propuesta == null || !propuesta.isPendiente()) {
+      throw new IntercambioFiguritasException("La propuesta ya no esta disponible.");
+    }
+
+    if (!propuesta.getSolicitante().getId().equals(idUsuarioSolicitante)) {
+      throw new IntercambioFiguritasException("No podes cancelar una propuesta de otro usuario.");
     }
 
     return propuesta;

@@ -758,6 +758,50 @@
   background: linear-gradient(135deg, #6b7280 0%, #374151 100%);
 }
 
+.exchange-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
+.exchange-pagination__link,
+.exchange-pagination__status {
+  min-width: 86px;
+  padding: 0.55rem 0.85rem;
+  border-radius: 999px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.exchange-pagination__link {
+  background: #0f2242;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.exchange-pagination__link:hover,
+.exchange-pagination__link:focus {
+  color: #ffffff;
+  background: #1f6fd1;
+}
+
+.exchange-pagination__link--disabled,
+.exchange-pagination__link--disabled:hover,
+.exchange-pagination__link--disabled:focus {
+  background: rgba(15, 34, 66, 0.12);
+  color: rgba(15, 34, 66, 0.46);
+  pointer-events: none;
+}
+
+.exchange-pagination__status {
+  min-width: 64px;
+  background: rgba(15, 34, 66, 0.08);
+  color: #36506f;
+}
+
 .exchange-proposal-card {
   display: grid;
   gap: 1rem;

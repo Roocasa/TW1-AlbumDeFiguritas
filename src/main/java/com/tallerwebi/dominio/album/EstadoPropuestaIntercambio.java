@@ -4,4 +4,5 @@ public enum EstadoPropuestaIntercambio {
   PENDIENTE,
   ACEPTADA,
   RECHAZADA,
+  CANCELADA,
 }

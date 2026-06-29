@@ -71,6 +71,7 @@
             <small th:if="${propuesta.estado.name() == 'PENDIENTE'}" class="exchange-status exchange-status--pendiente">Pendiente</small>
             <small th:if="${propuesta.estado.name() == 'ACEPTADA'}" class="exchange-status exchange-status--aceptada">Aceptada</small>
             <small th:if="${propuesta.estado.name() == 'RECHAZADA'}" class="exchange-status exchange-status--rechazada">Rechazada</small>
+            <small th:if="${propuesta.estado.name() == 'CANCELADA'}" class="exchange-status exchange-status--rechazada">Cancelada</small>
           </div>
 
           <div class="exchange-proposal-card__stickers">
@@ -158,6 +159,7 @@
             <small th:if="${propuesta.estado.name() == 'PENDIENTE'}" class="exchange-status exchange-status--pendiente">Pendiente</small>
             <small th:if="${propuesta.estado.name() == 'ACEPTADA'}" class="exchange-status exchange-status--aceptada">Aceptada</small>
             <small th:if="${propuesta.estado.name() == 'RECHAZADA'}" class="exchange-status exchange-status--rechazada">Rechazada</small>
+            <small th:if="${propuesta.estado.name() == 'CANCELADA'}" class="exchange-status exchange-status--rechazada">Cancelada</small>
           </div>
           <p>
             <span
@@ -170,6 +172,14 @@
               Figurita solicitada
             </span>
           </p>
+          <div th:if="${propuesta.pendiente}" class="exchange-proposal-card__actions">
+            <form th:action="@{/intercambios/propuestas/cancelar}" method="post">
+              <input type="hidden" name="idPropuesta" th:value="${propuesta.id}">
+              <button type="submit" class="profile-button exchange-offer__button exchange-offer__button--reject">
+                Cancelar
+              </button>
+            </form>
+          </div>
         </article>
       </div>
     </section>
@@ -223,6 +233,29 @@
             </span>
           </label>
         </div>
+
+        <nav
+          th:if="${totalPaginasMisFiguritas != null and totalPaginasMisFiguritas > 1}"
+          class="exchange-pagination"
+          aria-label="Paginacion de figuritas para dar">
+          <a
+            th:classappend="${paginaMisFiguritas <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaMisFiguritas <= 1} ? '#' : @{/intercambios(paginaMisFiguritas=${paginaMisFiguritas - 1}, paginaOfertas=${paginaOfertas})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaMisFiguritas + ' / ' + totalPaginasMisFiguritas}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaMisFiguritas >= totalPaginasMisFiguritas} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaMisFiguritas >= totalPaginasMisFiguritas} ? '#' : @{/intercambios(paginaMisFiguritas=${paginaMisFiguritas + 1}, paginaOfertas=${paginaOfertas})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
       </div>
 
       <div class="exchange-panel__block">
@@ -289,6 +322,29 @@
             </form>
           </article>
         </div>
+
+        <nav
+          th:if="${totalPaginasOfertas != null and totalPaginasOfertas > 1}"
+          class="exchange-pagination"
+          aria-label="Paginacion de figuritas para recibir">
+          <a
+            th:classappend="${paginaOfertas <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaOfertas <= 1} ? '#' : @{/intercambios(paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas - 1})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaOfertas + ' / ' + totalPaginasOfertas}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaOfertas >= totalPaginasOfertas} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaOfertas >= totalPaginasOfertas} ? '#' : @{/intercambios(paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas + 1})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
       </div>
     </section>
   </main>
