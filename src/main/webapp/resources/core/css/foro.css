@@ -1,0 +1,230 @@
+.forum-layout {
+  width: min(1280px, calc(100% - 2rem));
+}
+
+.forum-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
+  gap: 1rem;
+  align-items: start;
+}
+
+.forum-main,
+.forum-side {
+  display: grid;
+  gap: 1rem;
+}
+
+.forum-card {
+  padding: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(239, 246, 252, 0.94)),
+    #ffffff;
+  color: #0f2242;
+  box-shadow: 0 18px 40px rgba(7, 17, 34, 0.16);
+}
+
+.forum-card h3 {
+  margin: 0 0 0.8rem;
+  color: #0f2242;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.forum-compose label {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.forum-compose label span {
+  color: #0f2242;
+  font-weight: 900;
+}
+
+.forum-compose textarea,
+.forum-comment-form input,
+.forum-donation-form select {
+  width: 100%;
+  border: 1px solid rgba(15, 34, 66, 0.16);
+  border-radius: 14px;
+  background: #ffffff;
+  color: #0f2242;
+  font: inherit;
+}
+
+.forum-compose textarea {
+  resize: vertical;
+  min-height: 120px;
+  padding: 0.85rem 1rem;
+}
+
+.forum-compose__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.85rem;
+}
+
+.forum-compose__actions input {
+  max-width: 100%;
+  color: #36506f;
+  font-weight: 700;
+}
+
+.forum-post__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.forum-post__header div,
+.forum-comment,
+.forum-donation__info {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.forum-post__header strong,
+.forum-comment strong,
+.forum-donation__info strong {
+  color: #0f2242;
+  font-weight: 900;
+  overflow-wrap: anywhere;
+}
+
+.forum-post__header span,
+.forum-donation__info small {
+  color: #5d6d86;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.forum-post__content {
+  margin: 0.9rem 0 0;
+  color: #36506f;
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.forum-post__image {
+  display: block;
+  width: 100%;
+  max-height: 460px;
+  margin-top: 1rem;
+  border-radius: 16px;
+  object-fit: cover;
+}
+
+.forum-comments {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(15, 34, 66, 0.1);
+}
+
+.forum-comments h3 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.forum-comment {
+  padding: 0.75rem;
+  border-radius: 14px;
+  background: rgba(15, 34, 66, 0.06);
+}
+
+.forum-comment p,
+.forum-note,
+.forum-comments__empty {
+  margin: 0;
+  color: #5d6d86;
+  font-weight: 700;
+}
+
+.forum-comment-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.6rem;
+}
+
+.forum-comment-form input {
+  min-height: 44px;
+  padding: 0 0.85rem;
+}
+
+.forum-comment-form button {
+  min-width: 94px;
+  border: 0;
+  border-radius: 999px;
+  background: #0f2242;
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.forum-donation-form {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.forum-donation-form select {
+  min-height: 48px;
+  padding: 0 0.85rem;
+}
+
+.forum-donation {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.85rem 0;
+  border-top: 1px solid rgba(15, 34, 66, 0.1);
+}
+
+.forum-donation:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.forum-donation form {
+  grid-column: 1 / -1;
+}
+
+.forum-donation__button {
+  width: 100%;
+  min-height: 42px;
+}
+
+.forum-empty {
+  color: #36506f;
+  font-weight: 800;
+  text-align: center;
+}
+
+.forum-empty--compact {
+  padding: 1rem;
+  border-radius: 14px;
+  background: rgba(15, 34, 66, 0.06);
+}
+
+@media (max-width: 900px) {
+  .forum-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .forum-comment-form {
+    grid-template-columns: 1fr;
+  }
+
+  .forum-comment-form button {
+    min-height: 44px;
+  }
+}

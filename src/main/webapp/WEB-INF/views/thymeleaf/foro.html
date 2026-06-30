@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Foro | Album 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+  <link rel="stylesheet" th:href="@{/css/inventario.css}" />
+  <link rel="stylesheet" th:href="@{/css/foro.css}" />
+</head>
+
+<body class="home-shell">
+  <header class="home-topbar profile-topbar">
+    <a class="home-topbar__brand profile-topbar__brand" th:href="@{/home}">
+      <img class="home-topbar__logo" th:src="@{/img/mundial_2026.png}" src="/img/mundial_2026.png" alt="Logo Mundial 2026" />
+      <span class="home-topbar__title profile-topbar__title">Album 2026</span>
+    </a>
+    <nav class="profile-topbar__actions" aria-label="Navegacion principal">
+      <div th:replace="fragments/notificaciones :: campana"></div>
+      <span class="coin-pill" aria-label="Monedas disponibles">
+        <span class="coin-pill__icon" aria-hidden="true"></span>
+        <span th:text="${session.USUARIO != null ? session.USUARIO.monedas : 0}">0</span>
+      </span>
+      <a th:href="@{/home}">Inicio</a>
+      <a th:href="@{/intercambios}">Swap</a>
+      <a th:href="@{/perfil}">Perfil</a>
+      <a th:href="@{/login}">Salir</a>
+    </nav>
+  </header>
+
+  <main class="home-layout inventory-layout forum-layout">
+    <div class="container mb-4">
+      <div th:if="${mensajeExito}" class="alert alert-success text-center shadow-sm mb-3" th:text="${mensajeExito}">
+        Accion realizada.
+      </div>
+      <div th:if="${error}" class="alert alert-danger text-center shadow-sm mb-3" th:text="${error}">
+        Ocurrio un error.
+      </div>
+    </div>
+
+    <section class="inventory-heading text-center text-white mb-4">
+      <h2 class="mb-2" style="font-family: 'Bebas Neue'; letter-spacing: 2px;">Foro de coleccionistas</h2>
+      <p class="mb-0">Habla con otros usuarios, comparti fotos y deja repetidas disponibles para quien las necesite.</p>
+    </section>
+
+    <section class="forum-grid">
+      <div class="forum-main">
+        <form class="forum-card forum-compose" th:action="@{/foro/publicar}" method="post" enctype="multipart/form-data">
+          <label>
+            <span>Crear publicacion</span>
+            <textarea name="contenido" rows="4" maxlength="800" placeholder="Conta que estas buscando, mostra tu avance o comparte una foto del album."></textarea>
+          </label>
+          <div class="forum-compose__actions">
+            <input type="file" name="foto" accept=".png,.jpg,.jpeg,.gif,.webp,image/*">
+            <button class="profile-button" type="submit">Publicar</button>
+          </div>
+        </form>
+
+        <div th:if="${publicaciones == null or publicaciones.empty}" class="forum-card forum-empty">
+          Todavia no hay publicaciones. Se el primero en abrir la charla.
+        </div>
+
+        <article th:each="item : ${publicaciones}" class="forum-card forum-post">
+          <header class="forum-post__header">
+            <div>
+              <strong th:text="${item.publicacion.autor.email}">usuario@email.com</strong>
+              <span th:text="${item.publicacion.fechaCreacionFormateada}">29/06/2026 20:00</span>
+            </div>
+          </header>
+
+          <p class="forum-post__content" th:text="${item.publicacion.contenido}">Mensaje del foro.</p>
+          <img th:if="${item.publicacion.imagenUrl != null}" th:src="@{${item.publicacion.imagenUrl}}" alt="Foto compartida" class="forum-post__image">
+
+          <section class="forum-comments">
+            <h3>Comentarios</h3>
+            <div th:if="${item.comentarios == null or item.comentarios.empty}" class="forum-comments__empty">
+              Sin comentarios todavia.
+            </div>
+            <article th:each="comentario : ${item.comentarios}" class="forum-comment">
+              <strong th:text="${comentario.autor.email}">usuario@email.com</strong>
+              <p th:text="${comentario.contenido}">Comentario</p>
+            </article>
+
+            <form th:action="@{/foro/comentar}" method="post" class="forum-comment-form">
+              <input type="hidden" name="idPublicacion" th:value="${item.publicacion.id}">
+              <input type="text" name="contenido" maxlength="300" placeholder="Responder..." required>
+              <button type="submit">Enviar</button>
+            </form>
+          </section>
+        </article>
+      </div>
+
+      <aside class="forum-side">
+        <section class="forum-card">
+          <span class="inventory-trade-panel__eyebrow">Solidario</span>
+          <h3>Donar una repetida</h3>
+          <form th:action="@{/foro/donar}" method="post" class="forum-donation-form">
+            <select name="idFigurita" required>
+              <option value="">Elegir figurita repetida</option>
+              <option
+                th:each="item : ${figuritasParaDonar}"
+                th:value="${item.figurita.id}"
+                th:text="${(item.figurita.tipo != null and item.figurita.tipo.name() == 'ESCUDO' ? 'Escudo de ' + item.figurita.pais.nombre : item.figurita.nombreJugador) + ' - repes: ' + item.cantidadRepetidas}">
+                Figurita
+              </option>
+            </select>
+            <button class="profile-button" type="submit" th:disabled="${figuritasParaDonar == null or figuritasParaDonar.empty}">
+              Publicar donacion
+            </button>
+          </form>
+          <p th:if="${figuritasParaDonar == null or figuritasParaDonar.empty}" class="forum-note">
+            No tenes repetidas disponibles para donar.
+          </p>
+        </section>
+
+        <section class="forum-card">
+          <span class="inventory-trade-panel__eyebrow">Disponibles</span>
+          <h3>Reclamar figurita</h3>
+
+          <div th:if="${donaciones == null or donaciones.empty}" class="forum-empty forum-empty--compact">
+            Todavia no hay donaciones disponibles.
+          </div>
+
+          <article th:each="donacion : ${donaciones}" class="forum-donation">
+            <span class="exchange-sticker-thumb">
+              <img
+                th:if="${donacion.figurita.pais != null and donacion.figurita.pais.codigoBandera != null}"
+                th:src="${'https://flagcdn.com/' + donacion.figurita.pais.codigoBandera + '.svg'}"
+                alt="Bandera"
+                class="exchange-sticker-thumb__flag">
+              <strong th:text="${donacion.figurita.numeroDentroDelPais}">1</strong>
+              <img
+                th:if="${donacion.figurita.imagenUrl != null}"
+                th:src="${donacion.figurita.imagenUrl}"
+                alt="Figurita"
+                class="exchange-sticker-thumb__player">
+              <small
+                th:if="${donacion.figurita.imagenUrl == null}"
+                th:text="${donacion.figurita.tipo != null and donacion.figurita.tipo.name() == 'ESCUDO' ? 'ESC' : donacion.figurita.nombreJugador}">
+                Figurita
+              </small>
+            </span>
+            <div class="forum-donation__info">
+              <strong th:text="${donacion.figurita.tipo != null and donacion.figurita.tipo.name() == 'ESCUDO' ? 'Escudo de ' + donacion.figurita.pais.nombre : donacion.figurita.nombreJugador}">
+                Figurita
+              </strong>
+              <small th:text="${'Dona: ' + donacion.donante.email}">Dona: usuario@email.com</small>
+            </div>
+            <form th:action="@{/foro/reclamar}" method="post">
+              <input type="hidden" name="idDonacion" th:value="${donacion.id}">
+              <button class="profile-button forum-donation__button" type="submit">Reclamar</button>
+            </form>
+          </article>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="home-footer">Proyecto taller web 1</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
