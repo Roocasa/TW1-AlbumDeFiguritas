@@ -31,6 +31,7 @@
       </span>
       <a th:href="@{/home}">Inicio</a>
       <a th:href="@{/intercambios}">Swap</a>
+      <a th:href="@{/amigos}">Amigos</a>
       <a th:href="@{/perfil}">Perfil</a>
       <a th:href="@{/login}">Salir</a>
     </nav>
@@ -74,6 +75,15 @@
               <strong th:text="${item.publicacion.autor.email}">usuario@email.com</strong>
               <span th:text="${item.publicacion.fechaCreacionFormateada}">29/06/2026 20:00</span>
             </div>
+            <form
+              th:if="${item.publicacion.autor.id != usuarioActualId and !idsUsuariosRelacionados.contains(item.publicacion.autor.id)}"
+              th:action="@{/amigos/solicitar}"
+              method="post"
+              class="forum-friend-form">
+              <input type="hidden" name="idUsuario" th:value="${item.publicacion.autor.id}">
+              <input type="hidden" name="origen" value="foro">
+              <button type="submit">Agregar</button>
+            </form>
           </header>
 
           <p class="forum-post__content" th:text="${item.publicacion.contenido}">Mensaje del foro.</p>

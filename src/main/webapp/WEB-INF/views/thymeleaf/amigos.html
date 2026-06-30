@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Amigos | Album 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+  <link rel="stylesheet" th:href="@{/css/foro.css}" />
+</head>
+
+<body class="home-shell">
+  <header class="home-topbar profile-topbar">
+    <a class="home-topbar__brand profile-topbar__brand" th:href="@{/home}">
+      <img class="home-topbar__logo" th:src="@{/img/mundial_2026.png}" src="/img/mundial_2026.png" alt="Logo Mundial 2026" />
+      <span class="home-topbar__title profile-topbar__title">Album 2026</span>
+    </a>
+    <nav class="profile-topbar__actions" aria-label="Navegacion principal">
+      <div th:replace="fragments/notificaciones :: campana"></div>
+      <span class="coin-pill" aria-label="Monedas disponibles">
+        <span class="coin-pill__icon" aria-hidden="true"></span>
+        <span th:text="${session.USUARIO != null ? session.USUARIO.monedas : 0}">0</span>
+      </span>
+      <a th:href="@{/home}">Inicio</a>
+      <a th:href="@{/foro}">Foro</a>
+      <a th:href="@{/perfil}">Perfil</a>
+      <a th:href="@{/login}">Salir</a>
+    </nav>
+  </header>
+
+  <main class="home-layout inventory-layout friends-layout">
+    <div class="container mb-4">
+      <div th:if="${mensajeExito}" class="alert alert-success text-center shadow-sm mb-3" th:text="${mensajeExito}">
+        Accion realizada.
+      </div>
+      <div th:if="${error}" class="alert alert-danger text-center shadow-sm mb-3" th:text="${error}">
+        Ocurrio un error.
+      </div>
+    </div>
+
+    <section class="inventory-heading text-center text-white mb-4">
+      <h2 class="mb-2" style="font-family: 'Bebas Neue'; letter-spacing: 2px;">Amigos</h2>
+      <p class="mb-0">Manda solicitudes, acepta invitaciones y mantene cerca a otros coleccionistas.</p>
+    </section>
+
+    <section class="friends-grid">
+      <article class="forum-card friends-panel">
+        <span class="inventory-trade-panel__eyebrow">Pendientes</span>
+        <h3>Solicitudes recibidas</h3>
+
+        <div th:if="${solicitudesRecibidas == null or solicitudesRecibidas.empty}" class="forum-empty forum-empty--compact">
+          No tenes solicitudes para responder.
+        </div>
+
+        <div th:each="solicitud : ${solicitudesRecibidas}" class="friend-row">
+          <div>
+            <strong th:text="${solicitud.solicitante.email}">usuario@email.com</strong>
+            <span>Quiere agregarte como amigo</span>
+          </div>
+          <div class="friend-row__actions">
+            <form th:action="@{/amigos/aceptar}" method="post">
+              <input type="hidden" name="idSolicitud" th:value="${solicitud.id}">
+              <input type="hidden" name="paginaSolicitudesRecibidas" th:value="${paginaSolicitudesRecibidas}">
+              <input type="hidden" name="paginaAmigos" th:value="${paginaAmigos}">
+              <input type="hidden" name="paginaUsuarios" th:value="${paginaUsuarios}">
+              <input type="hidden" name="paginaSolicitudesEnviadas" th:value="${paginaSolicitudesEnviadas}">
+              <button class="profile-button" type="submit">Aceptar</button>
+            </form>
+            <form th:action="@{/amigos/rechazar}" method="post">
+              <input type="hidden" name="idSolicitud" th:value="${solicitud.id}">
+              <input type="hidden" name="paginaSolicitudesRecibidas" th:value="${paginaSolicitudesRecibidas}">
+              <input type="hidden" name="paginaAmigos" th:value="${paginaAmigos}">
+              <input type="hidden" name="paginaUsuarios" th:value="${paginaUsuarios}">
+              <input type="hidden" name="paginaSolicitudesEnviadas" th:value="${paginaSolicitudesEnviadas}">
+              <button class="friend-button-secondary" type="submit">Rechazar</button>
+            </form>
+          </div>
+        </div>
+
+        <nav th:if="${totalPaginasSolicitudesRecibidas > 1}" class="exchange-pagination" aria-label="Paginacion de solicitudes recibidas">
+          <a
+            th:classappend="${paginaSolicitudesRecibidas <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaSolicitudesRecibidas <= 1} ? '#' : @{/amigos(paginaSolicitudesRecibidas=${paginaSolicitudesRecibidas - 1}, paginaAmigos=${paginaAmigos}, paginaUsuarios=${paginaUsuarios}, paginaSolicitudesEnviadas=${paginaSolicitudesEnviadas})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaSolicitudesRecibidas + ' / ' + totalPaginasSolicitudesRecibidas}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaSolicitudesRecibidas >= totalPaginasSolicitudesRecibidas} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaSolicitudesRecibidas >= totalPaginasSolicitudesRecibidas} ? '#' : @{/amigos(paginaSolicitudesRecibidas=${paginaSolicitudesRecibidas + 1}, paginaAmigos=${paginaAmigos}, paginaUsuarios=${paginaUsuarios}, paginaSolicitudesEnviadas=${paginaSolicitudesEnviadas})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
+      </article>
+
+      <article class="forum-card friends-panel">
+        <span class="inventory-trade-panel__eyebrow">Lista</span>
+        <h3>Mis amigos</h3>
+
+        <div th:if="${amigos == null or amigos.empty}" class="forum-empty forum-empty--compact">
+          Todavia no agregaste amigos.
+        </div>
+
+        <div th:each="amigo : ${amigos}" class="friend-row friend-row--simple">
+          <div>
+            <strong th:text="${amigo.email}">amigo@email.com</strong>
+            <span th:text="${amigo.pais != null ? amigo.pais : 'Coleccionista'}">Coleccionista</span>
+          </div>
+        </div>
+
+        <nav th:if="${totalPaginasAmigos > 1}" class="exchange-pagination" aria-label="Paginacion de mis amigos">
+          <a
+            th:classappend="${paginaAmigos <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaAmigos <= 1} ? '#' : @{/amigos(paginaSolicitudesRecibidas=${paginaSolicitudesRecibidas}, paginaAmigos=${paginaAmigos - 1}, paginaUsuarios=${paginaUsuarios}, paginaSolicitudesEnviadas=${paginaSolicitudesEnviadas})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaAmigos + ' / ' + totalPaginasAmigos}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaAmigos >= totalPaginasAmigos} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaAmigos >= totalPaginasAmigos} ? '#' : @{/amigos(paginaSolicitudesRecibidas=${paginaSolicitudesRecibidas}, paginaAmigos=${paginaAmigos + 1}, paginaUsuarios=${paginaUsuarios}, paginaSolicitudesEnviadas=${paginaSolicitudesEnviadas})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
+      </article>
+
+      <article class="forum-card friends-panel">
+        <span class="inventory-trade-panel__eyebrow">Buscar</span>
+        <h3>Agregar usuarios</h3>
+
+        <div th:if="${usuariosParaAgregar == null or usuariosParaAgregar.empty}" class="forum-empty forum-empty--compact">
+          No hay usuarios nuevos para agregar.
+        </div>
+
+        <div th:each="usuarioDisponible : ${usuariosParaAgregar}" class="friend-row">
+          <div>
+            <strong th:text="${usuarioDisponible.email}">usuario@email.com</strong>
+            <span th:text="${usuarioDisponible.pais != null ? usuarioDisponible.pais : 'Coleccionista'}">Coleccionista</span>
+          </div>
+          <form th:action="@{/amigos/solicitar}" method="post">
+            <input type="hidden" name="idUsuario" th:value="${usuarioDisponible.id}">
+            <input type="hidden" name="paginaSolicitudesRecibidas" th:value="${paginaSolicitudesRecibidas}">
+            <input type="hidden" name="paginaAmigos" th:value="${paginaAmigos}">
+            <input type="hidden" name="paginaUsuarios" th:value="${paginaUsuarios}">
+            <input type="hidden" name="paginaSolicitudesEnviadas" th:value="${paginaSolicitudesEnviadas}">
+            <button class="profile-button" type="submit">Solicitar</button>
+          </form>
+        </div>
+
+        <nav th:if="${totalPaginasUsuarios > 1}" class="exchange-pagination" aria-label="Paginacion de usuarios para agregar">
+          <a
+            th:classappend="${paginaUsuarios <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaUsuarios <= 1} ? '#' : @{/amigos(paginaSolicitudesRecibidas=${paginaSolicitudesRecibidas}, paginaAmigos=${paginaAmigos}, paginaUsuarios=${paginaUsuarios - 1}, paginaSolicitudesEnviadas=${paginaSolicitudesEnviadas})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaUsuarios + ' / ' + totalPaginasUsuarios}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaUsuarios >= totalPaginasUsuarios} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaUsuarios >= totalPaginasUsuarios} ? '#' : @{/amigos(paginaSolicitudesRecibidas=${paginaSolicitudesRecibidas}, paginaAmigos=${paginaAmigos}, paginaUsuarios=${paginaUsuarios + 1}, paginaSolicitudesEnviadas=${paginaSolicitudesEnviadas})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
+      </article>
+
+      <article class="forum-card friends-panel">
+        <span class="inventory-trade-panel__eyebrow">Enviadas</span>
+        <h3>Esperando respuesta</h3>
+
+        <div th:if="${solicitudesEnviadas == null or solicitudesEnviadas.empty}" class="forum-empty forum-empty--compact">
+          No tenes solicitudes enviadas.
+        </div>
+
+        <div th:each="solicitud : ${solicitudesEnviadas}" class="friend-row friend-row--simple">
+          <div>
+            <strong th:text="${solicitud.receptor.email}">usuario@email.com</strong>
+            <span>Solicitud pendiente</span>
+          </div>
+        </div>
+
+        <nav th:if="${totalPaginasSolicitudesEnviadas > 1}" class="exchange-pagination" aria-label="Paginacion de solicitudes enviadas">
+          <a
+            th:classappend="${paginaSolicitudesEnviadas <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaSolicitudesEnviadas <= 1} ? '#' : @{/amigos(paginaSolicitudesRecibidas=${paginaSolicitudesRecibidas}, paginaAmigos=${paginaAmigos}, paginaUsuarios=${paginaUsuarios}, paginaSolicitudesEnviadas=${paginaSolicitudesEnviadas - 1})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaSolicitudesEnviadas + ' / ' + totalPaginasSolicitudesEnviadas}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaSolicitudesEnviadas >= totalPaginasSolicitudesEnviadas} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaSolicitudesEnviadas >= totalPaginasSolicitudesEnviadas} ? '#' : @{/amigos(paginaSolicitudesRecibidas=${paginaSolicitudesRecibidas}, paginaAmigos=${paginaAmigos}, paginaUsuarios=${paginaUsuarios}, paginaSolicitudesEnviadas=${paginaSolicitudesEnviadas + 1})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
+      </article>
+    </section>
+  </main>
+
+  <footer class="home-footer">Proyecto taller web 1</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

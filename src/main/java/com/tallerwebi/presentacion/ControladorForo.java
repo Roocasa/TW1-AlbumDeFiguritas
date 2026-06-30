@@ -2,6 +2,7 @@ package com.tallerwebi.presentacion;
 
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
+import com.tallerwebi.dominio.amistad.ServicioAmistad;
 import com.tallerwebi.dominio.excepcion.IntercambioFiguritasException;
 import com.tallerwebi.dominio.foro.ServicioForo;
 import java.io.IOException;
@@ -41,20 +42,32 @@ public class ControladorForo {
 
   private final ServicioForo servicioForo;
   private final ServicioPerfil servicioPerfil;
+  private final ServicioAmistad servicioAmistad;
   private final Path directorioFotosForo;
 
   @Autowired
-  public ControladorForo(ServicioForo servicioForo, ServicioPerfil servicioPerfil) {
-    this(servicioForo, servicioPerfil, Path.of(System.getProperty("user.dir"), "uploads", "foro"));
+  public ControladorForo(
+    ServicioForo servicioForo,
+    ServicioPerfil servicioPerfil,
+    ServicioAmistad servicioAmistad
+  ) {
+    this(
+      servicioForo,
+      servicioPerfil,
+      servicioAmistad,
+      Path.of(System.getProperty("user.dir"), "uploads", "foro")
+    );
   }
 
   ControladorForo(
     ServicioForo servicioForo,
     ServicioPerfil servicioPerfil,
+    ServicioAmistad servicioAmistad,
     Path directorioFotosForo
   ) {
     this.servicioForo = servicioForo;
     this.servicioPerfil = servicioPerfil;
+    this.servicioAmistad = servicioAmistad;
     this.directorioFotosForo = directorioFotosForo.toAbsolutePath().normalize();
   }
 
@@ -70,6 +83,11 @@ public class ControladorForo {
 
     ModelAndView mav = new ModelAndView("foro");
     mav.addObject("publicaciones", servicioForo.obtenerPublicaciones());
+    mav.addObject("usuarioActualId", usuario.getId());
+    mav.addObject(
+      "idsUsuariosRelacionados",
+      servicioAmistad.obtenerIdsUsuariosRelacionados(usuario.getId())
+    );
     mav.addObject(
       "figuritasParaDonar",
       servicioForo.obtenerFiguritasRepetidasParaDonar(usuario.getId())

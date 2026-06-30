@@ -8,12 +8,14 @@ import static org.mockito.Mockito.*;
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.album.InventarioItemDTO;
+import com.tallerwebi.dominio.amistad.ServicioAmistad;
 import com.tallerwebi.dominio.excepcion.IntercambioFiguritasException;
 import com.tallerwebi.dominio.foro.DonacionSolidaria;
 import com.tallerwebi.dominio.foro.ForoPublicacionDTO;
 import com.tallerwebi.dominio.foro.ServicioForo;
 import java.nio.file.Path;
 import java.util.Collections;
+import java.util.Set;
 import javax.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,6 +27,7 @@ public class ControladorForoTest {
 
   private ServicioForo servicioForo;
   private ServicioPerfil servicioPerfil;
+  private ServicioAmistad servicioAmistad;
   private HttpSession session;
   private RedirectAttributes redirectAttributes;
   private ControladorForo controladorForo;
@@ -33,10 +36,16 @@ public class ControladorForoTest {
   public void init() {
     servicioForo = mock(ServicioForo.class);
     servicioPerfil = mock(ServicioPerfil.class);
+    servicioAmistad = mock(ServicioAmistad.class);
     session = mock(HttpSession.class);
     redirectAttributes = mock(RedirectAttributes.class);
     controladorForo =
-      new ControladorForo(servicioForo, servicioPerfil, Path.of("target", "foro-test-uploads"));
+      new ControladorForo(
+        servicioForo,
+        servicioPerfil,
+        servicioAmistad,
+        Path.of("target", "foro-test-uploads")
+      );
   }
 
   @Test
@@ -61,6 +70,7 @@ public class ControladorForoTest {
       .thenReturn(Collections.<InventarioItemDTO>emptyList());
     when(servicioForo.obtenerDonacionesDisponibles(1L))
       .thenReturn(Collections.<DonacionSolidaria>emptyList());
+    when(servicioAmistad.obtenerIdsUsuariosRelacionados(1L)).thenReturn(Set.of(2L));
 
     ModelAndView modelAndView = controladorForo.verForo(session);
 
@@ -68,6 +78,8 @@ public class ControladorForoTest {
     assertThat(modelAndView.getModel().get("publicaciones"), equalTo(Collections.emptyList()));
     assertThat(modelAndView.getModel().get("figuritasParaDonar"), equalTo(Collections.emptyList()));
     assertThat(modelAndView.getModel().get("donaciones"), equalTo(Collections.emptyList()));
+    assertThat(modelAndView.getModel().get("usuarioActualId"), equalTo(1L));
+    assertThat(modelAndView.getModel().get("idsUsuariosRelacionados"), equalTo(Set.of(2L)));
     verify(session).setAttribute("USUARIO", usuarioActualizado);
   }
 
