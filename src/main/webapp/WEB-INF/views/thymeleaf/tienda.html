@@ -13,9 +13,9 @@
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap"
     rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" th:href="@{/css/main.css}" />
-  <link rel="stylesheet" th:href="@{/css/home.css}" />
-  <link rel="stylesheet" th:href="@{/css/inventario.css}" />
+  <link rel="stylesheet" th:href="@{/css/main.css(v='tienda-monedas')}" />
+  <link rel="stylesheet" th:href="@{/css/home.css(v='tienda-monedas')}" />
+  <link rel="stylesheet" th:href="@{/css/inventario.css(v='tienda-monedas')}" />
 </head>
 
 <body class="home-shell">
@@ -43,7 +43,7 @@
   <main class="home-layout inventory-layout shop-layout">
     <div class="container mb-4">
       <div th:if="${mensajeSobre}" class="alert alert-success text-center shadow-sm mb-3" th:text="${mensajeSobre}">
-        Compraste 1 sobre comun con monedas.
+        Compra simulada: se acreditaron tus monedas.
       </div>
       <div th:if="${error}" class="alert alert-danger text-center shadow-sm mb-3" th:text="${error}">
         Ocurrio un error.
@@ -55,11 +55,25 @@
         Tienda
       </h2>
       <p class="mb-0">
-        Ganas monedas por entrar diariamente o completar paises. Usalas para comprar sobres.
+        Compra monedas para sumar saldo y usa tus monedas para comprar sobres.
       </p>
     </section>
 
-    <section class="home-grid sobres-contenedor shop-pack-contenedor mb-4" aria-labelledby="titulo-sobre-comun">
+    <section class="shop-offers mb-4" aria-label="Opciones de compra">
+      <article th:each="paquete, estado : ${paquetesMonedas}" th:if="${estado.index == 0}" class="shop-coin-card">
+        <div class="shop-coin-card__icon" aria-hidden="true">
+          <span class="coin-pill__icon"></span>
+        </div>
+        <div class="shop-coin-card__body">
+          <span th:text="${paquete.nombre}">Pack inicial</span>
+          <h2 th:text="${paquete.cantidadMonedas + ' monedas'}">500 monedas</h2>
+          <strong th:text="${'$' + paquete.precioPesos}">$500</strong>
+        </div>
+        <a th:href="@{/comprar-monedas(paquete=${paquete.codigo})}" class="profile-button shop-coin-card__button">
+          Comprar
+        </a>
+      </article>
+
       <div class="home-panel sobres shop-pack">
         <img src="/spring/img/sobres/SOBRE_REGULAR.png" alt="Sobre comun">
         <div class="shop-price-badge">
@@ -71,12 +85,26 @@
           <a th:href="@{/comprar-sobre-con-monedas}" class="btn">Comprar</a>
         </div>
       </div>
+
+      <article th:each="paquete, estado : ${paquetesMonedas}" th:if="${estado.index == 1}" class="shop-coin-card">
+        <div class="shop-coin-card__icon" aria-hidden="true">
+          <span class="coin-pill__icon"></span>
+        </div>
+        <div class="shop-coin-card__body">
+          <span th:text="${paquete.nombre}">Pack ahorro</span>
+          <h2 th:text="${paquete.cantidadMonedas + ' monedas'}">1000 monedas</h2>
+          <strong th:text="${'$' + paquete.precioPesos}">$900</strong>
+        </div>
+        <a th:href="@{/comprar-monedas(paquete=${paquete.codigo})}" class="profile-button shop-coin-card__button">
+          Comprar
+        </a>
+      </article>
     </section>
 
     <section class="inventory-empty-packs shop-help-panel">
       <div class="alert alert-warning text-center shadow-sm inventory-empty-packs__alert">
         <h2 class="mb-2">Sistema de monedas</h2>
-        <p class="mb-0">El saldo esta en la barra superior. Podes ganar monedas entrando diariamente o completando paises. Cada compra suma 1 sobre a tu inventario.</p>
+        <p class="mb-0">Por ahora la compra de monedas es simulada: acredita el saldo directo para dejar el flujo listo y mas adelante conectarlo con Mercado Pago.</p>
       </div>
     </section>
   </main>

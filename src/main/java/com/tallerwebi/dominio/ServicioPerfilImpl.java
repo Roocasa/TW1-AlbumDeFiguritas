@@ -3,6 +3,8 @@ package com.tallerwebi.dominio;
 import com.tallerwebi.dominio.excepcion.UsuarioExistente;
 import com.tallerwebi.dominio.notificacion.ServicioNotificacion;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,10 @@ public class ServicioPerfilImpl implements ServicioPerfil {
   private static final int COSTO_SOBRE_MONEDAS = 50;
   private static final int SOBRE_POR_ANUNCIO = 1;
   private static final int MINIMO_CARACTERES_PASSWORD = 6;
+  private static final List<PaqueteMonedas> PAQUETES_MONEDAS = Arrays.asList(
+    new PaqueteMonedas("monedas-500", "Pack inicial", 500, 500),
+    new PaqueteMonedas("monedas-1000", "Pack ahorro", 1000, 900)
+  );
   private RepositorioUsuario repositorioUsuario;
   private ServicioNotificacion servicioNotificacion;
 
@@ -85,8 +91,28 @@ public class ServicioPerfilImpl implements ServicioPerfil {
   }
 
   @Override
+  public Usuario comprarMonedas(Long idUsuario, String codigoPaquete) {
+    Usuario usuario = repositorioUsuario.buscarPorId(idUsuario);
+
+    if (usuario == null) {
+      return null;
+    }
+
+    PaqueteMonedas paquete = obtenerPaqueteMonedasPorCodigo(codigoPaquete);
+    usuario.sumarMonedas(paquete.getCantidadMonedas());
+    repositorioUsuario.modificar(usuario);
+
+    return usuario;
+  }
+
+  @Override
   public int obtenerCostoSobreEnMonedas() {
     return COSTO_SOBRE_MONEDAS;
+  }
+
+  @Override
+  public List<PaqueteMonedas> obtenerPaquetesMonedas() {
+    return PAQUETES_MONEDAS;
   }
 
   @Override
@@ -205,6 +231,16 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
   private String normalizarEmail(String email) {
     return email == null ? null : email.trim().toLowerCase(Locale.ROOT);
+  }
+
+  private PaqueteMonedas obtenerPaqueteMonedasPorCodigo(String codigoPaquete) {
+    for (PaqueteMonedas paquete : PAQUETES_MONEDAS) {
+      if (paquete.getCodigo().equals(codigoPaquete)) {
+        return paquete;
+      }
+    }
+
+    throw new IllegalArgumentException("El paquete de monedas seleccionado no existe.");
   }
 
   private void avisarSobresDiariosDisponibles(Long idUsuario) {

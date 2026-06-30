@@ -68,6 +68,41 @@ public class ServicioPerfilTest {
   }
 
   @Test
+  public void deberiaComprarUnPaqueteDeMonedas() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(13L);
+    usuario.setMonedas(25);
+
+    when(repositorioUsuario.buscarPorId(13L)).thenReturn(usuario);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Usuario usuarioActualizado = servicioPerfil.comprarMonedas(13L, "monedas-500");
+
+    assertThat(usuarioActualizado.getMonedas(), equalTo(525));
+    verify(repositorioUsuario, times(1)).modificar(usuario);
+  }
+
+  @Test
+  public void noDeberiaComprarMonedasSiElPaqueteNoExiste() {
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = new Usuario();
+    usuario.setId(14L);
+    usuario.setMonedas(25);
+
+    when(repositorioUsuario.buscarPorId(14L)).thenReturn(usuario);
+
+    ServicioPerfil servicioPerfil = new ServicioPerfilImpl(repositorioUsuario);
+
+    Assertions.assertThrows(
+      IllegalArgumentException.class,
+      () -> servicioPerfil.comprarMonedas(14L, "paquete-inexistente")
+    );
+    verify(repositorioUsuario, never()).modificar(usuario);
+  }
+
+  @Test
   public void noDeberiaComprarUnSobreSiNoTieneMonedasSuficientes() {
     RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
     Usuario usuario = new Usuario();
