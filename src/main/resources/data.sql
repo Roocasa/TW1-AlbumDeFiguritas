@@ -696,3 +696,56 @@ INSERT INTO Album (
     figuritas_repetidas
 )
 VALUES (2, 576, 576, 0, 0);
+
+INSERT INTO Usuario (id, email, password, paquetes, paquetesPremium, intercambiosRealizados, monedas, activo, rol, pais)
+VALUES
+    (3, 'swap.argentina@test.com', '123456789', 25, 5, 0, 120, true, 'USER', 'Argentina'),
+    (4, 'swap.brasil@test.com', '123456789', 25, 5, 0, 120, true, 'USER', 'Brasil'),
+    (5, 'swap.portugal@test.com', '123456789', 25, 5, 0, 120, true, 'USER', 'Portugal');
+
+INSERT INTO RelacionFiguritaUsuario (usuario_id, figurita_id, estaPegadaEnElAlbum)
+VALUES
+    (1, 10, true),
+    (1, 10, false),
+    (1, 22, true),
+    (1, 22, false),
+
+    (3, 433, true),
+    (3, 433, false),
+    (3, 434, true),
+    (3, 434, false),
+    (3, 435, true),
+    (3, 435, false),
+    (3, 436, false),
+    (3, 437, false),
+
+    (4, 97, true),
+    (4, 97, false),
+    (4, 98, true),
+    (4, 98, false),
+    (4, 99, true),
+    (4, 99, false),
+    (4, 100, false),
+    (4, 101, false),
+
+    (5, 481, true),
+    (5, 481, false),
+    (5, 482, true),
+    (5, 482, false),
+    (5, 483, true),
+    (5, 483, false),
+    (5, 484, false),
+    (5, 485, false);
+
+INSERT INTO Album (
+    usuario_id,
+    total_figuritas,
+    figuritas_pegadas,
+    figuritas_faltantes,
+    figuritas_repetidas
+)
+VALUES
+    (1, 576, 2, 574, 2),
+    (3, 576, 3, 573, 3),
+    (4, 576, 3, 573, 3),
+    (5, 576, 3, 573, 3);
