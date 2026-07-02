@@ -98,7 +98,7 @@ public class ServicioPerfilImpl implements ServicioPerfil {
       return null;
     }
 
-    PaqueteMonedas paquete = obtenerPaqueteMonedasPorCodigo(codigoPaquete);
+    PaqueteMonedas paquete = obtenerPaqueteMonedas(codigoPaquete);
     usuario.sumarMonedas(paquete.getCantidadMonedas());
     repositorioUsuario.modificar(usuario);
 
@@ -113,6 +113,17 @@ public class ServicioPerfilImpl implements ServicioPerfil {
   @Override
   public List<PaqueteMonedas> obtenerPaquetesMonedas() {
     return PAQUETES_MONEDAS;
+  }
+
+  @Override
+  public PaqueteMonedas obtenerPaqueteMonedas(String codigoPaquete) {
+    for (PaqueteMonedas paquete : PAQUETES_MONEDAS) {
+      if (paquete.getCodigo().equals(codigoPaquete)) {
+        return paquete;
+      }
+    }
+
+    throw new IllegalArgumentException("El paquete de monedas seleccionado no existe.");
   }
 
   @Override
@@ -231,16 +242,6 @@ public class ServicioPerfilImpl implements ServicioPerfil {
 
   private String normalizarEmail(String email) {
     return email == null ? null : email.trim().toLowerCase(Locale.ROOT);
-  }
-
-  private PaqueteMonedas obtenerPaqueteMonedasPorCodigo(String codigoPaquete) {
-    for (PaqueteMonedas paquete : PAQUETES_MONEDAS) {
-      if (paquete.getCodigo().equals(codigoPaquete)) {
-        return paquete;
-      }
-    }
-
-    throw new IllegalArgumentException("El paquete de monedas seleccionado no existe.");
   }
 
   private void avisarSobresDiariosDisponibles(Long idUsuario) {

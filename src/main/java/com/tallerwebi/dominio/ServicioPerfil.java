@@ -12,6 +12,7 @@ public interface ServicioPerfil {
   Usuario comprarMonedas(Long idUsuario, String codigoPaquete);
   int obtenerCostoSobreEnMonedas();
   List<PaqueteMonedas> obtenerPaquetesMonedas();
+  PaqueteMonedas obtenerPaqueteMonedas(String codigoPaquete);
   Usuario actualizarEmail(Long idUsuario, String nuevoEmail, String passwordActual)
     throws UsuarioExistente;
   Usuario actualizarPassword(
