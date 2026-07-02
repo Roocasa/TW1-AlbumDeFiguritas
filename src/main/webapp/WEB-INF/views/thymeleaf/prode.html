@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>Prode Mundial 2026 | Album 2026</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/css/main.css}" />
+  <link rel="stylesheet" th:href="@{/css/home.css}" />
+  <link rel="stylesheet" th:href="@{/css/prode.css}" />
+</head>
+
+<body class="home-shell">
+  <header class="home-topbar">
+    <div class="home-topbar__brand">
+      <img class="home-topbar__logo" th:src="@{/img/mundial_2026.png}" src="/img/mundial_2026.png"
+        alt="Logo Mundial 2026" />
+      <span class="home-topbar__title profile-topbar__title">Prode 2026</span>
+    </div>
+    <nav class="home-topbar__actions" aria-label="Navegacion principal">
+      <a th:href="@{/home}">Inicio</a>
+      <a th:href="@{/foro}">Foro</a>
+      <a th:href="@{/amigos}">Amigos</a>
+      <a th:href="@{/login}">Salir</a>
+    </nav>
+  </header>
+
+  <main class="prode-layout">
+    <div th:if="${mensaje}" class="alert alert-success text-center shadow-sm mb-3" th:text="${mensaje}"></div>
+    <div th:if="${error}" class="alert alert-danger text-center shadow-sm mb-3" th:text="${error}"></div>
+
+    <section class="prode-hero">
+      <div>
+        <span class="prode-kicker">Mundial 2026</span>
+        <h1>Prode</h1>
+        <p>Jugá tus marcadores y seguí tu puntaje en vivo.</p>
+      </div>
+      <div class="prode-score">
+        <span>Puntos</span>
+        <strong th:text="${puntajeProde}">0</strong>
+      </div>
+      <form th:action="@{/prode/actualizar-resultados}" method="post">
+        <button class="prode-button prode-button--ghost" type="submit">Actualizar resultados</button>
+      </form>
+    </section>
+
+    <section class="prode-list">
+      <article class="prode-match" th:each="item : ${partidos}">
+        <div class="prode-match__meta">
+          <span th:text="${item.partido.fechaFormateada}">11/06/2026 13:00</span>
+          <strong class="prode-badge" th:text="${item.partido.estado}">PROGRAMADO</strong>
+        </div>
+
+        <div class="prode-match__teams">
+          <div class="prode-team">
+            <span>Local</span>
+            <strong th:text="${item.partido.local}">Mexico</strong>
+          </div>
+          <span class="prode-versus">VS</span>
+          <div class="prode-team prode-team--right">
+            <span>Visitante</span>
+            <strong th:text="${item.partido.visitante}">Sudafrica</strong>
+          </div>
+        </div>
+
+        <div class="prode-match__body">
+          <div class="prode-match__result" th:if="${item.partido.estaFinalizado()}">
+            <span>Resultado final</span>
+            <strong th:text="${item.partido.golesLocal + ' - ' + item.partido.golesVisitante}">0 - 0</strong>
+          </div>
+
+          <form class="prode-form" th:action="@{/prode/pronosticar}" method="post">
+            <input type="hidden" name="partido" th:value="${item.partido.id}">
+            <label>
+              <span th:text="${item.partido.local}">Mexico</span>
+              <input type="number" min="0" name="golesLocal" required
+                th:value="${item.pronostico != null ? item.pronostico.golesLocal : 0}"
+                th:disabled="${item.partido.estaFinalizado()}">
+            </label>
+            <strong class="prode-form__dash">-</strong>
+            <label>
+              <span th:text="${item.partido.visitante}">Sudafrica</span>
+              <input type="number" min="0" name="golesVisitante" required
+                th:value="${item.pronostico != null ? item.pronostico.golesVisitante : 0}"
+                th:disabled="${item.partido.estaFinalizado()}">
+            </label>
+            <button class="prode-button" type="submit" th:disabled="${item.partido.estaFinalizado()}">Guardar</button>
+          </form>
+
+          <p class="prode-match__points" th:if="${item.pronostico != null}">
+            <span>Tu prode</span>
+            <strong th:text="${item.pronostico.golesLocal + ' - ' + item.pronostico.golesVisitante}">0 - 0</strong>
+            <em th:if="${item.pronostico.puntuado}" th:text="${'+' + item.pronostico.puntos + ' pts'}"></em>
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+  <script>
+    (function () {
+      var scrollKey = "prode-scroll-y";
+
+      document.querySelectorAll(".prode-form").forEach(function (form) {
+        form.addEventListener("submit", function () {
+          sessionStorage.setItem(scrollKey, String(window.scrollY));
+        });
+      });
+
+      var savedScroll = sessionStorage.getItem(scrollKey);
+      if (savedScroll !== null) {
+        sessionStorage.removeItem(scrollKey);
+        window.requestAnimationFrame(function () {
+          window.scrollTo(0, Number(savedScroll));
+        });
+      }
+    })();
+  </script>
+</body>
+
+</html>

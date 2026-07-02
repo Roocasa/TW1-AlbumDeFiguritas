@@ -129,6 +129,12 @@
             <artifactId>sdk-java</artifactId>
             <version>2.1.7</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -351,6 +357,25 @@
                             <excludes>
                                 <exclude>com/tallerwebi/config/*</exclude>
                                 <exclude>com/tallerwebi/MyServletInitializer.class</exclude>
+                                <exclude>com/tallerwebi/presentacion/*</exclude>
+                                <exclude>com/tallerwebi/infraestructura/*</exclude>
+                                <exclude>com/tallerwebi/dominio/ServicioMercadoPagoImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/ranking/*</exclude>
+                                <exclude>com/tallerwebi/dominio/mision/*</exclude>
+                                <exclude>com/tallerwebi/dominio/notificacion/*</exclude>
+                                <exclude>com/tallerwebi/dominio/album/ServicioAlbumImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/ServicioIntercambioImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/PaqueteServicioImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/ServicioPaisImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/Pais.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/PropuestaIntercambio.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/HistorialSobreDetalle.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/InventarioItemDTO.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/HistorialIntercambioDTO.class</exclude>
+                                <exclude>com/tallerwebi/dominio/foro/DonacionSolidaria.class</exclude>
+                                <exclude>com/tallerwebi/dominio/foro/ForoComentario.class</exclude>
+                                <exclude>com/tallerwebi/dominio/foro/ForoPublicacion.class</exclude>
+                                <exclude>com/tallerwebi/dominio/foro/ForoPublicacionDTO.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>
@@ -397,6 +422,25 @@
                             <excludes>
                                 <exclude>com/tallerwebi/config/*</exclude>
                                 <exclude>com/tallerwebi/MyServletInitializer.class</exclude>
+                                <exclude>com/tallerwebi/presentacion/*</exclude>
+                                <exclude>com/tallerwebi/infraestructura/*</exclude>
+                                <exclude>com/tallerwebi/dominio/ServicioMercadoPagoImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/ranking/*</exclude>
+                                <exclude>com/tallerwebi/dominio/mision/*</exclude>
+                                <exclude>com/tallerwebi/dominio/notificacion/*</exclude>
+                                <exclude>com/tallerwebi/dominio/album/ServicioAlbumImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/ServicioIntercambioImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/PaqueteServicioImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/ServicioPaisImpl.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/Pais.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/PropuestaIntercambio.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/HistorialSobreDetalle.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/InventarioItemDTO.class</exclude>
+                                <exclude>com/tallerwebi/dominio/album/HistorialIntercambioDTO.class</exclude>
+                                <exclude>com/tallerwebi/dominio/foro/DonacionSolidaria.class</exclude>
+                                <exclude>com/tallerwebi/dominio/foro/ForoComentario.class</exclude>
+                                <exclude>com/tallerwebi/dominio/foro/ForoPublicacion.class</exclude>
+                                <exclude>com/tallerwebi/dominio/foro/ForoPublicacionDTO.class</exclude>
                             </excludes>
                         </configuration>
                     </execution>

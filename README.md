@@ -53,6 +53,38 @@ docker run --env-file .env --name mysql-container -d -p 3306:3306 mysql
 $ mvn clean jetty:run
 # http://localhost:8080/spring
 ```
+
+### Mercado Pago para comprar monedas
+La tienda necesita credenciales de Mercado Pago para crear el link de pago.
+
+Para correr con Maven en local, copiar el archivo de ejemplo y completar el access token:
+
+```powershell
+Copy-Item mercadopago.local.example.properties mercadopago.local.properties
+```
+
+Tambien se puede configurar con variables de entorno:
+
+```powershell
+$env:MERCADOPAGO_ACCESS_TOKEN="TU_ACCESS_TOKEN"
+$env:MERCADOPAGO_BASE_URL="http://localhost:8080/spring"
+mvn clean jetty:run
+```
+
+Si se levanta con Docker Compose, completar `MERCADOPAGO_ACCESS_TOKEN` en `.env`. El
+`docker-compose.yml` ya pasa `MERCADOPAGO_ACCESS_TOKEN` y `MERCADOPAGO_BASE_URL` al
+contenedor de Jetty.
+
+### Prode Mundial 2026
+El Prode permite cargar pronosticos de partidos del Mundial 2026. La puntuacion es:
+
+* 6 puntos por marcador exacto.
+* 3 puntos por acertar ganador o empate sin marcador exacto.
+* 0 puntos si el signo del partido no coincide.
+
+Para actualizar resultados reales se usa football-data.org v4. Configurar un token en
+`FOOTBALL_DATA_TOKEN` o en la system property `football.data.token`. Sin token, la app
+mantiene los partidos cargados localmente y no intenta traer resultados externos.
 ## 2. Thymeleaf
 * [Documentación](https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html)
 

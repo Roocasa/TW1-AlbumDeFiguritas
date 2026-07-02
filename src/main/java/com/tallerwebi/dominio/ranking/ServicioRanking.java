@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface ServicioRanking {
   List<RankingColeccionistaDTO> obtenerRankingColeccionistas();
+  List<RankingProdeDTO> obtenerRankingProde();
 }

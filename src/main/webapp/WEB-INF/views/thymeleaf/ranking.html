@@ -40,9 +40,14 @@
     <div class="container">
       <section class="ranking-heading">
         <span>Competencia</span>
-        <h1>Ranking de coleccionistas</h1>
-        <p>Comparate con otros usuarios por progreso del album, figuritas pegadas e intercambios realizados.</p>
+        <h1>Rankings</h1>
+        <p>Comparate con otros usuarios por progreso del album y por puntos del Prode Mundial 2026.</p>
       </section>
+
+      <section class="ranking-section">
+        <div class="ranking-section__title">
+          <h2>Coleccionistas - Album</h2>
+        </div>
 
       <section class="ranking-table-wrap" aria-label="Tabla de ranking de coleccionistas">
         <table class="ranking-table">
@@ -93,6 +98,53 @@
         <div th:if="${ranking == null or ranking.empty}" class="ranking-empty">
           Todavia no hay coleccionistas para rankear.
         </div>
+      </section>
+      </section>
+
+      <br>
+      
+      <section class="ranking-section">
+        <div class="ranking-section__title">
+          <h2>Puntajes Mundial 2026 - Prode</h2>
+        </div>
+
+        <section class="ranking-table-wrap" aria-label="Tabla de ranking del prode">
+          <table class="ranking-table ranking-table--prode">
+            <thead>
+              <tr>
+                <th>Posicion</th>
+                <th>Usuario</th>
+                <th>Puntos</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="item : ${rankingProde}" th:classappend="${item.podio} ? ' ranking-table__row--podium' : ''">
+                <td>
+                  <strong class="ranking-position" th:text="${'#' + item.posicion}">#1</strong>
+                </td>
+                <td>
+                  <div class="ranking-user">
+                    <img th:if="${item.usuario.fotoPerfil != null}" th:src="@{${item.usuario.fotoPerfil}}"
+                      alt="Foto de perfil">
+                    <span th:if="${item.usuario.fotoPerfil == null}" class="ranking-user__avatar"
+                      th:text="${item.usuario.email != null ? item.usuario.email.substring(0, 1).toUpperCase() : 'U'}">U</span>
+                    <div>
+                      <strong th:text="${item.usuario.email}">usuario@unlam.edu.ar</strong>
+                      <small th:text="${item.usuario.pais != null ? item.usuario.pais : 'Sin pais'}">Argentina</small>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <strong class="ranking-points" th:text="${item.puntaje + ' pts'}">0 pts</strong>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div th:if="${rankingProde == null or rankingProde.empty}" class="ranking-empty">
+            Todavia no hay puntajes del Prode para rankear.
+          </div>
+        </section>
       </section>
     </div>
   </main>

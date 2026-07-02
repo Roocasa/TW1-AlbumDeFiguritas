@@ -31,6 +31,7 @@ public class ControladorRanking {
 
     ModelAndView mav = new ModelAndView("ranking");
     mav.addObject("ranking", servicioRanking.obtenerRankingColeccionistas());
+    mav.addObject("rankingProde", servicioRanking.obtenerRankingProde());
     return mav;
   }
 }

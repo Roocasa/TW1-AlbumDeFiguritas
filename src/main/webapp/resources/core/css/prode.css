@@ -1,0 +1,352 @@
+.prode-layout {
+  width: min(1120px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 28px 0 56px;
+}
+
+.prode-layout .alert {
+  border: 0;
+  border-radius: 8px;
+  color: #10233f;
+  font-weight: 700;
+}
+
+.prode-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 140px auto;
+  align-items: center;
+  gap: 20px;
+  min-height: 178px;
+  padding: 28px 30px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px;
+  background:
+    linear-gradient(135deg, rgba(10, 31, 54, 0.94), rgba(10, 87, 87, 0.88)),
+    rgba(14, 30, 35, 0.92);
+  box-shadow: 0 22px 58px rgba(2, 12, 24, 0.34);
+  color: #ffffff;
+}
+
+.prode-hero::after {
+  content: "";
+  width: 210px;
+  height: 210px;
+  position: absolute;
+  right: 18%;
+  bottom: -122px;
+  border: 34px solid rgba(255, 255, 255, 0.07);
+  border-radius: 999px;
+}
+
+.prode-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+.prode-kicker {
+  display: inline-flex;
+  margin-bottom: 0.35rem;
+  color: #58d6a9;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.prode-hero h1 {
+  margin: 0;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(4rem, 8vw, 6.2rem);
+  line-height: 0.9;
+}
+
+.prode-hero p {
+  max-width: 520px;
+  margin: 0.55rem 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1rem;
+}
+
+.prode-score {
+  display: grid;
+  place-items: center;
+  min-width: 126px;
+  min-height: 112px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.09);
+  text-align: center;
+}
+
+.prode-score span {
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.prode-score strong {
+  color: #ffd466;
+  font-size: 3.3rem;
+  line-height: 0.9;
+}
+
+.prode-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 8px;
+  background: #0f8b68;
+  color: #ffffff;
+  font-weight: 800;
+  box-shadow: 0 10px 22px rgba(15, 139, 104, 0.25);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.prode-button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  background: #0a7558;
+  box-shadow: 0 14px 28px rgba(15, 139, 104, 0.32);
+}
+
+.prode-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.prode-button--ghost {
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: none;
+  white-space: nowrap;
+}
+
+.prode-button--ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.18);
+  box-shadow: none;
+}
+
+.prode-list {
+  display: grid;
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.prode-match {
+  display: grid;
+  gap: 18px;
+  padding: 22px;
+  border: 1px solid rgba(16, 35, 63, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 20px 44px rgba(7, 18, 36, 0.2);
+}
+
+.prode-match__meta,
+.prode-match__teams,
+.prode-match__body,
+.prode-form,
+.prode-match__points,
+.prode-match__result {
+  display: flex;
+  align-items: center;
+}
+
+.prode-match__meta {
+  justify-content: space-between;
+  gap: 12px;
+  color: #62738b;
+  font-size: 0.88rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.prode-badge {
+  padding: 0.38rem 0.7rem;
+  border-radius: 999px;
+  background: #eaf1f7;
+  color: #10233f;
+  font-size: 0.76rem;
+}
+
+.prode-match__teams {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 72px minmax(0, 1fr);
+  gap: 18px;
+}
+
+.prode-team {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.prode-team span,
+.prode-form label span,
+.prode-match__result span,
+.prode-match__points span {
+  color: #6d7d92;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.prode-team strong {
+  color: #10233f;
+  font-size: clamp(1.55rem, 4vw, 2.25rem);
+  line-height: 1;
+}
+
+.prode-team--right {
+  text-align: right;
+}
+
+.prode-versus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  justify-self: center;
+  border-radius: 999px;
+  background: #10233f;
+  color: #ffd466;
+  font-weight: 900;
+}
+
+.prode-match__body {
+  justify-content: space-between;
+  gap: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(16, 35, 63, 0.1);
+}
+
+.prode-form {
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.prode-form label {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+}
+
+.prode-form input {
+  width: 82px;
+  height: 54px;
+  border: 1px solid #cdd7e2;
+  border-radius: 8px;
+  background: #f7fafc;
+  color: #10233f;
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 900;
+  outline: none;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+.prode-form input:focus {
+  border-color: #1f6fd1;
+  background: #ffffff;
+  box-shadow: 0 0 0 4px rgba(31, 111, 209, 0.12);
+}
+
+.prode-form__dash {
+  align-self: end;
+  padding-bottom: 0.72rem;
+  color: #10233f;
+  font-size: 1.5rem;
+}
+
+.prode-match__result,
+.prode-match__points {
+  gap: 0.55rem;
+  margin: 0;
+  color: #10233f;
+  font-weight: 800;
+}
+
+.prode-match__result {
+  padding: 0.72rem 0.9rem;
+  border-radius: 8px;
+  background: #eef6ff;
+}
+
+.prode-match__result strong {
+  color: #1f6fd1;
+  font-size: 1.3rem;
+}
+
+.prode-match__points {
+  padding: 0.72rem 0.9rem;
+  border-radius: 8px;
+  background: #fff8df;
+}
+
+.prode-match__points strong {
+  font-size: 1.25rem;
+}
+
+.prode-match__points em {
+  color: #0f8b68;
+  font-style: normal;
+}
+
+@media (max-width: 820px) {
+  .prode-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .prode-score {
+    justify-items: start;
+    min-height: auto;
+    padding: 16px;
+  }
+
+  .prode-match__body {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 620px) {
+  .prode-layout {
+    width: min(100% - 20px, 1120px);
+    padding-top: 18px;
+  }
+
+  .prode-hero,
+  .prode-match {
+    padding: 18px;
+  }
+
+  .prode-match__teams {
+    grid-template-columns: 1fr;
+  }
+
+  .prode-team--right {
+    text-align: left;
+  }
+
+  .prode-versus {
+    justify-self: start;
+    width: 48px;
+    height: 48px;
+  }
+
+  .prode-form input {
+    width: 72px;
+  }
+}

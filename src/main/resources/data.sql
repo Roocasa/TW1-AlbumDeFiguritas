@@ -749,3 +749,19 @@ VALUES
     (3, 576, 3, 573, 3),
     (4, 576, 3, 573, 3),
     (5, 576, 3, 573, 3);
+
+INSERT INTO PartidoProde (id, idApi, local, visitante, fecha, estado, golesLocal, golesVisitante)
+VALUES
+    (1, 1001, 'Francia', 'Suecia', '2026-06-30 22:00:00', 'FINALIZADO', 3, 0),
+    (2, 1002, 'Mexico', 'Ecuador', '2026-07-01 22:00:00', 'FINALIZADO', 2, 0),
+    (3, 1003, 'Espana', 'Austria', '2026-07-02 19:00:00', 'PROGRAMADO', null, null),
+    (4, 1004, 'Portugal', 'Croacia', '2026-07-02 23:00:00', 'PROGRAMADO', null, null),
+    (5, 1005, 'Suiza', 'Argelia', '2026-07-03 03:00:00', 'PROGRAMADO', null, null);
+
+INSERT INTO PronosticoProde (usuario_id, partido_id, golesLocal, golesVisitante, puntos, puntuado)
+VALUES
+    (1, 1, 3, 0, 6, true),
+    (1, 2, 1, 0, 3, true),
+    (3, 1, 2, 0, 3, true),
+    (4, 2, 2, 0, 6, true),
+    (5, 1, 1, 1, 0, true);

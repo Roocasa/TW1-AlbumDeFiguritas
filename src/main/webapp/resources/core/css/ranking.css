@@ -30,6 +30,33 @@
   font-size: 1.05rem;
 }
 
+.ranking-section {
+  margin-top: 1.4rem;
+}
+
+.ranking-section__title {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.ranking-section__title span {
+  color: #ffffff;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ranking-section__title h2 {
+  margin: 0;
+  color: #ffffff;
+  font-family: "Bebas Neue", "Space Grotesk", sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  text-shadow: 0 3px 14px rgba(2, 12, 24, 0.45);
+}
+
 .ranking-table-wrap {
   overflow-x: auto;
   border: 1px solid rgba(255, 255, 255, 0.16);
@@ -143,6 +170,18 @@
   text-align: right;
 }
 
+.ranking-points {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 94px;
+  min-height: 42px;
+  border-radius: 8px;
+  background: #e8f8f0;
+  color: #0d6b4a;
+  font-size: 1.05rem;
+}
+
 .ranking-empty {
   padding: 1.5rem;
   color: #516783;
@@ -150,6 +189,10 @@
 }
 
 @media (max-width: 576px) {
+  .ranking-section__title {
+    display: block;
+  }
+
   .ranking-table th,
   .ranking-table td {
     padding: 0.85rem;
