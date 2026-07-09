@@ -3,6 +3,8 @@ package com.tallerwebi.presentacion;
 import com.tallerwebi.dominio.ServicioMercadoPago;
 import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class ControladorTienda {
   private static final String REDIRECT_TIENDA = "redirect:/tienda";
   private static final String FLASH_ERROR = "error";
   private static final String ESTADO_APROBADO = "approved";
+  private static final String PAGOS_ACREDITADOS = "PAGOS_MERCADO_PAGO_ACREDITADOS";
+  private static final String PAQUETE_PENDIENTE = "PAQUETE_MERCADO_PAGO_PENDIENTE";
+  private static final int PARTES_REFERENCIA_MERCADO_PAGO = 2;
 
   private final ServicioPerfil servicioPerfil;
   private final ServicioMercadoPago servicioMercadoPago;
@@ -72,6 +77,7 @@ public class ControladorTienda {
         usuario,
         obtenerBaseUrl(request)
       );
+      session.setAttribute(PAQUETE_PENDIENTE, paquete);
       return new ModelAndView("redirect:" + urlDePago);
     } catch (IllegalArgumentException | IllegalStateException e) {
       ra.addFlashAttribute(FLASH_ERROR, e.getMessage());
@@ -80,10 +86,9 @@ public class ControladorTienda {
     return new ModelAndView(REDIRECT_TIENDA);
   }
 
-  @RequestMapping(path = "/mercado-pago/retorno", method = RequestMethod.GET)
-  public ModelAndView retornoMercadoPago(
-    @RequestParam(value = "status", required = false) String status,
-    @RequestParam(value = "external_reference", required = false) String referencia,
+  @RequestMapping(path = "/mercado-pago/acreditar-pendiente", method = RequestMethod.POST)
+  public ModelAndView acreditarPagoPendiente(
+    @RequestParam(value = "paquete", required = false) String paquete,
     HttpSession session,
     RedirectAttributes ra
   ) {
@@ -93,21 +98,62 @@ public class ControladorTienda {
       return new ModelAndView(REDIRECT_LOGIN);
     }
 
-    if (!ESTADO_APROBADO.equalsIgnoreCase(status)) {
+    try {
+      String codigoPaquete = obtenerPaquetePendiente(paquete, session);
+      if (!servicioMercadoPago.existePagoAprobado(usuario.getId(), codigoPaquete)) {
+        ra.addFlashAttribute(FLASH_ERROR, "Todavia no encontramos un pago aprobado.");
+        return new ModelAndView(REDIRECT_TIENDA);
+      }
+
+      Usuario usuarioActualizado = servicioPerfil.comprarMonedas(usuario.getId(), codigoPaquete);
+      session.setAttribute(ATRIBUTO_USUARIO, usuarioActualizado);
+      session.removeAttribute(PAQUETE_PENDIENTE);
+      ra.addFlashAttribute("mensajeSobre", "Pago aprobado: se acreditaron tus monedas.");
+    } catch (IllegalArgumentException | IllegalStateException excepcion) {
+      ra.addFlashAttribute(FLASH_ERROR, excepcion.getMessage());
+    }
+
+    return new ModelAndView(REDIRECT_TIENDA);
+  }
+
+  @RequestMapping(path = "/mercado-pago/retorno", method = RequestMethod.GET)
+  @SuppressWarnings("PMD.DataflowAnomalyAnalysis")
+  public ModelAndView retornoMercadoPago(
+    @RequestParam(value = "status", required = false) String status,
+    @RequestParam(value = "collection_status", required = false) String collectionStatus,
+    @RequestParam(value = "external_reference", required = false) String referencia,
+    @RequestParam(value = "paquete", required = false) String paqueteRetorno,
+    @RequestParam(value = "payment_id", required = false) String paymentId,
+    @RequestParam(value = "collection_id", required = false) String collectionId,
+    HttpSession session,
+    RedirectAttributes ra
+  ) {
+    Usuario usuario = (Usuario) session.getAttribute(ATRIBUTO_USUARIO);
+
+    if (!pagoEstaAprobado(status, collectionStatus)) {
       ra.addFlashAttribute(FLASH_ERROR, "El pago no fue aprobado por Mercado Pago.");
-      return new ModelAndView(REDIRECT_TIENDA);
+      return redirigirATienda();
     }
 
     try {
-      String paquete = obtenerPaqueteDesdeReferencia(referencia, usuario.getId());
-      Usuario usuarioActualizado = servicioPerfil.comprarMonedas(usuario.getId(), paquete);
-      session.setAttribute(ATRIBUTO_USUARIO, usuarioActualizado);
+      if (pagoYaFueAcreditado(session, paymentId, collectionId)) {
+        ra.addFlashAttribute("mensajeSobre", "Ese pago ya habia sido acreditado.");
+        return redirigirATienda();
+      }
+
+      Long idUsuario = obtenerIdUsuarioParaAcreditar(usuario, referencia);
+      String paquete = obtenerPaqueteParaAcreditar(referencia, paqueteRetorno, idUsuario);
+      Usuario usuarioActualizado = servicioPerfil.comprarMonedas(idUsuario, paquete);
+      if (usuario != null) {
+        session.setAttribute(ATRIBUTO_USUARIO, usuarioActualizado);
+      }
+      registrarPagoAcreditado(session, paymentId, collectionId);
       ra.addFlashAttribute("mensajeSobre", "Pago aprobado: se acreditaron tus monedas.");
     } catch (IllegalArgumentException e) {
       ra.addFlashAttribute(FLASH_ERROR, e.getMessage());
     }
 
-    return new ModelAndView(REDIRECT_TIENDA);
+    return redirigirATienda();
   }
 
   private String obtenerPaqueteDesdeReferencia(String referencia, Long idUsuario) {
@@ -116,11 +162,128 @@ public class ControladorTienda {
     }
 
     String[] partes = referencia.split(":", 2);
-    if (partes.length != 2 || !String.valueOf(idUsuario).equals(partes[0])) {
+    if (
+      partes.length != PARTES_REFERENCIA_MERCADO_PAGO ||
+      !String.valueOf(idUsuario).equals(partes[0])
+    ) {
       throw new IllegalArgumentException("La compra no corresponde al usuario actual.");
     }
 
     return partes[1];
+  }
+
+  private Long obtenerIdUsuarioParaAcreditar(Usuario usuario, String referencia) {
+    if (usuarioTieneId(usuario)) {
+      return usuario.getId();
+    }
+
+    try {
+      return Long.valueOf(obtenerPartesReferencia(referencia)[0]);
+    } catch (NumberFormatException e) {
+      throw new IllegalArgumentException("No pudimos identificar el usuario de Mercado Pago.", e);
+    }
+  }
+
+  private boolean usuarioTieneId(Usuario usuario) {
+    return usuario != null && usuario.getId() != null;
+  }
+
+  private String[] obtenerPartesReferencia(String referencia) {
+    if (referencia == null || referencia.trim().isEmpty()) {
+      throw new IllegalArgumentException("No pudimos identificar el usuario de Mercado Pago.");
+    }
+
+    String[] partes = referencia.split(":", PARTES_REFERENCIA_MERCADO_PAGO);
+    if (partes.length != PARTES_REFERENCIA_MERCADO_PAGO) {
+      throw new IllegalArgumentException("No pudimos identificar el usuario de Mercado Pago.");
+    }
+
+    return partes;
+  }
+
+  private String obtenerPaqueteParaAcreditar(
+    String referencia,
+    String paqueteRetorno,
+    Long idUsuario
+  ) {
+    if (referencia != null && !referencia.trim().isEmpty()) {
+      return obtenerPaqueteDesdeReferencia(referencia, idUsuario);
+    }
+
+    if (paqueteRetorno == null || paqueteRetorno.trim().isEmpty()) {
+      throw new IllegalArgumentException("No pudimos identificar la compra de Mercado Pago.");
+    }
+
+    return paqueteRetorno.trim();
+  }
+
+  private ModelAndView redirigirATienda() {
+    if (servicioMercadoPago != null) {
+      String urlFinal = servicioMercadoPago.obtenerUrlFinalDespuesDelPago();
+      if (urlFinal != null && !urlFinal.trim().isEmpty()) {
+        return new ModelAndView("redirect:" + urlFinal.trim());
+      }
+    }
+
+    return new ModelAndView(REDIRECT_TIENDA);
+  }
+
+  private boolean pagoEstaAprobado(String status, String collectionStatus) {
+    return (
+      ESTADO_APROBADO.equalsIgnoreCase(status) || ESTADO_APROBADO.equalsIgnoreCase(collectionStatus)
+    );
+  }
+
+  @SuppressWarnings("unchecked")
+  private boolean pagoYaFueAcreditado(HttpSession session, String paymentId, String collectionId) {
+    String identificadorPago = obtenerIdentificadorPago(paymentId, collectionId);
+    if (identificadorPago == null) {
+      return false;
+    }
+
+    Set<String> pagosAcreditados = (Set<String>) session.getAttribute(PAGOS_ACREDITADOS);
+    return pagosAcreditados != null && pagosAcreditados.contains(identificadorPago);
+  }
+
+  @SuppressWarnings("unchecked")
+  private void registrarPagoAcreditado(HttpSession session, String paymentId, String collectionId) {
+    String identificadorPago = obtenerIdentificadorPago(paymentId, collectionId);
+    if (identificadorPago == null) {
+      return;
+    }
+
+    Set<String> pagosAcreditados = (Set<String>) session.getAttribute(PAGOS_ACREDITADOS);
+    if (pagosAcreditados == null) {
+      pagosAcreditados = new HashSet<>();
+      session.setAttribute(PAGOS_ACREDITADOS, pagosAcreditados);
+    }
+
+    pagosAcreditados.add(identificadorPago);
+  }
+
+  private String obtenerIdentificadorPago(String paymentId, String collectionId) {
+    if (paymentId != null && !paymentId.trim().isEmpty()) {
+      return paymentId.trim();
+    }
+
+    if (collectionId != null && !collectionId.trim().isEmpty()) {
+      return collectionId.trim();
+    }
+
+    return null;
+  }
+
+  private String obtenerPaquetePendiente(String paquete, HttpSession session) {
+    if (paquete != null && !paquete.trim().isEmpty()) {
+      return paquete.trim();
+    }
+
+    String paquetePendiente = (String) session.getAttribute(PAQUETE_PENDIENTE);
+    if (paquetePendiente == null || paquetePendiente.trim().isEmpty()) {
+      throw new IllegalArgumentException("No encontramos una compra pendiente para acreditar.");
+    }
+
+    return paquetePendiente;
   }
 
   private String obtenerBaseUrl(HttpServletRequest request) {

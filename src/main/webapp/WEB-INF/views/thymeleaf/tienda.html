@@ -48,6 +48,14 @@
       <div th:if="${error}" class="alert alert-danger text-center shadow-sm mb-3" th:text="${error}">
         Ocurrio un error.
       </div>
+      <div
+        th:if="${session.PAQUETE_MERCADO_PAGO_PENDIENTE != null}"
+        class="alert alert-info text-center shadow-sm mb-3">
+        <form th:action="@{/mercado-pago/acreditar-pendiente}" method="post" class="d-inline">
+          <input type="hidden" name="paquete" th:value="${session.PAQUETE_MERCADO_PAGO_PENDIENTE}">
+          <button type="submit" class="btn btn-primary">Acreditar pago aprobado</button>
+        </form>
+      </div>
     </div>
 
     <section class="inventory-heading text-center text-white mb-4">
