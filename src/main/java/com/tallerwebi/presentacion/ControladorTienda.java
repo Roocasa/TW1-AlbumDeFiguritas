@@ -22,6 +22,7 @@ public class ControladorTienda {
   private static final String REDIRECT_LOGIN = "redirect:/login";
   private static final String REDIRECT_TIENDA = "redirect:/tienda";
   private static final String FLASH_ERROR = "error";
+  private static final String FLASH_CONFETTI_PAGO = "mostrarConfettiPago";
   private static final String ESTADO_APROBADO = "approved";
   private static final String PAGOS_ACREDITADOS = "PAGOS_MERCADO_PAGO_ACREDITADOS";
   private static final String PAQUETE_PENDIENTE = "PAQUETE_MERCADO_PAGO_PENDIENTE";
@@ -109,6 +110,7 @@ public class ControladorTienda {
       session.setAttribute(ATRIBUTO_USUARIO, usuarioActualizado);
       session.removeAttribute(PAQUETE_PENDIENTE);
       ra.addFlashAttribute("mensajeSobre", "Pago aprobado: se acreditaron tus monedas.");
+      ra.addFlashAttribute(FLASH_CONFETTI_PAGO, true);
     } catch (IllegalArgumentException | IllegalStateException excepcion) {
       ra.addFlashAttribute(FLASH_ERROR, excepcion.getMessage());
     }
@@ -149,6 +151,7 @@ public class ControladorTienda {
       }
       registrarPagoAcreditado(session, paymentId, collectionId);
       ra.addFlashAttribute("mensajeSobre", "Pago aprobado: se acreditaron tus monedas.");
+      ra.addFlashAttribute(FLASH_CONFETTI_PAGO, true);
     } catch (IllegalArgumentException e) {
       ra.addFlashAttribute(FLASH_ERROR, e.getMessage());
     }

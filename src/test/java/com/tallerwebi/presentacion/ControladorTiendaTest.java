@@ -125,6 +125,7 @@ public class ControladorTiendaTest {
     verify(session).setAttribute("USUARIO", usuarioActualizado);
     verify(redirectAttributes)
       .addFlashAttribute("mensajeSobre", "Pago aprobado: se acreditaron tus monedas.");
+    verify(redirectAttributes).addFlashAttribute("mostrarConfettiPago", true);
   }
 
   @Test
@@ -158,6 +159,7 @@ public class ControladorTiendaTest {
     verify(session).setAttribute("USUARIO", usuarioActualizado);
     verify(redirectAttributes)
       .addFlashAttribute("mensajeSobre", "Pago aprobado: se acreditaron tus monedas.");
+    verify(redirectAttributes).addFlashAttribute("mostrarConfettiPago", true);
   }
 
   @Test
@@ -191,6 +193,7 @@ public class ControladorTiendaTest {
     verify(session).setAttribute("USUARIO", usuarioActualizado);
     verify(redirectAttributes)
       .addFlashAttribute("mensajeSobre", "Pago aprobado: se acreditaron tus monedas.");
+    verify(redirectAttributes).addFlashAttribute("mostrarConfettiPago", true);
   }
 
   @Test
@@ -225,5 +228,6 @@ public class ControladorTiendaTest {
     verify(session).removeAttribute("PAQUETE_MERCADO_PAGO_PENDIENTE");
     verify(redirectAttributes)
       .addFlashAttribute("mensajeSobre", "Pago aprobado: se acreditaron tus monedas.");
+    verify(redirectAttributes).addFlashAttribute("mostrarConfettiPago", true);
   }
 }
