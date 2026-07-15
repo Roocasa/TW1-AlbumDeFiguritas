@@ -77,6 +77,25 @@ public class ControladorIntercambio {
     List<PropuestaIntercambio> propuestasEnviadas = servicioIntercambio.obtenerPropuestasEnviadas(
       usuario.getId()
     );
+
+    agregarPropuestasPaginadas(
+      mav,
+      propuestasRecibidas,
+      propuestasEnviadas,
+      paginaPropuestasRecibidas,
+      paginaPropuestasEnviadas
+    );
+    agregarFiguritasPaginadas(mav, misFiguritas, ofertas, paginaMisFiguritas, paginaOfertas);
+    return mav;
+  }
+
+  private void agregarPropuestasPaginadas(
+    ModelAndView mav,
+    List<PropuestaIntercambio> propuestasRecibidas,
+    List<PropuestaIntercambio> propuestasEnviadas,
+    Integer paginaPropuestasRecibidas,
+    Integer paginaPropuestasEnviadas
+  ) {
     int totalPaginasPropuestasRecibidas = obtenerTotalPaginas(propuestasRecibidas.size());
     int paginaActualPropuestasRecibidas = normalizarPagina(
       paginaPropuestasRecibidas,
@@ -87,11 +106,6 @@ public class ControladorIntercambio {
       paginaPropuestasEnviadas,
       totalPaginasPropuestasEnviadas
     );
-    int totalPaginasMisFiguritas = obtenerTotalPaginas(misFiguritas.size());
-    int paginaActualMisFiguritas = normalizarPagina(paginaMisFiguritas, totalPaginasMisFiguritas);
-    int totalPaginasOfertas = obtenerTotalPaginasOfertas(ofertas);
-    int paginaActualOfertas = normalizarPagina(paginaOfertas, totalPaginasOfertas);
-
     mav.addObject(
       "propuestasRecibidas",
       paginarLista(propuestasRecibidas, paginaActualPropuestasRecibidas)
@@ -104,13 +118,26 @@ public class ControladorIntercambio {
     );
     mav.addObject("paginaPropuestasEnviadas", paginaActualPropuestasEnviadas);
     mav.addObject("totalPaginasPropuestasEnviadas", totalPaginasPropuestasEnviadas);
+  }
+
+  private void agregarFiguritasPaginadas(
+    ModelAndView mav,
+    List<InventarioItemDTO> misFiguritas,
+    List<OfertaIntercambioDTO> ofertas,
+    Integer paginaMisFiguritas,
+    Integer paginaOfertas
+  ) {
+    int totalPaginasMisFiguritas = obtenerTotalPaginas(misFiguritas.size());
+    int paginaActualMisFiguritas = normalizarPagina(paginaMisFiguritas, totalPaginasMisFiguritas);
+    int totalPaginasOfertas = obtenerTotalPaginasOfertas(ofertas);
+    int paginaActualOfertas = normalizarPagina(paginaOfertas, totalPaginasOfertas);
+
     mav.addObject("misFiguritas", paginarLista(misFiguritas, paginaActualMisFiguritas));
     mav.addObject("paginaMisFiguritas", paginaActualMisFiguritas);
     mav.addObject("totalPaginasMisFiguritas", totalPaginasMisFiguritas);
     mav.addObject("ofertas", paginarOfertas(ofertas, paginaActualOfertas));
     mav.addObject("paginaOfertas", paginaActualOfertas);
     mav.addObject("totalPaginasOfertas", totalPaginasOfertas);
-    return mav;
   }
 
   @RequestMapping(path = "/intercambiar", method = RequestMethod.POST)

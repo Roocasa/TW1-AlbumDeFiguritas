@@ -42,6 +42,9 @@ public class RankingColeccionistaDTO {
       return 0;
     }
 
-    return (album.getFiguritasPegadas() * 100) / album.getTotalFiguritas();
+    int porcentaje = (int) Math.ceil(
+      (album.getFiguritasPegadas() * 100.0) / album.getTotalFiguritas()
+    );
+    return Math.min(porcentaje, 100);
   }
 }
