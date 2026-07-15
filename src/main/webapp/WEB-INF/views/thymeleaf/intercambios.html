@@ -141,6 +141,29 @@
             </form>
           </div>
         </article>
+
+        <nav
+          th:if="${totalPaginasPropuestasRecibidas != null and totalPaginasPropuestasRecibidas > 1}"
+          class="exchange-pagination"
+          aria-label="Paginacion de propuestas recibidas">
+          <a
+            th:classappend="${paginaPropuestasRecibidas <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaPropuestasRecibidas <= 1} ? '#' : @{/intercambios(paginaPropuestasRecibidas=${paginaPropuestasRecibidas - 1}, paginaPropuestasEnviadas=${paginaPropuestasEnviadas}, paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaPropuestasRecibidas + ' / ' + totalPaginasPropuestasRecibidas}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaPropuestasRecibidas >= totalPaginasPropuestasRecibidas} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaPropuestasRecibidas >= totalPaginasPropuestasRecibidas} ? '#' : @{/intercambios(paginaPropuestasRecibidas=${paginaPropuestasRecibidas + 1}, paginaPropuestasEnviadas=${paginaPropuestasEnviadas}, paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
       </div>
 
       <div class="exchange-panel__block">
@@ -181,6 +204,29 @@
             </form>
           </div>
         </article>
+
+        <nav
+          th:if="${totalPaginasPropuestasEnviadas != null and totalPaginasPropuestasEnviadas > 1}"
+          class="exchange-pagination"
+          aria-label="Paginacion de propuestas enviadas">
+          <a
+            th:classappend="${paginaPropuestasEnviadas <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaPropuestasEnviadas <= 1} ? '#' : @{/intercambios(paginaPropuestasRecibidas=${paginaPropuestasRecibidas}, paginaPropuestasEnviadas=${paginaPropuestasEnviadas - 1}, paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaPropuestasEnviadas + ' / ' + totalPaginasPropuestasEnviadas}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaPropuestasEnviadas >= totalPaginasPropuestasEnviadas} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaPropuestasEnviadas >= totalPaginasPropuestasEnviadas} ? '#' : @{/intercambios(paginaPropuestasRecibidas=${paginaPropuestasRecibidas}, paginaPropuestasEnviadas=${paginaPropuestasEnviadas + 1}, paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
       </div>
     </section>
 
@@ -240,7 +286,7 @@
           aria-label="Paginacion de figuritas para dar">
           <a
             th:classappend="${paginaMisFiguritas <= 1} ? ' exchange-pagination__link--disabled'"
-            th:href="${paginaMisFiguritas <= 1} ? '#' : @{/intercambios(paginaMisFiguritas=${paginaMisFiguritas - 1}, paginaOfertas=${paginaOfertas})}"
+            th:href="${paginaMisFiguritas <= 1} ? '#' : @{/intercambios(paginaPropuestasRecibidas=${paginaPropuestasRecibidas}, paginaPropuestasEnviadas=${paginaPropuestasEnviadas}, paginaMisFiguritas=${paginaMisFiguritas - 1}, paginaOfertas=${paginaOfertas})}"
             class="exchange-pagination__link">
             Anterior
           </a>
@@ -251,7 +297,7 @@
           </span>
           <a
             th:classappend="${paginaMisFiguritas >= totalPaginasMisFiguritas} ? ' exchange-pagination__link--disabled'"
-            th:href="${paginaMisFiguritas >= totalPaginasMisFiguritas} ? '#' : @{/intercambios(paginaMisFiguritas=${paginaMisFiguritas + 1}, paginaOfertas=${paginaOfertas})}"
+            th:href="${paginaMisFiguritas >= totalPaginasMisFiguritas} ? '#' : @{/intercambios(paginaPropuestasRecibidas=${paginaPropuestasRecibidas}, paginaPropuestasEnviadas=${paginaPropuestasEnviadas}, paginaMisFiguritas=${paginaMisFiguritas + 1}, paginaOfertas=${paginaOfertas})}"
             class="exchange-pagination__link">
             Siguiente
           </a>
@@ -329,7 +375,7 @@
           aria-label="Paginacion de figuritas para recibir">
           <a
             th:classappend="${paginaOfertas <= 1} ? ' exchange-pagination__link--disabled'"
-            th:href="${paginaOfertas <= 1} ? '#' : @{/intercambios(paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas - 1})}"
+            th:href="${paginaOfertas <= 1} ? '#' : @{/intercambios(paginaPropuestasRecibidas=${paginaPropuestasRecibidas}, paginaPropuestasEnviadas=${paginaPropuestasEnviadas}, paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas - 1})}"
             class="exchange-pagination__link">
             Anterior
           </a>
@@ -340,7 +386,7 @@
           </span>
           <a
             th:classappend="${paginaOfertas >= totalPaginasOfertas} ? ' exchange-pagination__link--disabled'"
-            th:href="${paginaOfertas >= totalPaginasOfertas} ? '#' : @{/intercambios(paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas + 1})}"
+            th:href="${paginaOfertas >= totalPaginasOfertas} ? '#' : @{/intercambios(paginaPropuestasRecibidas=${paginaPropuestasRecibidas}, paginaPropuestasEnviadas=${paginaPropuestasEnviadas}, paginaMisFiguritas=${paginaMisFiguritas}, paginaOfertas=${paginaOfertas + 1})}"
             class="exchange-pagination__link">
             Siguiente
           </a>

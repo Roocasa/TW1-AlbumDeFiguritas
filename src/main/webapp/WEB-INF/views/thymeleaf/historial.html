@@ -112,6 +112,29 @@
             </div>
           </div>
         </article>
+
+        <nav
+          th:if="${totalPaginasSobres != null and totalPaginasSobres > 1}"
+          class="exchange-pagination"
+          aria-label="Paginacion de historial de sobres">
+          <a
+            th:classappend="${paginaSobres <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaSobres <= 1} ? '#' : @{/historial(paginaSobres=${paginaSobres - 1}, paginaIntercambios=${paginaIntercambios})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaSobres + ' / ' + totalPaginasSobres}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaSobres >= totalPaginasSobres} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaSobres >= totalPaginasSobres} ? '#' : @{/historial(paginaSobres=${paginaSobres + 1}, paginaIntercambios=${paginaIntercambios})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
       </div>
     </section>
 
@@ -153,6 +176,29 @@
             </div>
           </div>
         </article>
+
+        <nav
+          th:if="${totalPaginasIntercambios != null and totalPaginasIntercambios > 1}"
+          class="exchange-pagination"
+          aria-label="Paginacion de historial de intercambios">
+          <a
+            th:classappend="${paginaIntercambios <= 1} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaIntercambios <= 1} ? '#' : @{/historial(paginaSobres=${paginaSobres}, paginaIntercambios=${paginaIntercambios - 1})}"
+            class="exchange-pagination__link">
+            Anterior
+          </a>
+          <span
+            class="exchange-pagination__status"
+            th:text="${paginaIntercambios + ' / ' + totalPaginasIntercambios}">
+            1 / 1
+          </span>
+          <a
+            th:classappend="${paginaIntercambios >= totalPaginasIntercambios} ? ' exchange-pagination__link--disabled'"
+            th:href="${paginaIntercambios >= totalPaginasIntercambios} ? '#' : @{/historial(paginaSobres=${paginaSobres}, paginaIntercambios=${paginaIntercambios + 1})}"
+            class="exchange-pagination__link">
+            Siguiente
+          </a>
+        </nav>
       </div>
     </section>
   </main>

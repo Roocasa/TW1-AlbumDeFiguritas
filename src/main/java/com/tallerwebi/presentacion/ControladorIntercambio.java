@@ -4,6 +4,7 @@ import com.tallerwebi.dominio.ServicioPerfil;
 import com.tallerwebi.dominio.Usuario;
 import com.tallerwebi.dominio.album.InventarioItemDTO;
 import com.tallerwebi.dominio.album.OfertaIntercambioDTO;
+import com.tallerwebi.dominio.album.PropuestaIntercambio;
 import com.tallerwebi.dominio.album.ServicioIntercambio;
 import com.tallerwebi.dominio.excepcion.IntercambioFiguritasException;
 import java.util.ArrayList;
@@ -41,6 +42,14 @@ public class ControladorIntercambio {
 
   @RequestMapping(path = "/intercambios", method = RequestMethod.GET)
   public ModelAndView verIntercambios(
+    @RequestParam(
+      value = "paginaPropuestasRecibidas",
+      defaultValue = "1"
+    ) Integer paginaPropuestasRecibidas,
+    @RequestParam(
+      value = "paginaPropuestasEnviadas",
+      defaultValue = "1"
+    ) Integer paginaPropuestasEnviadas,
     @RequestParam(value = "paginaMisFiguritas", defaultValue = "1") Integer paginaMisFiguritas,
     @RequestParam(value = "paginaOfertas", defaultValue = "1") Integer paginaOfertas,
     HttpSession session
@@ -62,25 +71,45 @@ public class ControladorIntercambio {
     );
     List<InventarioItemDTO> misFiguritas =
       servicioIntercambio.obtenerFiguritasPropiasParaIntercambiar(usuario.getId());
+    List<PropuestaIntercambio> propuestasRecibidas = servicioIntercambio.obtenerPropuestasRecibidas(
+      usuario.getId()
+    );
+    List<PropuestaIntercambio> propuestasEnviadas = servicioIntercambio.obtenerPropuestasEnviadas(
+      usuario.getId()
+    );
+    int totalPaginasPropuestasRecibidas = obtenerTotalPaginas(propuestasRecibidas.size());
+    int paginaActualPropuestasRecibidas = normalizarPagina(
+      paginaPropuestasRecibidas,
+      totalPaginasPropuestasRecibidas
+    );
+    int totalPaginasPropuestasEnviadas = obtenerTotalPaginas(propuestasEnviadas.size());
+    int paginaActualPropuestasEnviadas = normalizarPagina(
+      paginaPropuestasEnviadas,
+      totalPaginasPropuestasEnviadas
+    );
     int totalPaginasMisFiguritas = obtenerTotalPaginas(misFiguritas.size());
     int paginaActualMisFiguritas = normalizarPagina(paginaMisFiguritas, totalPaginasMisFiguritas);
     int totalPaginasOfertas = obtenerTotalPaginasOfertas(ofertas);
     int paginaActualOfertas = normalizarPagina(paginaOfertas, totalPaginasOfertas);
 
+    mav.addObject(
+      "propuestasRecibidas",
+      paginarLista(propuestasRecibidas, paginaActualPropuestasRecibidas)
+    );
+    mav.addObject("paginaPropuestasRecibidas", paginaActualPropuestasRecibidas);
+    mav.addObject("totalPaginasPropuestasRecibidas", totalPaginasPropuestasRecibidas);
+    mav.addObject(
+      "propuestasEnviadas",
+      paginarLista(propuestasEnviadas, paginaActualPropuestasEnviadas)
+    );
+    mav.addObject("paginaPropuestasEnviadas", paginaActualPropuestasEnviadas);
+    mav.addObject("totalPaginasPropuestasEnviadas", totalPaginasPropuestasEnviadas);
     mav.addObject("misFiguritas", paginarLista(misFiguritas, paginaActualMisFiguritas));
     mav.addObject("paginaMisFiguritas", paginaActualMisFiguritas);
     mav.addObject("totalPaginasMisFiguritas", totalPaginasMisFiguritas);
     mav.addObject("ofertas", paginarOfertas(ofertas, paginaActualOfertas));
     mav.addObject("paginaOfertas", paginaActualOfertas);
     mav.addObject("totalPaginasOfertas", totalPaginasOfertas);
-    mav.addObject(
-      "propuestasRecibidas",
-      servicioIntercambio.obtenerPropuestasRecibidas(usuario.getId())
-    );
-    mav.addObject(
-      "propuestasEnviadas",
-      servicioIntercambio.obtenerPropuestasEnviadas(usuario.getId())
-    );
     return mav;
   }
 
@@ -205,7 +234,7 @@ public class ControladorIntercambio {
     return Math.min(pagina, totalPaginas);
   }
 
-  private List<InventarioItemDTO> paginarLista(List<InventarioItemDTO> figuritas, int pagina) {
+  private <T> List<T> paginarLista(List<T> figuritas, int pagina) {
     int indiceInicio = (pagina - 1) * FIGURITAS_POR_PAGINA;
     int indiceFin = Math.min(indiceInicio + FIGURITAS_POR_PAGINA, figuritas.size());
 
