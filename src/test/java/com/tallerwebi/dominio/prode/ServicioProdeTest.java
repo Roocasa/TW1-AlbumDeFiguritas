@@ -159,6 +159,31 @@ public class ServicioProdeTest {
   }
 
   @Test
+  public void debePuntuarPronosticoFinalizadoAlListarSiQuedoPendiente() {
+    RepositorioProde repositorioProde = mock(RepositorioProde.class);
+    RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
+    Usuario usuario = usuario(1L);
+    PartidoProde partido = partido(2L);
+    partido.actualizarResultado(1, 2);
+    PronosticoProde pronostico = new PronosticoProde(usuario, partido, 1, 2);
+    when(repositorioUsuario.buscarPorId(1L)).thenReturn(usuario);
+    when(repositorioProde.buscarPartidos()).thenReturn(Collections.singletonList(partido));
+    when(repositorioProde.buscarPronostico(usuario, partido)).thenReturn(pronostico);
+
+    ServicioProde servicio = new ServicioProdeImpl(
+      repositorioProde,
+      repositorioUsuario,
+      () -> Collections.emptyList()
+    );
+
+    PartidoProdeDTO item = servicio.obtenerPartidosConPronosticos(1L).get(0);
+
+    assertThat(item.getPronostico().isPuntuado(), equalTo(true));
+    assertThat(item.getPronostico().getPuntos(), equalTo(6));
+    verify(repositorioProde).modificarPronostico(pronostico);
+  }
+
+  @Test
   public void debeActualizarResultadoYPuntuarPronosticos() {
     RepositorioProde repositorioProde = mock(RepositorioProde.class);
     RepositorioUsuario repositorioUsuario = mock(RepositorioUsuario.class);
@@ -238,6 +263,28 @@ public class ServicioProdeTest {
     );
 
     assertThat(servicio.obtenerPuntaje(1L), equalTo(9));
+  }
+
+  @Test
+  public void debeRecalcularPuntajeDelUsuarioSiCambioElResultado() {
+    RepositorioProde repositorioProde = mock(RepositorioProde.class);
+    Usuario usuario = usuario(1L);
+    PartidoProde partido = partido(2L);
+    partido.actualizarResultado(1, 2);
+    PronosticoProde pronostico = new PronosticoProde(usuario, partido, 1, 2);
+    pronostico.setPuntuado(true);
+    pronostico.setPuntos(0);
+    when(repositorioProde.buscarPronosticosPorUsuario(1L))
+      .thenReturn(Collections.singletonList(pronostico));
+
+    ServicioProde servicio = new ServicioProdeImpl(
+      repositorioProde,
+      mock(RepositorioUsuario.class),
+      () -> Collections.emptyList()
+    );
+
+    assertThat(servicio.obtenerPuntaje(1L), equalTo(6));
+    verify(repositorioProde).modificarPronostico(pronostico);
   }
 
   private Usuario usuario(Long id) {

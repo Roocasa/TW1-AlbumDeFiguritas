@@ -34,9 +34,9 @@ public class ServicioProdeImpl implements ServicioProde {
     List<PartidoProdeDTO> partidos = new ArrayList<>();
 
     for (PartidoProde partido : repositorioProde.buscarPartidos()) {
-      partidos.add(
-        new PartidoProdeDTO(partido, repositorioProde.buscarPronostico(usuario, partido))
-      );
+      PronosticoProde pronostico = repositorioProde.buscarPronostico(usuario, partido);
+      sincronizarPuntajeSiCorresponde(pronostico);
+      partidos.add(new PartidoProdeDTO(partido, pronostico));
     }
 
     return partidos;
@@ -46,6 +46,7 @@ public class ServicioProdeImpl implements ServicioProde {
   public int obtenerPuntaje(Long idUsuario) {
     int puntaje = 0;
     for (PronosticoProde pronostico : repositorioProde.buscarPronosticosPorUsuario(idUsuario)) {
+      sincronizarPuntajeSiCorresponde(pronostico);
       puntaje += pronostico.getPuntos();
     }
     return puntaje;
@@ -110,6 +111,25 @@ public class ServicioProdeImpl implements ServicioProde {
 
   private void puntuarPronosticos(PartidoProde partido) {
     for (PronosticoProde pronostico : repositorioProde.buscarPronosticosPorPartido(partido)) {
+      pronostico.puntuar();
+      repositorioProde.modificarPronostico(pronostico);
+    }
+  }
+
+  private void sincronizarPuntajeSiCorresponde(PronosticoProde pronostico) {
+    if (
+      pronostico == null ||
+      pronostico.getPartido() == null ||
+      !pronostico.getPartido().estaFinalizado()
+    ) {
+      return;
+    }
+
+    int puntosActualizados = pronostico.calcularPuntos();
+    if (
+      !pronostico.isPuntuado() ||
+      !Integer.valueOf(puntosActualizados).equals(pronostico.getPuntos())
+    ) {
       pronostico.puntuar();
       repositorioProde.modificarPronostico(pronostico);
     }
